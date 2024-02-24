@@ -46,7 +46,7 @@ jobs:
         run: yarn --cwd ./frontend --prefer-offline && yarn --cwd ./backend/typescript --prefer-offline
 
       - name: Generate Prisma Data Models
-      working-directory: ./
+      working-directory: ./backend/typescript
       run: npx prisma generate && yarn tsc
 
       - name: Lint frontend
