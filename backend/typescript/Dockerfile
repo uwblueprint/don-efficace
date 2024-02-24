@@ -1,4 +1,4 @@
-FROM node:14.15.5-slim
+FROM node:18.18.2-slim
 
 WORKDIR /app
 
@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y libcurl3
 RUN yarn install
 
 COPY . ./
+
+RUN npx prisma generate
 
 EXPOSE 5000
 ENTRYPOINT ["yarn", "dev"]
