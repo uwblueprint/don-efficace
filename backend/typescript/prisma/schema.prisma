@@ -44,33 +44,27 @@ model CauseDonation {
 // Cause and NPO: One-to-Many: A single cause can be associated with many NPOs, and each NPO is linked to one cause
 model Cause {
   id          Int             @id @default(autoincrement())
-  name        CauseEnum
+  name        String
   description String
   npos        NPO[]
   Donation    CauseDonation[]
 }
 
-enum CauseEnum {
-  ENVIRONMENT
-  EDUCATION
-  HEALTH
-}
-
-// NPO and Item: One-to-Many: One NPO can have one item, and each item can be associated with multiple NPOs
-// example: multiple NPOs can donate trees (item)
+// NPO and Item: One-to-One: One NPO can have one item, and each item can be associated with one NPOs
 model NPO {
   id                  Int    @id @default(autoincrement())
   name                String
   contact_information String
   cause               Cause  @relation(fields: [cause_id], references: [id])
   cause_id            Int
-  item                Item?  @relation(fields: [item_id], references: [id])
-  item_id             Int?
+  item                Item?  @relation("NPOItem", fields: [item_id], references: [id])
+  item_id             Int?   @unique
 }
 
 model Item {
   id           Int    @id @default(autoincrement())
   name         String
   impact_ratio Float
-  npo          NPO[]
+  npo          NPO?   @relation("NPOItem")
+  npo_id       Int?   @unique
 }
