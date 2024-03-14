@@ -39,6 +39,11 @@ app.use("/users", userRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/donations', donationRouter);
 
+// Health check
+app.get("/test", async (req: any, res: any) => {
+  res.status(200).json('endpoint hath been hit');
+});
+
 sequelize.authenticate();
 
 firebaseAdmin.initializeApp({
