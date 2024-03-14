@@ -65,6 +65,15 @@ docker exec -it scv2-frontend bash -c "yarn fix"
 ```
 
 ## Database/Prisma Information
+"npx prisma generate" to generate at the start
+"npx prisma db push" to push
+"npx prisma studio" to run prisma
+
+### Creating Prisma Migration
+
+Go to `backend/typescript` and run
+
+npx prisma migrate dev
 
 ### Note: Manual Database Setup
 
@@ -76,6 +85,7 @@ Update .env file in /backend/typescript to be
 ```bash
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/scv2
 ```
+Note: if you get errors about prisma functions not existing,you may need to use DATABASE_URL=postgresql://postgres:postgres@db:5432/scv2
 
 Try running (when the docker container is up):
 
@@ -90,17 +100,6 @@ This may require you to upgrade your node version locally so try (only if it tel
 nvm install 18.18.2
 nvm use 18.18.2
 ```
-
-### Creating Prisma Migration
-
-Go to `backend/typescript` and run
-
-npx prisma migrate dev
-
-### Useful Prisma Commands
-"npx prisma db push" to push
-"npx prisma studio" to run prisma
-
 
 ***Need to change scv2 to don-efficace at some point***
 
