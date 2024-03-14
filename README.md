@@ -1,11 +1,5 @@
 # don-efficace
 
-# Useful commands to run prisma
-"npx prisma db push" to push
-"npx prisma studio" to run prisma
-
-# don-efficace
-
 Welcome to the don-efficace platform repository!
 
 ## Stack Choices
@@ -70,6 +64,8 @@ docker exec -it scv2-backend bash -c "yarn fix"
 docker exec -it scv2-frontend bash -c "yarn fix"
 ```
 
+## Database/Prisma Information
+
 ### Note: Manual Database Setup
 
 If for some reason docker container is not syncing with your prisma models in backend/typescript/prisma/schema
@@ -95,11 +91,15 @@ nvm install 18.18.2
 nvm use 18.18.2
 ```
 
-## Creating Prisma Migration
+### Creating Prisma Migration
 
 Go to `backend/typescript` and run
 
 npx prisma migrate dev
+
+### Useful Prisma Commands
+"npx prisma db push" to push
+"npx prisma studio" to run prisma
 
 
 ***Need to change scv2 to don-efficace at some point***
