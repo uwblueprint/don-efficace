@@ -33,44 +33,22 @@ donationRouter.get("/:id", async (req: any, res: any) => {
     }
 });
 
-async function createCauseDonation(donationId: number, causeId: number) {
-  try {
-    const causeDonation = await prisma.causeDonation.create({
-      data: {
-        donation: {
-          connect: { id: donationId },
-        },
-        cause: {
-          connect: { id: causeId },
-        },
-      },
-    });
-    console.log(causeDonation);
-    return causeDonation;
-  } catch (error) {
-    console.error("Error creating CauseDonation:", error);
-    throw error;
-  }
-}
-
-// THIS ROUTE IS WORK-IN-PROGRESS. Need to potentially create a CauseDonation first, or refactor schema.prisma
+// Each donation has 1 cause associated with it, the donation from user will be split before calling this route.
 donationRouter.post("/give", async (req: any, res: any) => {
     try {
-        const { user_id, amount, donation_date, causes, is_recurring, confirmation_email_sent } = req.body;
+        const { user_id, amount, donation_date, cause_id, is_recurring, confirmation_email_sent } = req.body;
 
-        const newUser = await prisma.donation.create({
+        const newDonation = await prisma.donation.create({
             data: {
                 user: { connect: { id: user_id } },
                 amount,
                 donation_date: new Date(donation_date),
-                causes: {
-                    connect: causes.map((cause_id: number) => ({ cause_id: cause_id }))
-                },
+                cause: { connect: { id: cause_id } },
                 is_recurring,
                 confirmation_email_sent
-            }
+            },
         });
-        res.status(200).json(newUser);
+        res.status(200).json(newDonation);
     } catch (e) {
         console.error("Error creating new donation: ", e);
         res.status(500).send("An error occurred while creating donation.");
