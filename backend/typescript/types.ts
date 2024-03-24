@@ -1,3 +1,6 @@
+import { DateDataType } from "sequelize";
+import { FloatDataType, IntegerDataType } from "sequelize";
+
 export type Role = "User" | "Admin";
 
 export type Token = {
@@ -35,3 +38,14 @@ export type NodemailerConfig = {
 };
 
 export type SignUpMethod = "PASSWORD" | "GOOGLE";
+
+export type DonationDTO = {
+  user_id: string;
+  amount: number;
+  donation_date: Date;
+  cause_id: number;
+  is_recurring: boolean;
+  confirmation_email_sent: boolean;
+}
+
+export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
