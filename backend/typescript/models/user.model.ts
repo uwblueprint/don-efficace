@@ -1,7 +1,7 @@
 import { Column, DataType, Model, Table } from "sequelize-typescript";
 import { Role } from "../types";
 
-@Table({ tableName: "users" })
+@Table({ tableName: "User" })
 export default class User extends Model {
   @Column({ type: DataType.STRING })
   first_name!: string;

@@ -3,28 +3,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider      = "postgresql"
+  url           = env("DATABASE_URL")
+  relationMode  = "prisma"
 }
 
 // User and Donation: One-to-Many: a single user can have multiple donations, and each donation is linked to exactly one user.
 model User {
-  id           Int        @id @default(autoincrement())
+  id           String        @id @default(cuid())
   first_name   String
   last_name    String
-  full_addr    String
-  email_addr   String     @unique
-  opt_in       Boolean
-  date_created DateTime   @default(now())
-  is_admin     Boolean    @default(false)
-  donations    Donation[]
+  email        String? 
+  auth_id      String
+  full_addr    String?
+  opt_in       Boolean?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime?
+  role         RoleType    
+  donations    Donation?
+}
+
+enum RoleType{
+  Admin
+  User
 }
 
 // Donation and Cause: One-to-Many: A Donation can support one causes, but a cause can be supported by multiple donations.
 model Donation {
   id                      Int             @id @default(autoincrement())
   user                    User            @relation(fields: [user_id], references: [id])
-  user_id                 Int
+  user_id                 String          @unique
   amount                  Float
   donation_date           DateTime
   cause                   Cause           @relation(fields: [cause_id], references: [id])
