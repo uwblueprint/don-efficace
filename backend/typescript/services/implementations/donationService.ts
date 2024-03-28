@@ -34,22 +34,23 @@ class DonationService implements IDonationService {
     }
 
     async createDonation(user_id: string, amount: number, cause_id: number, is_recurring: boolean, confirmation_email_sent: boolean): Promise<DonationDTO> {
-        try {    
+        {
+          try {
             const newDonation = await prisma.donation.create({
-                data: {
-                    user: { connect: { id: user_id } },
-                    amount,
-                    donation_date: new Date(),
-                    cause: { connect: { id: cause_id } },
-                    is_recurring,
-                    confirmation_email_sent
-                },
+              data: {
+                user_id: user_id,
+                amount,
+                donation_date: new Date(),
+                cause_id: cause_id,
+                is_recurring,
+                confirmation_email_sent
+              },
             });
-            
             return newDonation;
-        } catch (error) {
-            console.error(`Error creating new donation: = ${error}`);
+          } catch (error) {
+
             throw error;
+          }
         }
     }
 }

@@ -41,7 +41,7 @@ cd don-efficace
 /.env
 /frontend/.env
 ```
-3. Run the application
+3. Run the application. Make sure the DATABASE_URL is with scv2_db when building the container.
 ```bash
 docker compose up --build
 ```
@@ -67,7 +67,7 @@ docker exec -it scv2-frontend bash -c "yarn fix"
 ## Database/Prisma Information
 "npx prisma generate" to generate at the start
 "npx prisma db push" to push
-"npx prisma studio" to run prisma
+"npx prisma studio" to run prisma. Make sure the DATABASE_URL is with localhost
 
 ### Creating Prisma Migration
 

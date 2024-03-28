@@ -19,8 +19,8 @@ model User {
   opt_in       Boolean?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime?
-  role         RoleType    
-  donations    Donation?
+  role         RoleType
+  donations    Donation[]
 }
 
 enum RoleType{
@@ -32,7 +32,7 @@ enum RoleType{
 model Donation {
   id                      Int             @id @default(autoincrement())
   user                    User            @relation(fields: [user_id], references: [id])
-  user_id                 String          @unique
+  user_id                 String
   amount                  Float
   donation_date           DateTime
   cause                   Cause           @relation(fields: [cause_id], references: [id])
