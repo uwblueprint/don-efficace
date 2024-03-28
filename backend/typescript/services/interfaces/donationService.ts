@@ -1,5 +1,4 @@
-import { DateDataType, FloatDataType, IntegerDataType } from "sequelize";
-import { DonationDTO } from "../../types";
+import { DonationDTO, Recurrence } from "../../types";
 
 interface IDonationService {
     /**
@@ -31,7 +30,7 @@ interface IDonationService {
         user_id: string, 
         amount: number, 
         cause_id: number, 
-        is_recurring: boolean, 
+        is_recurring: string, 
         confirmation_email_sent: boolean
     ): Promise<DonationDTO>;
 }

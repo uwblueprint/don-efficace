@@ -37,8 +37,15 @@ model Donation {
   donation_date           DateTime
   cause                   Cause           @relation(fields: [cause_id], references: [id])
   cause_id                Int
-  is_recurring            Boolean
+  is_recurring            Recurrence
   confirmation_email_sent Boolean
+}
+
+enum Recurrence {
+  None
+  Weekly
+  Monthly
+  Annually
 }
 
 // Cause and NPO: One-to-Many: A single cause can be associated with many NPOs, and each NPO is linked to one cause

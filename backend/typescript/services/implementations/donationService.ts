@@ -1,5 +1,5 @@
 import IDonationService from "../interfaces/donationService";
-import { DonationDTO } from "../../types"
+import { DonationDTO, Recurrence } from "../../types"
 import prisma from "../../prisma";
 import logger from "../../utilities/logger";
 import { getErrorMessage } from "../../utilities/errorUtils";
@@ -33,7 +33,7 @@ class DonationService implements IDonationService {
         }
     }
 
-    async createDonation(user_id: string, amount: number, cause_id: number, is_recurring: boolean, confirmation_email_sent: boolean): Promise<DonationDTO> {
+    async createDonation(user_id: string, amount: number, cause_id: number, is_recurring: string, confirmation_email_sent: boolean): Promise<DonationDTO> {
         {
           try {
             const newDonation = await prisma.donation.create({
@@ -42,13 +42,13 @@ class DonationService implements IDonationService {
                 amount,
                 donation_date: new Date(),
                 cause_id: cause_id,
-                is_recurring,
+                is_recurring: is_recurring as Recurrence,
                 confirmation_email_sent
               },
             });
             return newDonation;
           } catch (error) {
-
+            Logger.error(`Error creating donation for user ${user_id} = ${error}`);
             throw error;
           }
         }

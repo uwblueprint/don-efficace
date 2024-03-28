@@ -39,12 +39,14 @@ export type NodemailerConfig = {
 
 export type SignUpMethod = "PASSWORD" | "GOOGLE";
 
+export type Recurrence = "None" | "Weekly" | "Monthly" | "Annually";
+
 export type DonationDTO = {
   user_id: string;
   amount: number;
   donation_date: Date;
   cause_id: number;
-  is_recurring: boolean;
+  is_recurring: Recurrence;
   confirmation_email_sent: boolean;
 }
 
