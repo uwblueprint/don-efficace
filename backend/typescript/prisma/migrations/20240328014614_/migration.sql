@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "RoleType" AS ENUM ('Admin', 'User');
 
+-- CreateEnum
+CREATE TYPE "Recurrence" AS ENUM ('None', 'Weekly', 'Monthly', 'Annually');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -23,18 +26,11 @@ CREATE TABLE "Donation" (
     "user_id" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "donation_date" TIMESTAMP(3) NOT NULL,
-    "is_recurring" BOOLEAN NOT NULL,
+    "cause_id" INTEGER NOT NULL,
+    "is_recurring" "Recurrence" NOT NULL,
     "confirmation_email_sent" BOOLEAN NOT NULL,
 
     CONSTRAINT "Donation_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "CauseDonation" (
-    "donation_id" INTEGER NOT NULL,
-    "cause_id" INTEGER NOT NULL,
-
-    CONSTRAINT "CauseDonation_pkey" PRIMARY KEY ("donation_id","cause_id")
 );
 
 -- CreateTable
@@ -66,9 +62,6 @@ CREATE TABLE "Item" (
 
     CONSTRAINT "Item_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Donation_user_id_key" ON "Donation"("user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "NPO_item_id_key" ON "NPO"("item_id");
