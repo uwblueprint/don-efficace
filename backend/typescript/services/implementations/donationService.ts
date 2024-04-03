@@ -19,18 +19,19 @@ class DonationService implements IDonationService {
     }
 
     async getUserDonation(user_id: string): Promise<Array<DonationDTO>> {
-        try {
-            const userDonations = await prisma.donation.findMany({
-                where: {
-                    user_id: user_id,
-                }
-            });
-            
-            return userDonations;
-        } catch (error) {
-            Logger.error(`Error fetching donation for user ${user_id} = ${error}`);
-            throw error;
-        }
+      console.log(user_id);
+      try {
+        const userDonations = await prisma.donation.findMany({
+            where: {
+              user_id: user_id,
+            }
+        });
+
+        return userDonations;
+      } catch (error) {
+        Logger.error(`Error fetching donation for user ${user_id} = ${error}`);
+        throw error;
+      }
     }
 
     async createDonation(user_id: string, amount: number, cause_id: number, is_recurring: string, confirmation_email_sent: boolean): Promise<DonationDTO> {

@@ -25,7 +25,7 @@ donationRouter.get("/:id", async (req: any, res: any) => {
     const id = req.params.id;
 
     try {
-        const userDonations = donationService.getUserDonation(id);
+        const userDonations = await donationService.getUserDonation(id);
 
         res.status(200).json(userDonations);
     } catch (error) {
