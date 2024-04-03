@@ -807,3 +807,148 @@ paths:
           description: Unauthorized
         '500':
           description: Invalid request
+
+  /donations:
+      get:
+        security:
+          - bearerAuth: []
+        tags:
+          - Donation
+        description: Get all donations across all users
+        responses:
+          '200':
+            description: Successfully got users
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                      - id, user, user_id, amount, donation_date, cause, cause_id, is_recurring, confirmation_email_sent
+                  properties:
+                    id:
+                      type: number
+                    user_id:
+                      type: string
+                    amount:
+                      type: number
+                      format: float
+                    donation_date:
+                      type: string
+                      format: date-time
+                    cause_id:
+                      type: number
+                    is_recurring:
+                      type: string
+                      enum: ["None", "Weekly", "Monthly", "Annually"]
+                    confirmation_email_sent:
+                      type: boolean
+          '401':
+            description: Unauthorized
+          '500':
+            description: Invalid request
+
+  /donations/{user_id}:
+      get:
+        security:
+          - bearerAuth: []
+        parameters:
+          - in: path
+            name: user_id
+            required: true
+            schema:
+              # type: integer (postgres)
+              # minimum: 1
+              type: string
+            description: The user ID
+        tags:
+          - Donation
+        description: Get all donations across all users
+        responses:
+          '200':
+            description: Successfully got users
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                      - id, user, user_id, amount, donation_date, cause, cause_id, is_recurring, confirmation_email_sent
+                  properties:
+                    id:
+                      type: number
+                    user_id:
+                      type: string
+                    amount:
+                      type: number
+                      format: float
+                    donation_date:
+                      type: string
+                      format: date-time
+                    cause_id:
+                      type: number
+                    is_recurring:
+                      type: string
+                      enum: ["None", "Weekly", "Monthly", "Annually"]
+                    confirmation_email_sent:
+                      type: boolean
+          '401':
+            description: Unauthorized
+          '500':
+            description: Invalid request
+
+  /donations/give:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Donation
+      description: Create a new donation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                amount:
+                  type: number
+                donation_date:
+                  type: string
+                cause_id:
+                  type: number
+                is_recurring:
+                  type: string
+                confirmation_email_sent:
+                  type: boolean
+      responses:
+        '201':
+          description: Successfully created a new donation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id, user_id, amount, donation_date, cause_id, is_recurring, confirmation_email_sent
+                properties:
+                  id:
+                    type: number
+                  user_id:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+                  donation_date:
+                    type: string
+                    format: date-time
+                  cause_id:
+                    type: number
+                  is_recurring:
+                    type: string
+                    enum: ["None", "Weekly", "Monthly", "Annually"]
+                  confirmation_email_sent:
+                    type: boolean
+        '401':
+          description: Unauthorized
+        '500':
+          description: Invalid request
