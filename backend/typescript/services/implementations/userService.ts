@@ -287,13 +287,12 @@ class UserService implements IUserService {
   async deleteUserById(userId: string): Promise<void> {
     try {
       // Sequelize doesn't provide a way to atomically find, delete, and return deleted row
-      const deletedUser: Prisma.UserCreateInput | null = await prisma.user.findUnique(
-        {
+      const deletedUser: Prisma.UserCreateInput | null =
+        await prisma.user.findUnique({
           where: {
             id: String(userId),
           },
-        },
-      );
+        });
 
       if (!deletedUser) {
         throw new Error(`userid ${userId} not found.`);
@@ -343,13 +342,12 @@ class UserService implements IUserService {
       const firebaseUser: firebaseAdmin.auth.UserRecord = await firebaseAdmin
         .auth()
         .getUserByEmail(email);
-      const deletedUser: Prisma.UserCreateInput | null = await prisma.user.findFirst(
-        {
+      const deletedUser: Prisma.UserCreateInput | null =
+        await prisma.user.findFirst({
           where: {
             auth_id: firebaseUser.uid,
           },
-        },
-      );
+        });
 
       if (!deletedUser) {
         throw new Error(`userid ${firebaseUser.uid} not found.`);
