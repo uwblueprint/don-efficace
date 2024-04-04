@@ -13,7 +13,7 @@ const donationRouter = Router();
 donationRouter.get("/", async (req: any, res: any) => {
     try {
         const allDonations = await donationService.getAllDonations();
-
+        console.log('getting donations');
         res.status(200).json(allDonations);
     } catch (error) {
         res.status(500).json({ error: getErrorMessage(error) });
