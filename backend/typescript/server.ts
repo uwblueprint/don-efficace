@@ -37,11 +37,11 @@ app.use("/entities", entityRouter);
 app.use("/simple-entities", simpleEntityRouter);
 app.use("/users", userRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/donations', donationRouter);
+app.use("/donations", donationRouter);
 
 // Health check
 app.get("/test", async (req: any, res: any) => {
-  res.status(200).json('endpoint hath been hit');
+  res.status(200).json("endpoint hath been hit");
 });
 
 sequelize.authenticate();

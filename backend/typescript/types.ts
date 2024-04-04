@@ -1,5 +1,4 @@
-import { DateDataType } from "sequelize";
-import { FloatDataType, IntegerDataType } from "sequelize";
+import { DateDataType, FloatDataType, IntegerDataType } from "sequelize";
 
 export type Role = "User" | "Admin";
 
@@ -48,6 +47,6 @@ export type DonationDTO = {
   cause_id: number;
   is_recurring: Recurrence;
   confirmation_email_sent: boolean;
-}
+};
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
