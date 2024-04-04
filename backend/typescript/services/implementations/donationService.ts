@@ -7,7 +7,7 @@ import { getErrorMessage } from "../../utilities/errorUtils";
 const Logger = logger(__filename);
 
 class DonationService implements IDonationService {
-  async getAllDonations(): Promise<Array<DonationDTO>> {
+  getAllDonations = async (): Promise<Array<DonationDTO>> => {
     try {
       const allDonations = await prisma.donation.findMany();
 
@@ -18,10 +18,9 @@ class DonationService implements IDonationService {
       );
       throw error;
     }
-  }
+  };
 
-  async getUserDonation(userId: string): Promise<Array<DonationDTO>> {
-
+  getUserDonation = async (userId: string): Promise<Array<DonationDTO>> => {
     try {
       const userDonations = await prisma.donation.findMany({
         where: {
@@ -34,34 +33,32 @@ class DonationService implements IDonationService {
       Logger.error(`Error fetching donation for user ${userId} = ${error}`);
       throw error;
     }
-  }
+  };
 
-  async createDonation(
+  createDonation = async (
     userId: string,
     amount: number,
     causeId: number,
     isRecurring: string,
     confirmationEmailSent: boolean,
-  ): Promise<DonationDTO> {
-    {
-      try {
-        const newDonation = await prisma.donation.create({
-          data: {
-            user_id: userId,
-            amount,
-            donation_date: new Date(),
-            cause_id: causeId,
-            is_recurring: isRecurring as Recurrence,
-            confirmation_email_sent: confirmationEmailSent,
-          },
-        });
-        return newDonation;
-      } catch (error) {
-        Logger.error(`Error creating donation for user ${userId} = ${error}`);
-        throw error;
-      }
+  ): Promise<DonationDTO> => {
+    try {
+      const newDonation = await prisma.donation.create({
+        data: {
+          user_id: userId,
+          amount,
+          donation_date: new Date(),
+          cause_id: causeId,
+          is_recurring: isRecurring as Recurrence,
+          confirmation_email_sent: confirmationEmailSent,
+        },
+      });
+      return newDonation;
+    } catch (error) {
+      Logger.error(`Error creating donation for user ${userId} = ${error}`);
+      throw error;
     }
-  }
+  };
 }
 
 export default DonationService;
