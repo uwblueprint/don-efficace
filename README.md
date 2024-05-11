@@ -109,5 +109,13 @@ nvm use 18.18.2
 **Product Managers:** Jacqueline Fung & Zafir Raeid<br>
 **Developers:** Jessica Ding, Nandini Mehrotra, Shushawn Saha<br>
 **Designers:** Hillary Heung, Sunny Zhang, David Stirling<br>
+## The Team
+
+### Term 2 (S24):
+**Project Lead:** Matthew Ng<br>
+**Product Managers:** Jacqueline Fung<br>
+**Developers:** Aayush Patel, Jordan Kok, Leo Zhang, Patrick Huang, Ryan Sun<br>
+**Designers:** Hillary Heung, Sunny Zhang, David Stirling<br>
+
 
 Huge shoutout to the Internal Tools team for creating StarterCode v2!<br>
