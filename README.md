@@ -114,7 +114,7 @@ nvm use 18.18.2
 ### Term 2 (S24):
 **Project Lead:** Matthew Ng<br>
 **Product Managers:** Jacqueline Fung<br>
-**Developers:** Aayush Patel, Jordan Kok, Leo Zhang, Patrick Huang, Ryan Sun<br>
+**Developers:** Aayush Patel, Jordan Kok, Leo Zhang, Patrick Huang, Ryan Sun, Benjamin Bai, Rosanne Zhu<br>
 **Designers:** Hillary Heung, Sunny Zhang, David Stirling<br>
 
 
