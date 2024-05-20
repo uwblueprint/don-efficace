@@ -2,8 +2,7 @@ version: "3.7"
 
 services:
   frontend:
-    # TODO: rename container for your project
-    container_name: scv2_frontend
+    container_name: de_frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -17,8 +16,7 @@ services:
     env_file:
       - ./frontend/.env
   ts-backend:
-    # TODO: rename container for your project
-    container_name: scv2_ts_backend
+    container_name: de_ts_backend
     build:
       context: ./backend/typescript
       dockerfile: Dockerfile
@@ -36,8 +34,7 @@ services:
       - ./.env
       - ./backend/typescript/.env
   db:
-    # TODO: rename container for your project
-    container_name: scv2_db
+    container_name: de_db
     image: postgres:12-alpine
     ports:
       - 5432:5432
@@ -49,7 +46,7 @@ services:
     environment:
       - POSTGRES_MULTIPLE_DATABASES=${POSTGRES_DB_DEV},${POSTGRES_DB_TEST}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 5s
       retries: 5

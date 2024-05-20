@@ -14,7 +14,8 @@ Welcome to the don-efficace platform repository!
 * 👷 [Getting Started](#getting-started)
   * ✔️ [Prerequisites](#prerequisites)
   * ⚙️ [Setup](#setup)
-* ✨ [Linting & Formatting](#linting--formatting)
+* ✨ [Linter](#linter)
+* 📊 [Prisma](#Prisma)
 * 💻 [The Team](#the-team)
 
 ## Documentation
@@ -26,96 +27,97 @@ Welcome to the don-efficace platform repository!
 
 ### Prerequisites
 
-* Install Docker Desktop ([MacOS](https://docs.docker.com/docker-for-mac/install/) | [Windows (Home)](https://docs.docker.com/docker-for-windows/install-windows-home/) | [Windows (Pro, Enterprise, Education)](https://docs.docker.com/docker-for-windows/install/) | [Linux](https://docs.docker.com/engine/install/#server)) and ensure that it is running
-* Ask the current PL to receive access to ENV Variables
+* Install [node](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+* Install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/)
+* Install Docker Desktop ([MacOS](https://docs.docker.com/docker-for-mac/install/) | [Windows](https://docs.docker.com/desktop/install/windows-install/) | [Linux](https://docs.docker.com/engine/install/#server)) and ensure that it is running
+* Install nvm ([MacOS](https://medium.com/@priscillashamin/how-to-install-and-configure-nvm-on-mac-os-43e3366c75a6) | [Windows](https://github.com/coreybutler/nvm-windows#readme))
 
 ### Setup
 
-1. Clone this repository and `cd` into the project folder
+1. This repo uses Node v18.18.2:
 ```bash
-git clone https://github.com/uwblueprint/don-efficace.git
-cd don-efficace
-```
-2. Ensure that environment variables have been added to the following directories:
-```
-/.env
-/frontend/.env
-```
-3. Run the application. Make sure the DATABASE_URL is with scv2_db when building the container.
-```bash
-docker compose up --build
-```
-
-## Linting & Formatting
-### Mac
-```bash
-docker exec -it scv2-backend /bin/bash -c "yarn fix"
-```
-```bash
-docker exec -it scv2-frontend /bin/bash -c "yarn fix"
-```
-
-
-### Windows
-```bash
-docker exec -it scv2-backend bash -c "yarn fix"
-```
-```bash
-docker exec -it scv2-frontend bash -c "yarn fix"
-```
-
-## Database/Prisma Information
-"npx prisma generate" to generate at the start
-"npx prisma db push" to push
-"npx prisma studio" to run prisma. Make sure the DATABASE_URL is with localhost
-
-### Creating Prisma Migration
-
-Go to `backend/typescript` and run
-
-npx prisma migrate dev
-
-### Note: Manual Database Setup
-
-If for some reason docker container is not syncing with your prisma models in backend/typescript/prisma/schema
-
-Update .env file in /backend/typescript to be
-(Use different username for Mac)
-
-```bash
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/scv2
-```
-Note: if you get errors about prisma functions not existing,you may need to use DATABASE_URL=postgresql://postgres:postgres@db:5432/scv2
-
-Try running (when the docker container is up):
-
-```
-npx prisma migrate dev
-```
-
-This may require you to upgrade your node version locally so try (only if it tells you the node version is insufficient)
-(https://www.freecodecamp.org/news/node-version-manager-nvm-install-guide/) If you don't have nvm
-
-```
 nvm install 18.18.2
 nvm use 18.18.2
 ```
 
-***Need to change scv2 to don-efficace at some point***
+2. Clone this repository and `cd` into the project folder:
+```bash
+git clone https://github.com/uwblueprint/don-efficace.git
+cd don-efficace
+```
+
+3. Add environment variables to the following files (ask PL for env variables):
+```
+/.env
+/backend/.env
+/frontend/.env
+```
+
+4. Install dependencies:
+```bash
+cd backend/typescript
+yarn install
+
+cd frontend
+yarn install
+```
+
+5. Run the application:
+```bash
+docker compose up --build
+```
+
+## Linter
+### Mac
+```bash
+docker exec -it de_ts_backend /bin/bash -c "yarn fix"
+```
+```bash
+docker exec -it de_frontend /bin/bash -c "yarn fix"
+```
+
+### Windows
+```bash
+docker exec -it de_ts_backend bash -c "yarn fix"
+```
+```bash
+docker exec -it de_frontend bash -c "yarn fix"
+```
+
+## Prisma
+Generate Prisma client:
+```bash
+cd backend/typescript
+npx prisma generate
+```
+
+Synchronize Prisma schema with database schema:
+```bash
+npx prisma db push
+```
+
+Generate and apply migrations:
+```bash
+npx prisma migrate dev
+```
+
+Open Prisma studio:
+```bash
+npx prisma studio
+```
 
 ## The Team
 ### Term 1 (W24):
 **Project Lead:** N/A<br>
 **Product Managers:** Jacqueline Fung & Zafir Raeid<br>
 **Developers:** Jessica Ding, Nandini Mehrotra, Shushawn Saha<br>
-**Designers:** Hillary Heung, Sunny Zhang, David Stirling<br>
-## The Team
+**Designers:** Hillary Huang, Sunny Zhang, David Stirling<br>
 
 ### Term 2 (S24):
 **Project Lead:** Matthew Ng<br>
 **Product Managers:** Jacqueline Fung<br>
-**Developers:** Aayush Patel, Jordan Kok, Leo Zhang, Patrick Huang, Ryan Sun, Benjamin Bai, Rosanne Zhu<br>
-**Designers:** Hillary Heung, Sunny Zhang, David Stirling<br>
+**Developers:** Dev 1, Dev 2, Dev 3, Dev 4, Dev 5, Dev 6, Dev 7, Dev 8<br>
+**Designers:** Sunny Zhang, David Stirling, Jane Al-Shihabi<br>
 
 
 Huge shoutout to the Internal Tools team for creating StarterCode v2!<br>
