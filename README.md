@@ -49,7 +49,7 @@ cd don-efficace
 3. Add environment variables to the following files (ask PL for env variables):
 ```
 /.env
-/backend/.env
+/backend/typescript/.env
 /frontend/.env
 ```
 
@@ -116,7 +116,7 @@ npx prisma studio
 ### Term 2 (S24):
 **Project Lead:** Matthew Ng<br>
 **Product Managers:** Jacqueline Fung<br>
-**Developers:** Dev 1, Dev 2, Dev 3, Dev 4, Dev 5, Dev 6, Dev 7, Dev 8<br>
+**Developers:** Dev 1, Ben Bai, Jason Le, Jordan Kok, Leo Zhang, Patrick Huang, Dev 7, Dev 8<br>
 **Designers:** Sunny Zhang, David Stirling, Jane Al-Shihabi<br>
 
 
