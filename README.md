@@ -49,7 +49,7 @@ cd don-efficace
 3. Add environment variables to the following files (ask PL for env variables):
 ```
 /.env
-/backend/.env
+/backend/typescript/.env
 /frontend/.env
 ```
 
