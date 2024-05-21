@@ -1,5 +1,8 @@
 FROM node:18.18.2-slim
 
+# Needed for running Docker container on MacOS
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+
 WORKDIR /app
 
 COPY package.json yarn.lock tsconfig.json ./
