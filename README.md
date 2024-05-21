@@ -116,7 +116,7 @@ npx prisma studio
 ### Term 2 (S24):
 **Project Lead:** Matthew Ng<br>
 **Product Managers:** Jacqueline Fung<br>
-**Developers:** Dev 1, Dev 2, Jason Le, Dev 4, Dev 5, Dev 6, Dev 7, Dev 8<br>
+**Developers:** Dev 1, Dev 2, Jason Le, Dev 4, Dev 5, Patrick Huang, Dev 7, Dev 8<br>
 **Designers:** Sunny Zhang, David Stirling, Jane Al-Shihabi<br>
 
 
