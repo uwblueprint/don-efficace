@@ -23,7 +23,7 @@ model User {
   donations    Donation[]
 }
 
-enum RoleType{
+enum RoleType {
   Admin
   User
 }
@@ -39,6 +39,7 @@ model Donation {
   cause_id                Int
   is_recurring            Recurrence
   confirmation_email_sent Boolean
+  transactions            Payment[]
 }
 
 enum Recurrence {
@@ -74,4 +75,23 @@ model Item {
   impact_ratio Float
   npo          NPO?   @relation("NPOItem")
   npo_id       Int?   @unique
+}
+
+model Payment {
+  id           Int    @id @default(autoincrement())
+  stripePaymentId String @unique
+  creationDate DateTime @default(now())
+  updateDate DateTime @updatedAt
+  donation Donation @relation(fields: [donation_id], references: [id])
+  donation_id        Int
+  amount  Int
+  currency String
+  status PaymentStatus
+}
+
+enum PaymentStatus {
+  PAID
+  PROCESSING
+  UNPAID
+  DENIED
 }
