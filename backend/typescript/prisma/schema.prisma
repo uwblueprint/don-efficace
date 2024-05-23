@@ -41,8 +41,7 @@ model Donation {
   cause_id                Int
   is_recurring            Recurrence
   confirmation_email_sent Boolean
-  transactions            Payment?        @relation(fields: [payment_id], references: [id])
-  payment_id              Int?            @unique
+  transactions            Payment[]
 }
 
 enum Recurrence {
@@ -85,8 +84,9 @@ model Payment {
   stripePaymentId String @unique
   creationDate DateTime @default(now())
   updateDate DateTime @updatedAt
-  donation Donation?
-  amount  Float
+  donation Donation @relation(fields: [donation_id], references: [id])
+  donation_id        Int
+  amount  Int
   currency String
   status PaymentStatus
 }
