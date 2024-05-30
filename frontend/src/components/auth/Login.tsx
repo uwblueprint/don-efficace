@@ -10,6 +10,8 @@ import authAPIClient from "../../APIClients/AuthAPIClient";
 import { HOME_PAGE, SIGNUP_PAGE } from "../../constants/Routes";
 import AuthContext from "../../contexts/AuthContext";
 import { AuthenticatedUser } from "../../types/AuthTypes";
+import DonationsTable from "../common/DonationsTable";
+import donationsData from '../../constants/donationsDataSample'; // For testing purposes
 
 type GoogleResponse = GoogleLoginResponse | GoogleLoginResponseOffline;
 
@@ -43,6 +45,13 @@ const Login = (): React.ReactElement => {
   if (authenticatedUser) {
     return <Redirect to={HOME_PAGE} />;
   }
+
+  // For testing purposes
+  const filter = {
+    causes: [],//empty array will include all causes
+    frequencies: ["Monthly", "One-time"], //if not empty, only donations with these frequencies will be included
+    years: []
+};
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -99,8 +108,12 @@ const Login = (): React.ReactElement => {
           Sign Up
         </button>
       </div>
+      {/* For testing purposes */}
+      <DonationsTable filter={filter} data={donationsData}/>
     </div>
   );
 };
 
 export default Login;
+
+
