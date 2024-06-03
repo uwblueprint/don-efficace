@@ -13,6 +13,7 @@ import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage"
 import NotFound from "./components/pages/NotFound";
 import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
+import DashboardPage from "./components/pages/DashboardPage";
 import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
@@ -57,6 +58,8 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                {/* TODO: Move to private route eventually */}
+                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
                 <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                 <PrivateRoute
                   exact
