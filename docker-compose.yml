@@ -62,7 +62,6 @@ services:
     depends_on:
       - ts-backend
     environment:
-      - NGROK_AUTHTOKEN=${authtoken} # store personal authtoken (generated from signing up for ngrok account) as environment variable: authoken=INSERT_AUTH_TOKEN_HERE
-
+      - NGROK_AUTHTOKEN=${authtoken}
 volumes:
   postgres_data:

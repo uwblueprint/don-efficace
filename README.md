@@ -110,9 +110,9 @@ npx prisma studio
 ### Set-up
 1. Create an [ngrok](https://dashboard.ngrok.com/signup) account
 
-2. Insert your personal ngrok authentication token in docker-compose.yml:
+2. Insert your personal ngrok authentication token as an environment variable in the .env file of the root directory:
 ```bash
-NGROK_AUTHTOKEN=<insert-your-token>
+NGROK_AUTHTOKEN=${authtoken}
 ```
 
 3. Run the application:
@@ -122,9 +122,9 @@ docker compose up --build
 
 ### Troubleshooting
 
-If another service is occupying port 5000, identify the PID of the service:
+If another service is occupying port 5001, identify the PID of the service:
 ```bash
-sudo lsof -i :5000
+sudo lsof -i :5001
 ```
 
 Kill the occupying service:
