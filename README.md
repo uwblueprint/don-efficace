@@ -106,6 +106,37 @@ Open Prisma studio:
 npx prisma studio
 ```
 
+## Ngrok
+### Set-up
+1. Create an [ngrok](https://dashboard.ngrok.com/signup) account
+
+2. Insert your personal ngrok authentication token in docker-compose.yml:
+```bash
+NGROK_AUTHTOKEN=<insert-your-token>
+```
+
+3. Run the application:
+```bash
+docker compose up --build
+```
+
+### Troubleshooting
+
+If another service is occupying port 5000, identify the PID of the service:
+```bash
+sudo lsof -i :5000
+```
+
+Kill the occupying service:
+```bash
+sudo kill <PID>
+```
+
+Run the application again:
+```bash
+docker compose up --build
+```
+
 ## The Team
 ### Term 1 (W24):
 **Project Lead:** N/A<br>

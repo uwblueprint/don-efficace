@@ -62,7 +62,7 @@ services:
     depends_on:
       - ts-backend
     environment:
-      - NGROK_AUTHTOKEN=2gqfbeXPRkhFsAGXsIpFZJCiitr_7VbDSwxB2h9Z6HbeK259K
+      - NGROK_AUTHTOKEN=<insert-your-token>
 
 volumes:
   postgres_data:
