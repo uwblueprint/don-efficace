@@ -110,7 +110,7 @@ npx prisma studio
 ### Set-up
 1. Create an [ngrok](https://dashboard.ngrok.com/signup) account
 
-2. Insert your personal ngrok authentication token as an environment variable in the .env file of the root directory:
+2. Store your personal ngrok authentication token as an environment variable in the .env file of the root directory:
 ```bash
 NGROK_AUTHTOKEN=${authtoken}
 ```
