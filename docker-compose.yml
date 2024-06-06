@@ -52,16 +52,5 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-  ngrok:
-    image: ngrok/ngrok:latest
-    platform: linux/arm64
-    command: ngrok http ts-backend:5001
-    ports:
-      - "4040:4040"  # ngrok web interface
-    depends_on:
-      - ts-backend
-    environment:
-      - NGROK_AUTHTOKEN=${authtoken}
 volumes:
   postgres_data:
