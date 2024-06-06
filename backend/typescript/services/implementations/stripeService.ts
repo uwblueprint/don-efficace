@@ -6,34 +6,46 @@ import logger from "../../utilities/logger";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY as string);
-
 const Logger = logger(__filename);
+const SUCCESS_URL = `http://localhost:5000/checkout-success`
+const CANCEL_URL = `http://localhost:5000/checkout-cancel`
+
+const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
+  //ui_mode: "embedded",
+  payment_method_types: ["card"],
+  success_url: SUCCESS_URL,
+  cancel_url: CANCEL_URL,
+}
 
 console.log(process.env.STRIPE_PRIVATE_KEY); // Log the value of STRIPE_PRIVATE_KEY
 class StripeService implements IStripeService {
-  createCheckoutSessionPayment = async (
+  createCheckoutSession = async (
     user_id: string,
-    amount: number,
+    amount: number, // in cents (euro)
     cause_id: number,
+    is_subscription: boolean = false
   ): Promise<string> => {
     try {
-      const session = await stripe.checkout.sessions.create({
-        //ui_mode: "embedded",
-        payment_method_types: ["card"],
-        mode: "payment",
-        line_items: [
-          {
-            price: "$8.99",
-            quantity: 1,
-          },
-        ],
-        success_url: `http://localhost:5000/checkout-success`,
-        cancel_url: `http://localhost:5000/checkout-cancel`,
-      });
+      const session = await stripe.checkout.sessions.create(
+        {
+          ...checkoutSessionDefaultOptions,
+          line_items: [
+            {
+              price_data: {
+                currency: "EUR",
+                unit_amount: amount,
+              },
+              quantity: 1
+            }
+          ],
+          mode: is_subscription ? "subscription" : "payment"
+
+        });
 
       if (!session.url) {
         throw new Error("Session URL is null");
       }
+      // store session details in db
 
       return session.url;
     } catch (error) {
