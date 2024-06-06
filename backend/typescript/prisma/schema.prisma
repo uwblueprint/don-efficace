@@ -84,7 +84,7 @@ model Payment {
   creationDate DateTime @default(now())
   updateDate DateTime @updatedAt
   donation Donation?
-  amount  Int
+  amount  Float
   currency String
   status PaymentStatus
 }
