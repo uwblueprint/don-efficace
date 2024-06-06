@@ -9,10 +9,11 @@ interface IStripeService {
    * @returns the newly created session url
    * @throws Error if
    */
-  createCheckoutSessionPayment(
+  createCheckoutSession(
     user_id: string,
     amount: number,
     cause_id: number,
+    is_subscription?: boolean
   ): Promise<string>;
 }
 
