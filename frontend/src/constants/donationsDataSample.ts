@@ -58,6 +58,72 @@ const donationsData = [
         Date: new Date("2024-10-16T09:00"),
         Amount: 500,
         Frequency: "Yearly"
+    },
+    {
+        Cause: "Renewable Energy",
+        Date: new Date("2021-03-15T14:00"),
+        Amount: 200,
+        Frequency: "Monthly"
+    },
+    {
+        Cause: "Urban Green Spaces",
+        Date: new Date("2021-06-22T10:30"),
+        Amount: 120,
+        Frequency: "One-time"
+    },
+    {
+        Cause: "Wildlife Conservation",
+        Date: new Date("2021-11-29T08:45"),
+        Amount: 180,
+        Frequency: "Yearly"
+    },
+    {
+        Cause: "Senior Care",
+        Date: new Date("2022-01-20T11:15"),
+        Amount: 150,
+        Frequency: "Monthly"
+    },
+    {
+        Cause: "Child Literacy",
+        Date: new Date("2022-04-25T09:00"),
+        Amount: 90,
+        Frequency: "One-time"
+    },
+    {
+        Cause: "Public Health",
+        Date: new Date("2022-07-30T12:00"),
+        Amount: 300,
+        Frequency: "Yearly"
+    },
+    {
+        Cause: "Art and Culture",
+        Date: new Date("2023-02-11T15:20"),
+        Amount: 250,
+        Frequency: "Monthly"
+    },
+    {
+        Cause: "Tech for Good",
+        Date: new Date("2023-05-19T14:50"),
+        Amount: 200,
+        Frequency: "One-time"
+    },
+    {
+        Cause: "Community Sports",
+        Date: new Date("2023-08-23T17:30"),
+        Amount: 130,
+        Frequency: "Monthly"
+    },
+    {
+        Cause: "Food Security",
+        Date: new Date("2024-09-28T13:00"),
+        Amount: 220,
+        Frequency: "Yearly"
+    },
+    {
+        Cause: "Mental Health Support",
+        Date: new Date("2024-12-05T16:00"),
+        Amount: 160,
+        Frequency: "Monthly"
     }
 ];
 

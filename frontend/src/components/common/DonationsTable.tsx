@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Table,
     Thead,
@@ -10,6 +10,9 @@ import {
     TableCaption,
     TableContainer,
     Box,
+    Button,
+    Stack,
+    Text
 } from '@chakra-ui/react'
 
 interface Donation {
@@ -31,6 +34,10 @@ interface DonationsTableProps {
 }
 
 const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [entriesPerPage, setEntriesPerPage] = useState(10);
+
     const filterData = () => {
         return data.filter(donation => {
             return (!filter.causes || filter.causes.length === 0 || filter.causes.includes(donation.Cause)) &&
@@ -41,13 +48,21 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
 
     const filteredData = filterData();
 
+    const pageCount = Math.ceil(filteredData.length / entriesPerPage);
+    const changePage = (offset: number) => {
+        setCurrentPage((prev) => Math.max(0, Math.min(pageCount - 1, prev + offset)));
+    };
+
+    const startEntry = currentPage * entriesPerPage + 1;
+    const endEntry = Math.min((currentPage + 1) * entriesPerPage, filteredData.length);
+    const currentData = filteredData.slice(currentPage * entriesPerPage, endEntry);
+
     return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         <TableContainer>
             <Box border='1px' borderColor='gray.200' borderRadius="xl" overflow="hidden">
                 <Table variant='striped' colorScheme='gray'>
-                    <TableCaption>Donations</TableCaption>
                     <Thead>
                         <Tr bgColor='#fadbe7'>
                             <Th textAlign="left" textTransform="none">Cause</Th>
@@ -58,17 +73,28 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {filteredData.map((donation, index) => (
+                        {currentData.map((donation, index) => (
                             <Tr key={index}>
                                 <Td>{donation.Cause}</Td>
                                 <Td>{donation.Date.toLocaleDateString()}</Td>
-                                <Td>{donation.Date.toLocaleDateString()}</Td>
+                                <Td>{donation.Date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</Td>
                                 <Td>{donation.Amount}</Td>
                                 <Td>{donation.Frequency}</Td>
                             </Tr>
                         ))}
                     </Tbody>
                 </Table>
+            </Box>
+            <Box position="relative" zIndex="1">
+                <Stack direction="row" spacing={4} justify="center" m={4} alignItems="center">
+                    <Button onClick={() => changePage(-1)} disabled={currentPage <= 0}>
+                        Previous
+                    </Button>
+                    <Text>{startEntry}-{endEntry} of {filteredData.length}</Text>
+                    <Button onClick={() => changePage(1)} disabled={currentPage >= pageCount - 1}>
+                        Next
+                    </Button>
+                </Stack>
             </Box>
         </TableContainer>
     );

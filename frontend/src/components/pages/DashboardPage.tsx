@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
 import donationsData from '../../constants/donationsDataSample'; // For testing purposes
@@ -53,40 +53,55 @@ const DashboardPage = (): React.ReactElement => {
     const handleFilterChange = (type: keyof Filter) => (selected: { value: string; label: string }[] | { value: string; label: string } | null) => {
         const selectedValues = Array.isArray(selected) ? selected.map(option => option.value) : selected?.value;
         setFilter(prev => ({ ...prev, [type]: selectedValues }));
-      };
+    };
 
     // Function to map string values back to objects for the selectedOptions prop
     const mapSelectedOptions = (selectedValues: string[], options: { label: string, value: string }[]) => {
         return options.filter(option => selectedValues.includes(option.value));
     };
 
+    const resetFilters = () => {
+        setFilter({
+            causes: [],
+            frequencies: [],
+            years: [],
+        });
+    };
+
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1>Your Donations</h1>
             {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore */}
             <Flex direction="row" justify="space-between">
-                <FilterDropdown
-                    label="Causes"
-                    options={causeOptions}
-                    selectedOptions={mapSelectedOptions(filter.causes, causeOptions)}
-                    onChange={handleFilterChange('causes')}
-                    isMulti
-                />
-                <FilterDropdown
-                    label="Frequencies"
-                    options={frequencyOptions}
-                    selectedOptions={mapSelectedOptions(filter.frequencies, frequencyOptions)}
-                    onChange={handleFilterChange('frequencies')}
-                    isMulti
-                />
-                <FilterDropdown
-                    label="Years"
-                    options={yearOptions}
-                    selectedOptions={mapSelectedOptions(filter.years, yearOptions)}
-                    onChange={handleFilterChange('years')}
-                    isMulti={false}
-                />
+                <Box flex={1.2} mr={3}>
+                    <FilterDropdown
+                        label="Causes"
+                        options={causeOptions}
+                        selectedOptions={mapSelectedOptions(filter.causes, causeOptions)}
+                        onChange={handleFilterChange('causes')}
+                        isMulti
+                    />
+                </Box>
+                <Box flex={0.9} mr={3}>
+                    <FilterDropdown
+                        label="Frequencies"
+                        options={frequencyOptions}
+                        selectedOptions={mapSelectedOptions(filter.frequencies, frequencyOptions)}
+                        onChange={handleFilterChange('frequencies')}
+                        isMulti={false}
+                    />
+                </Box>
+                <Box flex={0.9}>
+                    <FilterDropdown
+                        label="Years"
+                        options={yearOptions}
+                        selectedOptions={mapSelectedOptions(filter.years, yearOptions)}
+                        onChange={handleFilterChange('years')}
+                        isMulti={false}
+                    />
+                </Box>
+                <Text cursor="pointer" _hover={{ color: "blue.500" }} onClick={resetFilters}>Reset Filters</Text>
             </Flex>
             <DonationsTable filter={filter} data={donationsData} />
         </div>

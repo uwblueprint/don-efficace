@@ -24,6 +24,21 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     onChange(selected || []);
   };
 
+  let placeholder;
+  switch (label) {
+    case 'Causes':
+      placeholder = 'Select a cause';
+      break;
+    case 'Frequencies':
+      placeholder = 'How often are you making this donation?';
+      break;
+    case 'Years':
+      placeholder = 'When did you make this donation?';
+      break;
+    default:
+      placeholder = `Select ${label.toLowerCase()}`;
+  }
+
   return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -34,7 +49,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         options={options}
         value={selectedOptions}
         onChange={handleChange}
-        placeholder={`Select ${label.toLowerCase()}`}
+        placeholder={placeholder}
       />
     </FormControl>
   );
