@@ -13,7 +13,6 @@ interface IStripeService {
     user_id: string,
     amount: number,
     cause_id: number,
-    is_subscription?: boolean
   ): Promise<string>;
 }
 
