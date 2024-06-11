@@ -41,8 +41,8 @@ model Donation {
   cause_id                Int
   is_recurring            Recurrence
   confirmation_email_sent Boolean
-  transactions            Payment       @relation(fields: [payment_id], references: [id])
-  payment_id              Int             @unique
+  transactions            Payment?        @relation(fields: [payment_id], references: [id])
+  payment_id              Int?            @unique
 }
 
 enum Recurrence {
