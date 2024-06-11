@@ -106,6 +106,37 @@ Open Prisma studio:
 npx prisma studio
 ```
 
+## Ngrok
+### Setup
+1. Create an [ngrok](https://dashboard.ngrok.com/signup) account
+
+2. Store your personal ngrok authentication token as an environment variable in the .env file of the root directory:
+```
+NGROK_AUTHTOKEN=<your_ngrok_auth_token>
+```
+
+3. Run the application:
+```bash
+docker compose up --build
+```
+
+### Troubleshooting
+
+If another service is occupying port 5001, identify the PID of the service (macOS):
+```bash
+sudo lsof -i :5001
+```
+
+Kill the occupying service:
+```bash
+sudo kill <PID>
+```
+
+Run the application again:
+```bash
+docker compose up --build
+```
+
 ## The Team
 ### Term 1 (W24):
 **Project Lead:** N/A<br>
