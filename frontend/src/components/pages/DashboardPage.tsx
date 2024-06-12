@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
-import donationsData from '../../constants/donationsDataSample'; // For testing purposes
-
-// For testing purposes
-// const filter = {
-//     causes: [], // empty array will include all causes
-//     frequencies: ["Monthly", "One-time"], // if not empty, only donations with these frequencies will be included
-//     years: []
-// };
+// import donationsData from '../../constants/donationsDataSample'; // sample for testing purposes
 
 // Assuming this is how the data will be structured
 interface Donation {
@@ -25,30 +19,54 @@ interface Filter {
     years: string[];
 }
 
-
-// Helper functions
-const getUniqueOptions = (data: any[], key: string) => {
-    const uniqueValues = Array.from(new Set(data.map(item => item[key])));
-    return uniqueValues.map(value => ({ label: value, value }));
-};
-
-const getUniqueYearOptions = (data: any[], key: string) => {
-    const uniqueYears = Array.from(new Set(data.map(item => new Date(item[key]).getFullYear())));
-    return uniqueYears.map(year => ({ label: year.toString(), value: year.toString() }));
-};
-
-
 const DashboardPage = (): React.ReactElement => {
+    const [donationsData, setDonationsData] = useState<any[]>([]);
     const [filter, setFilter] = useState<Filter>({
         causes: [],
         frequencies: [],
         years: []
     });
 
+
+    async function getUserDonations() {
+        try {
+            const response = await axios.get('http://localhost:5000/donations/1');
+
+            // transform fetched data to match the format of the table data
+            const transformedData = response.data.map((donation: any) => ({
+                Cause: donation.cause_id,
+                Date: new Date(donation.donation_date),
+                Amount: donation.amount,
+                Frequency: donation.is_recurring,
+            }));
+
+            // set transformed data
+            setDonationsData(transformedData);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Call the function when the component mounts
+    useEffect(() => {
+        getUserDonations();
+    }, []);
+
+    const getUniqueOptions = (key: string) => {
+        const uniqueValues = Array.from(new Set(donationsData.map(item => item[key])));
+        return uniqueValues.map(value => ({ label: value, value }));
+    };
+
+    const getUniqueYearOptions = (key: string) => {
+        const uniqueYears = Array.from(new Set(donationsData.map(item => new Date(item[key]).getFullYear())));
+        return uniqueYears.map(year => ({ label: year.toString(), value: year.toString() }));
+    };
+
+
     // Generate filter options from data
-    const causeOptions = getUniqueOptions(donationsData, 'Cause');
-    const frequencyOptions = getUniqueOptions(donationsData, 'Frequency');
-    const yearOptions = getUniqueYearOptions(donationsData, 'Date');
+    const causeOptions = getUniqueOptions('Cause');
+    const frequencyOptions = getUniqueOptions('Frequency');
+    const yearOptions = getUniqueYearOptions('Date');
 
     const handleFilterChange = (type: keyof Filter) => (selected: { value: string; label: string }[] | { value: string; label: string } | null) => {
         const selectedValues = Array.isArray(selected) ? selected.map(option => option.value) : selected?.value;
@@ -69,43 +87,49 @@ const DashboardPage = (): React.ReactElement => {
     };
 
     return (
-        <div>
-            <h1>Your Donations</h1>
+        <div id="dashboardPage">
+            <h1 id="tableTitle">Your Donations</h1>
             {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore */}
-            <Flex direction="row" justify="space-between">
-                <Box flex={1.2} mr={3}>
+            <Flex direction="row" justify="space-between" padding="16px">
+                <Box width="25%">
                     <FilterDropdown
-                        label="Causes"
+                        label="Cause"
                         options={causeOptions}
                         selectedOptions={mapSelectedOptions(filter.causes, causeOptions)}
                         onChange={handleFilterChange('causes')}
                         isMulti
                     />
                 </Box>
-                <Box flex={0.9} mr={3}>
+                <Box width="30%">
                     <FilterDropdown
-                        label="Frequencies"
+                        label="Donation Frequency"
                         options={frequencyOptions}
                         selectedOptions={mapSelectedOptions(filter.frequencies, frequencyOptions)}
                         onChange={handleFilterChange('frequencies')}
                         isMulti={false}
                     />
                 </Box>
-                <Box flex={0.9}>
+                <Box width="25%">
                     <FilterDropdown
-                        label="Years"
+                        label="Donation Year"
                         options={yearOptions}
                         selectedOptions={mapSelectedOptions(filter.years, yearOptions)}
                         onChange={handleFilterChange('years')}
                         isMulti={false}
                     />
                 </Box>
-                <Text cursor="pointer" _hover={{ color: "blue.500" }} onClick={resetFilters}>Reset Filters</Text>
+                <Box width="10%" alignSelf="flex-end">
+                    <Text cursor="pointer" color="#837974" _hover={{ color: "blue.500" }} onClick={resetFilters}>Reset Filters</Text>
+                </Box>
             </Flex>
             <DonationsTable filter={filter} data={donationsData} />
         </div>
     );
 };
 
+
+
+
 export default DashboardPage;
+

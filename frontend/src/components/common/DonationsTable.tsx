@@ -60,12 +60,12 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
     return (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        <TableContainer>
+        <TableContainer padding="16px">
             <Box border='1px' borderColor='gray.200' borderRadius="xl" overflow="hidden">
-                <Table variant='striped' colorScheme='gray'>
+                <Table variant='striped' colorScheme='gray' color="#4E5153">
                     <Thead>
                         <Tr bgColor='#fadbe7'>
-                            <Th textAlign="left" textTransform="none">Cause</Th>
+                            <Th textAlign="left" textTransform="none" padding="16px">Cause</Th>
                             <Th textAlign="left" textTransform="none">Date</Th>
                             <Th textAlign="left" textTransform="none">Time</Th>
                             <Th textAlign="left" textTransform="none">Amount</Th>
@@ -76,10 +76,10 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
                         {currentData.map((donation, index) => (
                             <Tr key={index}>
                                 <Td>{donation.Cause}</Td>
-                                <Td>{donation.Date.toLocaleDateString()}</Td>
-                                <Td>{donation.Date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</Td>
+                                <Td>{new Date(donation.Date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}</Td>
+                                <Td>{new Date(donation.Date).toISOString().split('T')[1].substring(0, 5)}</Td>
                                 <Td>{donation.Amount}</Td>
-                                <Td>{donation.Frequency}</Td>
+                                <Td>{donation.Frequency === "None" ? "One-Time" : donation.Frequency}</Td>
                             </Tr>
                         ))}
                     </Tbody>

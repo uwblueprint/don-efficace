@@ -26,13 +26,13 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 
   let placeholder;
   switch (label) {
-    case 'Causes':
+    case 'Cause':
       placeholder = 'Select a cause';
       break;
-    case 'Frequencies':
+    case 'Donation Frequency':
       placeholder = 'How often are you making this donation?';
       break;
-    case 'Years':
+    case 'Donation Year':
       placeholder = 'When did you make this donation?';
       break;
     default:
