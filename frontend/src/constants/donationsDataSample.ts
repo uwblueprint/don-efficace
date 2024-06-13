@@ -1,3 +1,6 @@
+// Original placeholder for DonationsTable.tsx to skip backend endpoint.
+// May be useful for further testing if we overhaul the DonationsTable, so we'll keep it in the commit for now.
+
 const donationsData = [
     {
         Cause: "Fighting Child Poverty",

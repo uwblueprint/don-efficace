@@ -38,6 +38,8 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [entriesPerPage, setEntriesPerPage] = useState(10);
 
+    // Filters data based on current filter settings for causes, frequencies, and years.
+    // Only add matching donations for all three filters to the returned array.
     const filterData = () => {
         return data.filter(donation => {
             return (!filter.causes || filter.causes.length === 0 || filter.causes.includes(donation.Cause)) &&
@@ -48,6 +50,7 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
 
     const filteredData = filterData();
 
+    // Pagination implementation.
     const pageCount = Math.ceil(filteredData.length / entriesPerPage);
     const changePage = (offset: number) => {
         setCurrentPage((prev) => Math.max(0, Math.min(pageCount - 1, prev + offset)));
@@ -58,6 +61,7 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
     const currentData = filteredData.slice(currentPage * entriesPerPage, endEntry);
 
     return (
+        // We need these two comments to prevent "Expression produces a union type that is too complex to represent."
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         <TableContainer padding="16px">
