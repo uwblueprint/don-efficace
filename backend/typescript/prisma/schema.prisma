@@ -51,7 +51,7 @@ enum Recurrence {
 
 // Cause and NPO: One-to-Many: A single cause can be associated with many NPOs, and each NPO is linked to one cause
 model Cause {
-  id          Int             @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String
   npos        NPO[]

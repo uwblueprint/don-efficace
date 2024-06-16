@@ -1,4 +1,5 @@
 // import { Prisma } from "@prisma/client";
+import axios from "axios";
 import { Router, Request, Response } from "express";
 import prisma from "../prisma";
 import DonationService from "../services/implementations/donationService";
@@ -7,7 +8,9 @@ import { getErrorMessage } from "../utilities/errorUtils";
 import Stripe from 'stripe';
 import bodyParser from 'body-parser';
 
-const stripe = new Stripe('your-stripe-secret-key', {
+require('dotenv').config();
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2024-04-10',
 });
 
@@ -58,7 +61,6 @@ donationRouter.post("/give", async (req: any, res: any) => {
   }
 });
 
-const endpointSecret = "whsec_5b54bda18bea945a75f7bc81720b63f384eefcc77aba1750f4446f73d4ee7f86";
 
 // Stripe webhook to handle payment events
 donationRouter.post("/webhook", bodyParser.raw({ type: 'application/json' }), async (request: Request, res: Response) => {
@@ -70,7 +72,7 @@ donationRouter.post("/webhook", bodyParser.raw({ type: 'application/json' }), as
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (error) {
     res.status(500).json({ error: getErrorMessage(error) });
   }
@@ -97,7 +99,25 @@ donationRouter.post("/webhook", bodyParser.raw({ type: 'application/json' }), as
         throw new Error("User ID not found in session");
       }
 
-      await donationService.createDonation(userId, amount, causeId, isRecurring, confirmationEmailSent);
+      console.log(`Creating donation : {
+        User ID: ${userId},
+        Amount: ${amount},
+        causeId: ${causeId},
+        isRecurring: ${isRecurring},
+        confirmationEmailSent: ${confirmationEmailSent}
+      }`);
+
+      await axios.get(`${process.env.REACT_APP_BACKEND_URL}/give`, {
+        params: {
+          userId,
+          amount,
+          causeId,
+          isRecurring,
+          confirmationEmailSent,
+        },
+      });
+      // await donationService.createDonation(userId, amount, causeId, isRecurring, confirmationEmailSent);
+      
       res.status(200).send({ received: true });
     } catch (error) {
       res.status(500).json({ error: getErrorMessage(error) });
