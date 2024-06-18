@@ -1,5 +1,3 @@
-import { DonationDTO, Recurrence } from "../../types";
-
 interface IStripeService {
   /**
    * Create a checkout session for a one time payemnt
