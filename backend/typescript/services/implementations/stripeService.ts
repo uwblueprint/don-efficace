@@ -47,7 +47,6 @@ class StripeService implements IStripeService {
       if (!session.url) {
         throw new Error("Session URL is null");
       }
-      // store session details in db
 
       return session.url;
     } catch (error) {
