@@ -36,8 +36,8 @@ class StripeService implements IStripeService {
               currency: "EUR",
               unit_amount: amount,
               product_data: {
-                name: `Donation to cause ${cause_id}`
-              }
+                name: `Donation to cause ${cause_id}`,
+              },
             },
             quantity: 1,
           },

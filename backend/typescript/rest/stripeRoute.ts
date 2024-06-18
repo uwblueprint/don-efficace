@@ -1,4 +1,4 @@
-import express, { Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 
 import StripeService from "../services/implementations/stripeService";
 import IStripeService from "../services/interfaces/stripeService";
@@ -12,11 +12,11 @@ stripeRouter.post(
   "/create-checkout-session",
   async (req: Request, res: Response) => {
     try {
-      const { user_id, amount, cause_id } = req.body;
+      const { userId, amount, causeId } = req.body;
       const sessionUrl = await stripeService.createCheckoutSession(
-        user_id,
+        userId,
         amount,
-        cause_id,
+        causeId,
       );
       res.json({ url: sessionUrl });
     } catch (error) {
