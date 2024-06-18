@@ -958,7 +958,7 @@ paths:
         - bearerAuth: []
       tags:
         - Stripe
-      description: Create a new donation
+      description: Create a new single payment Stripe checkout session
       requestBody:
         required: true
         content:
