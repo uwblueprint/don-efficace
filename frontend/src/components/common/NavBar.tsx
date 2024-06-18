@@ -27,12 +27,12 @@ const NAV_ITEMS: Array<NavItem> = [
       children: [
         {
           label: 'Explore Design Work',
-          // subLabel: 'Trending Design to inspire you',
+          subLabel: 'Trending Design to inspire you',
           href: '#',
         },
         {
           label: 'New & Noteworthy',
-          // subLabel: 'Up-and-coming Designers',
+          subLabel: 'Up-and-coming Designers',
           href: '#',
         },
       ],
@@ -42,12 +42,12 @@ const NAV_ITEMS: Array<NavItem> = [
       children: [
         {
           label: 'Job Board',
-          // subLabel: 'Find your dream design job',
+          subLabel: 'Find your dream design job',
           href: '#',
         },
         {
           label: 'Freelance Projects',
-          // subLabel: 'An exclusive list for contract work',
+          subLabel: 'An exclusive list for contract work',
           href: '#',
         },
       ],
@@ -118,7 +118,7 @@ const MobileNav = () => {
           key={navItem.label} 
           label={navItem.label} 
           href={navItem.href} 
-          // subLabel={navItem.subLabel}
+          subLabel={navItem.subLabel}
           />
         ))}
       </Stack>
@@ -199,7 +199,7 @@ const DesktopNav = () => {
                       key={child.label} 
                       label={child.label} 
                       href={child.href} 
-                      // subLabel={child.subLabel}
+                      subLabel={child.subLabel}
                       />
                     ))}
                   </Stack>
@@ -284,7 +284,7 @@ export default function WithSubnavigation() {
 
 interface NavItem {
   label: string
-  // subLabel?: string
+  subLabel?: string
   children?: Array<NavItem>
   href?: string
 }
