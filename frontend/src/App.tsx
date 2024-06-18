@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react';
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import NavBar from "./components/common/NavBar";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import CreatePage from "./components/pages/CreatePage";
 import Default from "./components/pages/Default";
@@ -45,66 +46,69 @@ const App = (): React.ReactElement => {
   );
 
   return (
-    <SampleContext.Provider value={sampleContext}>
-      <SampleContextDispatcherContext.Provider
-        value={dispatchSampleContextUpdate}
-      >
-        <ChakraProvider>
-          <AuthContext.Provider
-            value={{ authenticatedUser, setAuthenticatedUser }}
-          >
-            <Router>
-              <Switch>
-                <Route exact path={Routes.LOGIN_PAGE} component={Login} />
-                <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
-                <PrivateRoute
-                  exact
-                  path={Routes.CREATE_ENTITY_PAGE}
-                  component={CreatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.UPDATE_ENTITY_PAGE}
-                  component={UpdatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.DISPLAY_ENTITY_PAGE}
-                  component={DisplayPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.CREATE_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityCreatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.UPDATE_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityUpdatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.DISPLAY_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityDisplayPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.EDIT_TEAM_PAGE}
-                  component={EditTeamInfoPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.HOOKS_PAGE}
-                  component={HooksDemo}
-                />
-                <Route exact path="*" component={NotFound} />
-              </Switch>
-            </Router>
-          </AuthContext.Provider>
-        </ChakraProvider>
-      </SampleContextDispatcherContext.Provider>
-    </SampleContext.Provider>
+    <ChakraProvider>
+      <SampleContext.Provider value={sampleContext}>
+        <SampleContextDispatcherContext.Provider
+          value={dispatchSampleContextUpdate}
+        >
+          <ChakraProvider>
+            <AuthContext.Provider
+              value={{ authenticatedUser, setAuthenticatedUser }}
+            >
+              <Router>
+                <Switch>
+                  <Route exact path={Routes.LOGIN_PAGE} component={Login} />
+                  <Route exact path={Routes.NAVBAR} component={NavBar} />
+                  <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                  <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
+                  <PrivateRoute
+                    exact
+                    path={Routes.CREATE_ENTITY_PAGE}
+                    component={CreatePage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.UPDATE_ENTITY_PAGE}
+                    component={UpdatePage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.DISPLAY_ENTITY_PAGE}
+                    component={DisplayPage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.CREATE_SIMPLE_ENTITY_PAGE}
+                    component={SimpleEntityCreatePage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.UPDATE_SIMPLE_ENTITY_PAGE}
+                    component={SimpleEntityUpdatePage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.DISPLAY_SIMPLE_ENTITY_PAGE}
+                    component={SimpleEntityDisplayPage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.EDIT_TEAM_PAGE}
+                    component={EditTeamInfoPage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={Routes.HOOKS_PAGE}
+                    component={HooksDemo}
+                  />
+                  <Route exact path="*" component={NotFound} />
+                </Switch>
+              </Router>
+            </AuthContext.Provider>
+          </ChakraProvider>
+        </SampleContextDispatcherContext.Provider>
+      </SampleContext.Provider>
+    </ChakraProvider>
   );
 };
 
