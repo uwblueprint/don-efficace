@@ -19,7 +19,6 @@ RUN curl -o ngrok-stable-linux-amd64.zip https://bin.equinox.io/c/4VmDzA7iaHb/ng
     rm ngrok-stable-linux-amd64.zip
 
 RUN yarn install
-RUN yarn add stripe
 
 COPY . ./
 
