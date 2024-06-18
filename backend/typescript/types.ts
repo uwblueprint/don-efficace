@@ -1,5 +1,4 @@
 import { DateDataType, FloatDataType, IntegerDataType } from "sequelize";
-import { Payment } from '@prisma/client';
 
 export type Role = "User" | "Admin";
 
@@ -49,7 +48,5 @@ export type DonationDTO = {
   is_recurring: Recurrence;
   confirmation_email_sent: boolean;
 };
-
-export { Payment };
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
