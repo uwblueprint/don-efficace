@@ -23,42 +23,13 @@ import {
 
 const NAV_ITEMS: Array<NavItem> = [
     {
-      label: 'Inspiration',
-      children: [
-        {
-          label: 'Explore Design Work',
-          subLabel: 'Trending Design to inspire you',
-          href: '#',
-        },
-        {
-          label: 'New & Noteworthy',
-          subLabel: 'Up-and-coming Designers',
-          href: '#',
-        },
-      ],
+      label: 'Dashboard',
     },
     {
-      label: 'Find Work',
-      children: [
-        {
-          label: 'Job Board',
-          subLabel: 'Find your dream design job',
-          href: '#',
-        },
-        {
-          label: 'Freelance Projects',
-          subLabel: 'An exclusive list for contract work',
-          href: '#',
-        },
-      ],
+      label: 'Donation History',
     },
     {
-      label: 'Learn Design',
-      href: '#',
-    },
-    {
-      label: 'Hire Designers',
-      href: '#',
+      label: 'Account Management',
     },
   ]
 
@@ -112,13 +83,13 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
 const MobileNav = () => {
     return (
-      <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
-        {NAV_ITEMS.map((navItem) => (
-          <MobileNavItem
-          key={navItem.label} 
-          label={navItem.label} 
-          href={navItem.href} 
-          subLabel={navItem.subLabel}
+      <Stack align='center' bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+      {NAV_ITEMS.map((navItem) => (
+        <MobileNavItem
+            key={navItem.label} 
+            label={navItem.label} 
+            href={navItem.href} 
+            subLabel={navItem.subLabel}
           />
         ))}
       </Stack>
@@ -165,7 +136,7 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue('white', 'gray.800')
   
     return (
-      <Stack direction='row' spacing={4}>
+      <Stack direction='row' spacing={4} justify="space-between" flex="1" width="100%">
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger='hover' placement='bottom-start'>
@@ -221,6 +192,7 @@ export default function WithSubnavigation() {
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH='60px'
+        justify={{ base: 'center', md: 'space-between' }}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
@@ -243,10 +215,10 @@ export default function WithSubnavigation() {
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily='heading'
             color={useColorModeValue('gray.800', 'white')}>
-            Logo
+            Company
           </Text>
 
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'space-between' }} display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
@@ -256,9 +228,6 @@ export default function WithSubnavigation() {
           justify='flex-end'
           direction='row'
           spacing={6}>
-          <Button as='a' fontSize='sm' fontWeight={400} variant='link' href='#'>
-            Sign In
-          </Button>
           <Button
             as='a'
             display={{ base: 'none', md: 'inline-flex' }}
@@ -270,7 +239,7 @@ export default function WithSubnavigation() {
             _hover={{
               bg: 'pink.300',
             }}>
-            Sign Up
+            Donate Now
           </Button>
         </Stack>
       </Flex>
