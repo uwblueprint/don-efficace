@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react';
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import NavBar from "./components/common/NavBar";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import CreatePage from "./components/pages/CreatePage";
 import Default from "./components/pages/Default";
@@ -26,6 +25,8 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import EditTeamInfoPage from "./components/pages/EditTeamPage";
 import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
+import Layout from "./components/common/Layout";
+import Donate from "./components/temp_navbar/Donate";
 
 
 const App = (): React.ReactElement => {
@@ -58,8 +59,9 @@ const App = (): React.ReactElement => {
               <Router>
                 <Switch>
                   <Route exact path={Routes.LOGIN_PAGE} component={Login} />
-                  <Route exact path={Routes.NAVBAR} component={NavBar} />
+                  <Route path={Routes.LAYOUT} component={Layout} />
                   <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                  <Route path = {Routes.DONATE} component={Donate} />
                   <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                   <PrivateRoute
                     exact
