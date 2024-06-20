@@ -1,4 +1,5 @@
 FROM node:18.18.2-slim
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 # Needed for running Docker container on MacOS
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
