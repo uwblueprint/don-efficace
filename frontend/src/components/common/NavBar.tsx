@@ -3,7 +3,6 @@ import {
   Flex,
   Text,
   Button,
-  Stack,
   Link,
   useColorModeValue,
 } from '@chakra-ui/react'
@@ -47,15 +46,18 @@ export default function Navbar() {
         justify={{ base: 'center'}}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
+        borderBottomWidth='1px'
         justifyContent='space-between'
         borderStyle='solid'
+        boxShadow='md'
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align='center'
         alignItems='center'>
-        <Text align='center' mb='12px' alignItems='center' pl='20px' minW='230px'>
-          <Text as="span" color="#000000" fontWeight="bold" fontSize="30px">Don </Text>
-          <Text as="span" color="#A5154C" fontWeight="bold" fontSize="30px">Efficace.</Text>
+        <Text align='center' mb='8px' alignItems='center' pl='20px' minW='230px'>
+          <Link as={RouterLink} to="/" _hover={{textDecoration: "none"}} _focus={{ outline: "none" }} _active={{ outline: "none" }}>
+            <Text as="span" color="#000000" fontWeight="bold" fontSize="30px">Don </Text>
+            <Text as="span" color="#A5154C" fontWeight="bold" fontSize="30px">Efficace.</Text>
+          </Link>
         </Text>
         {NAV_ITEMS.map((navItem) => (
           <Link
@@ -83,7 +85,7 @@ export default function Navbar() {
               as='a'
               width='153px'
               height='50px'
-              display={{ base: 'center', md: 'left' }}
+              display={{ base: 'center' }}
               fontSize='20px'
               ml='20px'
               fontWeight={600}
@@ -99,6 +101,7 @@ export default function Navbar() {
           </RouterLink>
         </Text>
       </Flex>
+      
     </Box>
   )
 }

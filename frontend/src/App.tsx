@@ -25,8 +25,8 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import EditTeamInfoPage from "./components/pages/EditTeamPage";
 import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
-import Layout from "./components/common/Layout";
-import Donate from "./components/temp_navbar/Donate";
+import Layout from "./components/common/Layout"; // Temp for Navbar
+import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 
 
 const App = (): React.ReactElement => {
@@ -61,7 +61,7 @@ const App = (): React.ReactElement => {
                   <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                   <Route path={Routes.LAYOUT} component={Layout} />
                   <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                  <Route path = {Routes.DONATE} component={Donate} />
+                  <Route path = {Routes.DONATE} component={Donate} /> {/* Temp for Navbar */}
                   <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                   <PrivateRoute
                     exact
