@@ -46,11 +46,12 @@ export default function Navbar() {
         justify={{ base: 'center'}}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottomWidth='1px'
+        borderBottomWidth='2px'
+        borderColor='#A5154C'// Bottom border color
         justifyContent='space-between'
         borderStyle='solid'
-        boxShadow='md'
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        boxShadow='lg'
+        // borderColor={useColorModeValue('gray.200', 'gray.900')}
         align='center'
         alignItems='center'>
         <Text align='center' mb='8px' alignItems='center' pl='20px' minW='230px'>
