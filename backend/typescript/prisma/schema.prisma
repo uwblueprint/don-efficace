@@ -97,12 +97,13 @@ enum PaymentStatus {
   UNPAID
   DENIED
 }
+
 model Onboarding {
-  id Int @id @default(autoincrement())
-  email String @unique
-  activation_code String @unique
-  activated Boolean @default(false)
-  created_at DateTime @default(now())
-  user               User  @relation(fields: [user_id], references: [id])
-  user_id            String @unique
+  id                 Int @id @default(autoincrement())
+  email              String @unique
+  activation_code    String @unique
+  activated          Boolean @default(false)
+  created_at         DateTime @default(now())
+  user               User?  @relation(fields: [user_id], references: [id])
+  user_id            String? @unique
 }
