@@ -5,8 +5,12 @@ import {
   Button,
   Link,
   useColorModeValue,
+  Tabs,
+  TabList,
+  TabIndicator,
+  Tab
 } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
+import { NavLink, Link as RouterLink } from 'react-router-dom'
 
 interface NavItem {
   label: string
@@ -30,56 +34,62 @@ const NAV_ITEMS: Array<NavItem> = [
     {
       label: 'Account Management',
       href: '/layout/account-management',
-      width: '210px',
+      width: '240px',
     },
   ]
 
 export default function Navbar() {
   return (
-    <Box>
+    <Box mb='0'>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH='104px'
         minW='1100px'
         gap='16px'
+        mb='0'
         justify={{ base: 'center'}}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottomWidth='2px'
-        borderColor='#A5154C'// Bottom border color
+        borderBottomWidth='1px'
         justifyContent='space-between'
         borderStyle='solid'
-        boxShadow='lg'
-        // borderColor={useColorModeValue('gray.200', 'gray.900')}
-        align='center'
+        boxShadow='sm'
+        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        align='flex-end'
         alignItems='center'>
-        <Text align='center' mb='8px' alignItems='center' pl='20px' minW='230px'>
+        <Text align='center' mb='4px' alignItems='center' pl='20px' minW='230px'>
           <Link as={RouterLink} to="/" _hover={{textDecoration: "none"}} _focus={{ outline: "none" }} _active={{ outline: "none" }}>
             <Text as="span" color="#000000" fontWeight="bold" fontSize="30px">Don </Text>
             <Text as="span" color="#A5154C" fontWeight="bold" fontSize="30px">Efficace.</Text>
           </Link>
         </Text>
-        {NAV_ITEMS.map((navItem) => (
-          <Link
-            key=''
-            as={RouterLink}
-            m='20px'
+        <Tabs variant='unstyled'>
+          <TabList>
+          {NAV_ITEMS.map((navItem) => (
+          <Tab
+            key=""
+            minW={navItem.width}
+            borderStyle="solid"
+            alignItems="center"
+            as={NavLink}
             to={navItem.href}
             fontSize='20px'
             color='#000000'
-            minW={navItem.width}
+            mx='80px'
             _hover={{
-              textDecoration: "underline",
-              color: '#A5154C',
+              textDecoration: "none",
+              color: '#000000',
               cursor: 'pointer'
             }}
             _focus={{ outline: "none" }}
-            _active={{ outline: "none" }}
-          >
-            {navItem.label}
-          </Link>
+            _active={{ outline: "none" }}>
+              {navItem.label}
+          </Tab>
         ))}
+          </TabList>
+          <TabIndicator mt='26px' height='4px' bg='#A5154C' borderRadius='1px' />
+        </Tabs>
         <Text align='center' minW='150px' alignItems='center' pr='30px'>
           <RouterLink to="/donate">
             <Button
