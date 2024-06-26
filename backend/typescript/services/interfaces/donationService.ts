@@ -30,7 +30,7 @@ interface IDonationService {
     user_id: string,
     amount: number,
     cause_id: number,
-    is_recurring: string, // should this be Recurrence?
+    is_recurring: Recurrence,
     confirmation_email_sent: boolean,
   ): Promise<DonationDTO>;
 }
