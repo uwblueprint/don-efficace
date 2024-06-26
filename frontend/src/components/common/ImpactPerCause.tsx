@@ -8,6 +8,12 @@ interface ImpactData {
 }
 
 // This data will be replaced by a series of backend calls to fetch impact data
+
+// fetch cause -> donation, NPO
+// donation -> item
+
+// impact per cause is measured as item.impact_ratio : item.name
+
 const impactItems: ImpactData[] = [
   { id: 1, label: "Trees Planted", value: 5 },
   { id: 2, label: "Beehives", value: 100 },
@@ -18,10 +24,12 @@ const ImpactPerCause: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(0);
 
   const handlePrevious = () => {
+    console.log("prev");
     setPageIndex((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   const handleNext = () => {
+    console.log("next");
     setPageIndex((prev) => (prev < impactItems.length - 1 ? prev + 1 : prev));
   };
 
@@ -34,19 +42,37 @@ const ImpactPerCause: React.FC = () => {
       borderRadius="lg"
       overflow="hidden"
     >
-      <Text fontSize="2xl" mb={4} textAlign="center" fontWeight="bold">
+      <Text fontSize="2xl" mb={4} textAlign="center" fontWeight="bold" color="#4D4D4D">
         Total Impact Per Cause
       </Text>
-      <Flex justifyContent="space-between" alignItems="center">
+      <Flex justifyContent="space-evenly" alignItems="center">
         <Button onClick={handlePrevious} disabled={pageIndex === 0}>
           {"<"}
         </Button>
-        <Center flexDirection="column">
-          <Circle size="100px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
-            <Text fontWeight="bold" fontSize="3xl">{impactItems[pageIndex].value}</Text>
-          </Circle>
-          <Text mt={2}>{impactItems[pageIndex].label}</Text>
-        </Center>
+        <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
+          <Center flexDirection="column">
+            <Circle size="80px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
+              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex].value}</Text>
+            </Circle>
+            <Text mt={2}>{impactItems[pageIndex].label}</Text>
+          </Center>
+        </Box>
+        {/* <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
+          <Center flexDirection="column">
+            <Circle size="100px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
+              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex + 1].value}</Text>
+            </Circle>
+            <Text mt={2}>{impactItems[pageIndex + 1].label}</Text>
+          </Center>
+        </Box>
+        <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
+          <Center flexDirection="column">
+            <Circle size="100px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
+              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex + 2].value}</Text>
+            </Circle>
+            <Text mt={2}>{impactItems[pageIndex + 2].label}</Text>
+          </Center>
+        </Box> */}
         <Button
           onClick={handleNext}
           disabled={pageIndex === impactItems.length - 1}
@@ -56,7 +82,7 @@ const ImpactPerCause: React.FC = () => {
       </Flex>
       <Flex mt={4} justifyContent="center">
         {impactItems.map((item, index) => (
-          <Circle size="10px" bg={pageIndex === index ? "#A5154C": "#E0DCDA"} mx={1} key={item.id} />
+          <Circle size="10px" bg={pageIndex === index ? "#A5154C" : "#E0DCDA"} mx={1} key={item.id} />
         ))}
       </Flex>
     </Box>
