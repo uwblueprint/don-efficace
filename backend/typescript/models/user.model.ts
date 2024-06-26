@@ -14,4 +14,8 @@ export default class User extends Model {
 
   @Column({ type: DataType.ENUM("User", "Admin") })
   role!: Role;
+
+  // Optional customer_id column for Stripe customer ids
+  @Column({ type: DataType.STRING, allowNull: true })
+  customer_id?: string;
 }
