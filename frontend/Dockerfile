@@ -1,4 +1,5 @@
-FROM node:14.15.5-slim
+# Using node 14 allows us to be more flexible, preventing dependency errors (especially with something like Tailwind).
+FROM node:14
 
 WORKDIR /app
 

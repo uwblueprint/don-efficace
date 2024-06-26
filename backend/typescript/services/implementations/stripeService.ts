@@ -8,18 +8,17 @@ dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY as string);
 const Logger = logger(__filename);
-const SUCCESS_URL = `http://localhost:5000/checkout-success`;
-const CANCEL_URL = `http://localhost:5000/checkout-cancel`;
+
+// Stripe checkout will redirect to these frontend urls upon successful payment or cancel.
+const SUCCESS_URL = `${process.env.FRONTEND_URL}/checkout-success`;
+const CANCEL_URL = `${process.env.FRONTEND_URL}/checkout-cancel`;
 
 const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
-  // ui_mode: "embedded",
   payment_method_types: ["card"],
   mode: "payment",
   success_url: SUCCESS_URL,
   cancel_url: CANCEL_URL,
 };
-
-console.log(process.env.STRIPE_PRIVATE_KEY); // Log the value of STRIPE_PRIVATE_KEY
 
 class StripeService implements IStripeService {
   createCheckoutSession = async (
