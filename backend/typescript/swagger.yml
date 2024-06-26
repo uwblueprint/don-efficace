@@ -952,3 +952,41 @@ paths:
           description: Unauthorized
         '500':
           description: Invalid request
+  /stripe/create-checkout-session:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Stripe
+      description: Create a new single payment Stripe checkout session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                  - user_id, amount, cause_id
+              properties:
+                user_id:
+                  type: string
+                amount:
+                  type: integer
+                cause_id:
+                  type: number
+      responses:
+        '200':
+          description: Successfully created a checkout session
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - url
+                properties:
+                  url:
+                    type: string
+        '500':
+          description: Error creating payment checkout session.
+
+
