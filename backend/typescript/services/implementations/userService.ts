@@ -1,12 +1,13 @@
 import { Prisma } from "@prisma/client";
 import * as firebaseAdmin from "firebase-admin";
-import { size } from "lodash";
+import { includes, size } from "lodash";
 import IUserService from "../interfaces/userService";
 import { CreateUserDTO, Role, UpdateUserDTO, UserDTO } from "../../types";
 import { getErrorMessage } from "../../utilities/errorUtils";
 import logger from "../../utilities/logger";
 import User from "../../models/user.model";
 import prisma from "../../prisma";
+import crypto from "crypto"
 
 const Logger = logger(__filename);
 
@@ -189,8 +190,24 @@ class UserService implements IUserService {
             last_name: user.lastName,
             auth_id: firebaseUser.uid,
             role: user.role,
+            onboarding_info: {
+              connect: {
+                id: user.onboarding.id,
+              },
+            },
           },
         });
+
+        await prisma.onboarding.update({
+          where: {
+            email: user.onboarding.email
+          },
+
+          data: {
+            activated: true
+          }
+        })
+        
       } catch (postgresError) {
         try {
           await firebaseAdmin.auth().deleteUser(firebaseUser.uid);
@@ -392,6 +409,45 @@ class UserService implements IUserService {
       Logger.error(`Failed to delete user. Reason = ${getErrorMessage(error)}`);
       throw error;
     }
+  }
+
+  async createOnboarding(email : string) {
+    let unique = false;
+    let activationCode;
+
+    while (!unique) {
+        activationCode = crypto.randomBytes(16).toString('hex').slice(0, 16); // Generate a 16-char code
+        const existingCode = await prisma.onboarding.findUnique({ //Check that activation code is unique
+            where: { activation_code: activationCode }
+        });
+
+        if (!existingCode) {
+            unique = true; // If the code doesn't exist, it's unique
+        }
+    }
+
+    await prisma.onboarding.create({
+      data: {
+        email: email,
+        activation_code: activationCode!,
+      },
+    })
+  }
+
+  async getOnboardingUserFromActivationCode(activation_code: string) {
+
+    let user: Prisma.OnboardingCreateInput | null;
+
+    user = await prisma.onboarding.findUnique({
+      where: { activation_code: activation_code }
+      
+    });
+
+    if (!user) {
+      throw new Error(`userId with activation code ${activation_code} not found.`);
+    }
+
+    return user;
   }
 }
 

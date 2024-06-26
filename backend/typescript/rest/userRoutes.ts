@@ -86,12 +86,21 @@ userRouter.get("/", async (req, res) => {
 /* Create a user */
 userRouter.post("/", createUserDtoValidator, async (req, res) => {
   try {
+    const onboardObj = userService.getOnboardingUserFromActivationCode(req.body.activationCode);
+
+    if (!onboardObj) {
+      res.status(400).json({ error: "Invalid activation code" });
+      return;
+    }
+    
+    // 
     const newUser = await userService.createUser({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       role: req.body.role,
       password: req.body.password,
+      onboarding: onboardObj
     });
 
     await authService.sendEmailVerificationLink(req.body.email);
@@ -162,5 +171,24 @@ userRouter.delete("/", async (req, res) => {
     .status(400)
     .json({ error: "Must supply one of userId or email as query parameter." });
 });
+
+userRouter.post("/onboard ", async (req, res) => {
+  const email = ((typeof req.query.email === 'string') ? req.query.email : null);
+
+  //TODO: Add validator for email
+  if (email){
+    try {
+      await userService.createOnboarding(email)
+      res.status(200).send("Onboarding process initiated.");
+    } catch (error) {
+      console.error("Failed to initiate onboarding:", error);
+      res.status(500).send("Internal server error.");
+    }
+  } else {
+    res.status(400).send("Invalid or missing email address.");
+  }
+
+})
+
 
 export default userRouter;

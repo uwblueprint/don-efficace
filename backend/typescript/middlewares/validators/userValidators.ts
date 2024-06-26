@@ -22,6 +22,9 @@ export const createUserDtoValidator = async (
   if (!validatePrimitive(req.body.password, "string")) {
     return res.status(400).send(getApiValidationError("password", "string"));
   }
+  if (!validatePrimitive(req.body.activation_code, "string")) {
+    return res.status(400).send(getApiValidationError("activation_code", "string"));
+  }
 
   return next();
 };

@@ -6,6 +6,8 @@ import {
   UserDTO,
 } from "../../types";
 
+import { Prisma } from "@prisma/client";
+
 interface IUserService {
   /**
    * Get user associated with id
@@ -91,6 +93,19 @@ interface IUserService {
    * @throws Error if user deletion fails
    */
   deleteUserByEmail(email: string): Promise<void>;
+  
+  /**
+    * Create onboarding for a user
+    * @param email user's email
+   */
+  createOnboarding(email: string): Promise<void>;
+
+  /**
+   * Check if activation code is valid
+   * @param activation_code activation code
+   * @returns 
+  */
+  getOnboardingUserFromActivationCode(activation_code: string): Promise<Prisma.OnboardingCreateInput>;
 }
 
 export default IUserService;
