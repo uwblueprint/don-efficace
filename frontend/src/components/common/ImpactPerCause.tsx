@@ -24,12 +24,10 @@ const ImpactPerCause: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(0);
 
   const handlePrevious = () => {
-    console.log("prev");
     setPageIndex((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   const handleNext = () => {
-    console.log("next");
     setPageIndex((prev) => (prev < impactItems.length - 1 ? prev + 1 : prev));
   };
 
@@ -42,6 +40,7 @@ const ImpactPerCause: React.FC = () => {
       borderRadius="lg"
       overflow="hidden"
     >
+      
       <Text fontSize="2xl" mb={4} textAlign="center" fontWeight="bold" color="#4D4D4D">
         Total Impact Per Cause
       </Text>

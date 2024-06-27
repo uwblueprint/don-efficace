@@ -50,3 +50,25 @@ export type DonationDTO = {
 };
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
+
+export type CauseDTO = {
+  id: number;
+  name: string;
+  npos: NpoDTO[];
+}
+
+export type NpoDTO = {
+  id: number;
+  name: string;
+  cause: string;
+  item?: ItemDTO[];
+}
+
+// type '{ id: number; name: string; contact_information: string; cause_id: number; item_id: number | null; }[]' is not assignable to type 'NpoDTO[]'.
+//   Property 'cause' is missing in type '{ id: number; name: string; contact_information: string; cause_id: number; item_id: number | null; }' but required in type 'NpoDTO'.
+
+export type ItemDTO = {
+  id: number;
+  name:string
+  impact_ratio: number;
+}
