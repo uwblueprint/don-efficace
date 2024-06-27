@@ -966,14 +966,21 @@ paths:
             schema:
               type: object
               required:
-                  - user_id, amount, cause_id
+                  - 
               properties:
-                user_id:
-                  type: string
                 amount:
                   type: integer
                 cause_id:
                   type: number
+                payment_method:
+                  type: string
+                interval:
+                  type: string
+                interval_frequency:
+                  type: integer
+                customer_id: 
+                  type: string
+
       responses:
         '200':
           description: Successfully created a checkout session

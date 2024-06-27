@@ -11,14 +11,24 @@ const stripeRouter = Router();
 // Endpoint to create a Stripe Checkout session
 stripeRouter.post(
   "/create-checkout-session",
-  createCheckoutSessionValidator,
+  // createCheckoutSessionValidator,
   async (req: Request, res: Response) => {
     try {
-      const { userId, amount, causeId } = req.body;
-      const sessionUrl = await stripeService.createCheckoutSession(
-        userId,
+      const {
         amount,
-        causeId,
+        cause_id,
+        payment_method,
+        interval,
+        interval_frequency,
+        customer_id,
+      } = req.body;
+      const sessionUrl = await stripeService.createCheckoutSession(
+        amount,
+        cause_id,
+        payment_method,
+        interval,
+        interval_frequency,
+        customer_id,
       );
       res.json({ url: sessionUrl });
     } catch (error) {
