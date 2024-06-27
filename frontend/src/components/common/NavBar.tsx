@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Flex,
@@ -58,37 +59,37 @@ export default function Navbar() {
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align='flex-end'
         alignItems='center'>
-        <Text align='center' mb='4px' alignItems='center' pl='20px' minW='230px'>
+        <Text align='center' mb='4px' ml='20px' alignItems='center' pl='20px' minW='230px'>
           <Link as={RouterLink} to="/" _hover={{textDecoration: "none"}} _focus={{ outline: "none" }} _active={{ outline: "none" }}>
             <Text as="span" color="#000000" fontWeight="bold" fontSize="30px">Don </Text>
             <Text as="span" color="#A5154C" fontWeight="bold" fontSize="30px">Efficace.</Text>
           </Link>
         </Text>
-        <Tabs variant='unstyled'>
-          <TabList>
-          {NAV_ITEMS.map((navItem) => (
-          <Tab
-            key=""
-            minW={navItem.width}
-            borderStyle="solid"
-            alignItems="center"
-            as={NavLink}
-            to={navItem.href}
-            fontSize='20px'
-            color='#000000'
-            mx='80px'
-            _hover={{
-              textDecoration: "none",
-              color: '#000000',
-              cursor: 'pointer'
-            }}
-            _focus={{ outline: "none" }}
-            _active={{ outline: "none" }}>
-              {navItem.label}
-          </Tab>
-        ))}
+        <Tabs position='relative' variant='unstyled'>
+          <TabList justifyContent='space-between'>
+            {NAV_ITEMS.map((navItem) => (
+              <Tab
+                key={navItem.label}
+                minW={navItem.width}
+                borderStyle="solid"
+                alignItems="center"
+                as={RouterLink}
+                to={navItem.href}
+                fontSize='20px'
+                color='#000000'
+                mx='50px'
+                _hover={{
+                  textDecoration: "none",
+                  color: '#000000',
+                  cursor: 'pointer'
+                }}
+                _focus={{ outline: "none" }}
+                _active={{ outline: "none" }}>
+                  {navItem.label}
+              </Tab>
+            ))}
           </TabList>
-          <TabIndicator mt='26px' height='4px' bg='#A5154C' borderRadius='1px' />
+          <TabIndicator position='absolute' mt='26px' height='4px' bg='#A5154C' borderRadius='1px' />
         </Tabs>
         <Text align='center' minW='150px' alignItems='center' pr='30px'>
           <RouterLink to="/donate">
@@ -99,6 +100,7 @@ export default function Navbar() {
               display={{ base: 'center' }}
               fontSize='20px'
               ml='20px'
+              mr='30px'
               fontWeight={600}
               color='#FFFFFF'
               bg='#A5154C'
