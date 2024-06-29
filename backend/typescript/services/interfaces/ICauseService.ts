@@ -1,29 +1,20 @@
-import { DonationDTO, Recurrence } from "../../types";
+import { CauseDTO, Recurrence } from "../../types";
 
-interface IDonationService {
-  
+interface ICauseService {
   /**
-   * Get all donations across all users
-   * @returns an array of DonationDTO
-   * @throws Error if donation retrieval fails
+   * Get all causes across all users
+   * @returns an array of CauseDTO
+   * @throws Error if Cause retrieval fails
    */
-  getAllDonations(): Promise<Array<DonationDTO>>;
+  getAllCauses(): Promise<Array<CauseDTO>>;
 
   /**
-   * Get all donations across all users
-   * @returns an array of DonationDTO
-   * @throws Error if donation retrieval fails
-   */
-  getAllDonations(): Promise<Array<DonationDTO>>;
-
-
-  /**
-   * Get all donations associated with user_id
+   * Get all causes associated with user_id
    * @param user_id user's id
    * @returns an array of DonationDTO
    * @throws Error if donation retrieval fails
    */
-  getUserDonation(user_id: string): Promise<Array<DonationDTO>>;
+  getUserCauses(user_id: string): Promise<Array<CauseDTO>>;
 
   /**
    * Create a donation
@@ -35,13 +26,13 @@ interface IDonationService {
    * @returns the newly created DonationDTO
    * @throws Error if donation cannot be created
    */
-  createDonation(
+  createCauses(
     user_id: string,
     amount: number,
     cause_id: number,
     is_recurring: string,
     confirmation_email_sent: boolean,
-  ): Promise<DonationDTO>;
+  ): Promise<CauseDTO>;
 }
 
-export default IDonationService;
+export default ICauseService;

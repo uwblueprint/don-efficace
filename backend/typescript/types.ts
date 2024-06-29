@@ -41,6 +41,7 @@ export type SignUpMethod = "PASSWORD" | "GOOGLE";
 export type Recurrence = "None" | "Weekly" | "Monthly" | "Annually";
 
 export type DonationDTO = {
+  id: number;
   user_id: string;
   amount: number;
   donation_date: Date;
