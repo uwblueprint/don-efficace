@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
+import ImpactPerCause from "../common/ImpactPerCause";
 
 interface Donation {
     Cause: string;
@@ -125,7 +126,9 @@ const DashboardPage = (): React.ReactElement => {
                 </Box>
             </Flex>
             <DonationsTable filter={filter} data={donationsData} />
+            <ImpactPerCause/>
         </div>
+        
     );
 };
 
