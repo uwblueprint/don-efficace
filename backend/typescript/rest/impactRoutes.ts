@@ -8,7 +8,7 @@ const impactService: IImpactService = new ImpactService();
 const impactRouter = Router();
 
 // Get impact per user
-impactRouter.get("/userimpact/:userId", async (req, res) => {
+impactRouter.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const impacts = await impactService.calculateImpactPerUser(userId);

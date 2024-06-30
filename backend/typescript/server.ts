@@ -11,6 +11,7 @@ import entityRouter from "./rest/entityRoutes";
 import simpleEntityRouter from "./rest/simpleEntityRoutes";
 import userRouter from "./rest/userRoutes";
 import donationRouter from "./rest/donationsRoutes";
+import impactRouter from "./rest/impactRoutes";
 
 const CORS_ALLOW_LIST = [
   "http://localhost:3000",
@@ -38,6 +39,7 @@ app.use("/simple-entities", simpleEntityRouter);
 app.use("/users", userRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/donations", donationRouter);
+app.use("/impacts", impactRouter);
 
 // Health check
 app.get("/test", async (req: any, res: any) => {
