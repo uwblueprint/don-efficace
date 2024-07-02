@@ -24,30 +24,30 @@ const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
 class StripeService implements IStripeService {
   createCheckoutSession = async (
     amount: number, // in cents (euro)
-    cause_id: number,
-    payment_method: StripeCheckoutMethod,
+    causeId: number,
+    paymentMethod: StripeCheckoutMethod,
     interval?: StripeSubscriptionInterval,
-    interval_frequency?: number,
-    customer_id?: string,
+    intervalFrequency?: number,
+    customerId?: string,
   ): Promise<string> => {
     try {
       const session = await stripe.checkout.sessions.create({
         ...checkoutSessionDefaultOptions,
-        mode: payment_method,
-        ...(customer_id && { customer: customer_id }),
+        mode: paymentMethod,
+        ...(customerId && { customer: customerId }),
         line_items: [
           {
             price_data: {
               currency: "EUR",
               unit_amount: amount,
               product_data: {
-                name: `Donation to cause ${cause_id}`,
+                name: `Donation to cause ${causeId}`,
               },
               ...(interval &&
-                interval_frequency && {
+                intervalFrequency && {
                   recurring: {
                     interval,
-                    interval_count: interval_frequency,
+                    interval_count: intervalFrequency,
                   },
                 }),
             },

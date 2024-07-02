@@ -966,20 +966,24 @@ paths:
             schema:
               type: object
               required:
-                  - 
+                  - amount, causeId, paymentMethod
               properties:
                 amount:
                   type: integer
-                cause_id:
+                causeId:
                   type: number
-                payment_method:
+                paymentMethod:
                   type: string
+                  description: One of "payment" or "subscription"
                 interval:
                   type: string
-                interval_frequency:
+                  description: One of "day", "week", "month" or "year". Required if paymentMethod = "subscription"
+                intervalFrequency:
                   type: integer
-                customer_id: 
+                  description: Required if paymentMethod = "subscription". Max billing frequency of 3 years.
+                customerId: 
                   type: string
+                  description: A valid and existing Stripe customer Id. A new customerId will be created if not provided.
 
       responses:
         '200':

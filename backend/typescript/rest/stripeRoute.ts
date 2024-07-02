@@ -16,19 +16,19 @@ stripeRouter.post(
     try {
       const {
         amount,
-        cause_id,
-        payment_method,
+        causeId,
+        paymentMethod,
         interval,
-        interval_frequency,
-        customer_id,
+        intervalFrequency,
+        customerId,
       } = req.body;
       const sessionUrl = await stripeService.createCheckoutSession(
         amount,
-        cause_id,
-        payment_method,
+        causeId,
+        paymentMethod,
         interval,
-        interval_frequency,
-        customer_id,
+        intervalFrequency,
+        customerId,
       );
       res.json({ url: sessionUrl });
     } catch (error) {
