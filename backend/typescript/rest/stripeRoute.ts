@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 
 import StripeService from "../services/implementations/stripeService";
 import IStripeService from "../services/interfaces/stripeService";
-import { createCheckoutSessionValidator } from "../middlewares/validators/stripeValidators";
+import { createCheckoutSessionRequiredParamsValidator } from "../middlewares/validators/stripeValidators";
 
 const stripeService: IStripeService = new StripeService();
 
@@ -11,7 +11,7 @@ const stripeRouter = Router();
 // Endpoint to create a Stripe Checkout session
 stripeRouter.post(
   "/create-checkout-session",
-  // createCheckoutSessionValidator,
+  createCheckoutSessionRequiredParamsValidator,
   async (req: Request, res: Response) => {
     try {
       const {
