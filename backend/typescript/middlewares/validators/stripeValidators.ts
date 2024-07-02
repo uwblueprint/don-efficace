@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { getApiValidationError, getArrayValueValidationError, validatePrimitive, validateValueInArray } from "./util";
+import {
+  getApiValidationError,
+  getArrayValueValidationError,
+  validatePrimitive,
+  validateValueInArray,
+} from "./util";
 import { stripeCheckoutMethods } from "../../types";
 
 export const createCheckoutSessionRequiredParamsValidator = async (
@@ -14,7 +19,11 @@ export const createCheckoutSessionRequiredParamsValidator = async (
     return res.status(400).send(getApiValidationError("causeId", "integer"));
   }
   if (!validateValueInArray(req.body.paymentMethod, stripeCheckoutMethods)) {
-    return res.status(400).send(getArrayValueValidationError("paymentMethod", stripeCheckoutMethods))
+    return res
+      .status(400)
+      .send(
+        getArrayValueValidationError("paymentMethod", stripeCheckoutMethods),
+      );
   }
 
   return next();
