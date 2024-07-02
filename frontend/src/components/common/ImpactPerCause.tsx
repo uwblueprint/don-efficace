@@ -1,45 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Button, Center, Circle } from "@chakra-ui/react";
 
-interface ImpactData {
-  id: number;
-  label: string;
-  value: number;
+interface ItemData {
+  item_id: number;
+  item_name: string;
+  total_impact: number;
 }
 
-// This data will be replaced by a series of backend calls to fetch impact data
-
-// fetch cause -> donation, NPO
-// donation -> item
-
-// impact per cause is measured as item.impact_ratio : item.name
-
-const impactItems: ImpactData[] = [
-  { id: 1, label: "Trees Planted", value: 5 },
-  { id: 2, label: "Beehives", value: 100 },
-  { id: 3, label: "Beaches Cleaned", value: 10 },
-];
+interface CauseData {
+  cause_id: number;
+  cause_name: string;
+  items: ItemData[];
+}
 
 const ImpactPerCause: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(0);
+  const [causes, setCauses] = useState<CauseData[]>([]);
 
   const handlePrevious = () => {
     setPageIndex((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   const handleNext = () => {
-    setPageIndex((prev) => (prev < impactItems.length - 1 ? prev + 1 : prev));
+    setPageIndex((prev) => (prev < causes.length - 1 ? prev + 1 : prev));
   };
 
-  async function fetchImpactData() {
+  async function fetchImpactData(userId: string) {
     try {
-      const response = await fetch("http://localhost:5000/impact");
+      const response = await fetch(`http://localhost:5001/impacts/${userId}`);
       const data = await response.json();
+      // response.cause_id, response.cause_name, response.items[...item_id, item_name, total_impact, ...] ...
       console.log(data);
+      return data;
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching impact data,", error);
+      return null;
     }
   }
+
+  useEffect(() => {
+    const userId = "cly144mky0000bntg3dupxlx1"; // hardcoded in temporarily
+    fetchImpactData(userId).then((data) => {
+      setCauses(data);
+    });
+  }, []);
 
   return (
     <Box
@@ -50,50 +54,52 @@ const ImpactPerCause: React.FC = () => {
       borderRadius="lg"
       overflow="hidden"
     >
-      
-      <Text fontSize="2xl" mb={4} textAlign="center" fontWeight="bold" color="#4D4D4D">
-        Total Impact Per Cause
+      <Text
+        fontSize="2xl"
+        mb={4}
+        textAlign="center"
+        fontWeight="bold"
+        color="#4D4D4D"
+      >
+        {causes.length > 0
+          ? `Total Impact For ${causes[pageIndex].cause_name}`
+          : "Loading Causes..."}
       </Text>
-      <Flex justifyContent="space-evenly" alignItems="center">
-        <Button onClick={handlePrevious} disabled={pageIndex === 0}>
-          {"<"}
-        </Button>
-        <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
-          <Center flexDirection="column">
-            <Circle size="80px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
-              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex].value}</Text>
-            </Circle>
-            <Text mt={2}>{impactItems[pageIndex].label}</Text>
-          </Center>
-        </Box>
-        {/* <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
-          <Center flexDirection="column">
-            <Circle size="100px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
-              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex + 1].value}</Text>
-            </Circle>
-            <Text mt={2}>{impactItems[pageIndex + 1].label}</Text>
-          </Center>
-        </Box>
-        <Box borderWidth="1px" borderColor="#E0DCDA" padding="5" borderRadius="md">
-          <Center flexDirection="column">
-            <Circle size="100px" bgColor="#EFDFE4" borderWidth="1px" borderColor="#A5154C" color="black">
-              <Text fontWeight="bold" fontSize="5xl" color="#A5154C">{impactItems[pageIndex + 2].value}</Text>
-            </Circle>
-            <Text mt={2}>{impactItems[pageIndex + 2].label}</Text>
-          </Center>
-        </Box> */}
-        <Button
-          onClick={handleNext}
-          disabled={pageIndex === impactItems.length - 1}
-        >
-          {">"}
-        </Button>
-      </Flex>
-      <Flex mt={4} justifyContent="center">
-        {impactItems.map((item, index) => (
-          <Circle size="10px" bg={pageIndex === index ? "#A5154C" : "#E0DCDA"} mx={1} key={item.id} />
-        ))}
-      </Flex>
+      {causes.length > 0 && (
+        <Flex justifyContent="space-evenly" alignItems="center">
+          <Button onClick={handlePrevious} disabled={pageIndex === 0}>
+            {"<"}
+          </Button>
+          <Box>
+            <Flex padding="5">
+              {causes[pageIndex].items.map((item) => (
+                <Box color="#4D4D4D" borderWidth="1px" borderRadius="lg" padding="2" margin="3">
+                <Center flexDirection="column" m={2} key={item.item_id}>
+                  <Circle
+                    size="80px"
+                    bgColor="#EFDFE4"
+                    borderWidth="1px"
+                    borderColor="#A5154C"
+                    color="black"
+                  >
+                    <Text fontWeight="bold" fontSize="3xl" color="#A5154C">
+                      {item.total_impact}
+                    </Text>
+                  </Circle>
+                  <Text mt={2}>{item.item_name}</Text>
+                </Center>
+                </Box>
+              ))}
+            </Flex>
+          </Box>
+          <Button
+            onClick={handleNext}
+            disabled={pageIndex === causes.length - 1}
+          >
+            {">"}
+          </Button>
+        </Flex>
+      )}
     </Box>
   );
 };
