@@ -31,6 +31,16 @@ const ImpactPerCause: React.FC = () => {
     setPageIndex((prev) => (prev < impactItems.length - 1 ? prev + 1 : prev));
   };
 
+  async function fetchImpactData() {
+    try {
+      const response = await fetch("http://localhost:5000/impact");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <Box
       maxW="xl"

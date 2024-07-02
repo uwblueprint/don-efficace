@@ -54,5 +54,9 @@ export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
 export type ImpactDTO = {
   cause_id: number;
   cause_name: string;
-  total_impact: number;
+  items: {
+    item_id: number;
+    item_name: string;
+    total_impact: number;
+  }[];
 };
