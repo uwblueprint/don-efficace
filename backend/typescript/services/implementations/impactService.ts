@@ -28,6 +28,8 @@ class ImpactService implements IImpactService {
         },
       });
 
+      console.log('donations: ', donations);
+
       const impactPerCause = donations.reduce<ImpactAccumulator>(
         (acc, donation) => {
           const cause = donation.cause;

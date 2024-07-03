@@ -72,24 +72,39 @@ const ImpactPerCause: React.FC = () => {
           </Button>
           <Box>
             <Flex padding="5">
-              {causes[pageIndex].items.map((item) => (
-                <Box color="#4D4D4D" borderWidth="1px" borderRadius="lg" padding="2" margin="3">
-                <Center flexDirection="column" m={2} key={item.item_id}>
-                  <Circle
-                    size="80px"
-                    bgColor="#EFDFE4"
+            {causes[pageIndex].items.map((item) => {
+                const numDigits = item.total_impact.toString().length;
+                const width = `40 + ${numDigits * 40}px`;
+                return (
+                  <Box
+                    color="#4D4D4D"
                     borderWidth="1px"
-                    borderColor="#A5154C"
-                    color="black"
+                    borderRadius="lg"
+                    padding="2"
+                    margin="3"
+                    key={item.item_id}
                   >
-                    <Text fontWeight="bold" fontSize="3xl" color="#A5154C">
-                      {item.total_impact}
-                    </Text>
-                  </Circle>
-                  <Text mt={2}>{item.item_name}</Text>
-                </Center>
-                </Box>
-              ))}
+                    <Center flexDirection="column" m={2}>
+                      <Box
+                        height="80px"
+                        width={width}
+                        bgColor="#EFDFE4"
+                        borderWidth="1px"
+                        borderColor="#A5154C"
+                        color="black"
+                        borderRadius="full"
+                      >
+                        <Center flexDirection="column" m={4}>
+                          <Text fontWeight="bold" fontSize="3xl" color="#A5154C">
+                            {item.total_impact}
+                          </Text>
+                        </Center>
+                      </Box>
+                      <Text mt={2}>{item.item_name}</Text>
+                    </Center>
+                  </Box>
+                );
+              })}
             </Flex>
           </Box>
           <Button
@@ -100,6 +115,11 @@ const ImpactPerCause: React.FC = () => {
           </Button>
         </Flex>
       )}
+      <Flex mt={4} justifyContent="center">
+        {causes.map((item, index) => (
+          <Circle size="10px" mx={1} bg={pageIndex === index ? "#A5154C" : "#E0DCDA"} key={item.cause_id} />
+        ))}
+      </Flex>
     </Box>
   );
 };
