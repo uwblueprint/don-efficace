@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Donate: React.FC = () => {
   return <div>Donate Now!!!</div>;
