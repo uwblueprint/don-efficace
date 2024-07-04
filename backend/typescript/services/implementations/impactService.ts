@@ -6,21 +6,25 @@ import { getErrorMessage } from "../../utilities/errorUtils";
 
 const Logger = logger(__filename);
 
+// Stores accumulated impact data
 interface ImpactAccumulator {
   [key: number]: ImpactDTO;
 }
 
 class ImpactService implements IImpactService {
   async calculateImpactPerUser(userId: string): Promise<Array<ImpactDTO>> {
+    // Fetches donations from db
     try {
       const donations = await prisma.donation.findMany({
-        where: { user_id: userId },
+        where: { user_id: userId }, // Filters donations by User ID, will be useful once AuthContext is built
         include: {
           cause: {
+            // Include cause
             include: {
               npos: {
+                // Inlucde NPOs associated with cause
                 include: {
-                  item: true,
+                  item: true, // Include items associated with the NPO
                 },
               },
             },
@@ -28,8 +32,9 @@ class ImpactService implements IImpactService {
         },
       });
 
-      console.log('donations: ', donations);
+      console.log("donations: ", donations);
 
+      // Runs for each donation, handles causes, and updates accumulator
       const impactPerCause = donations.reduce<ImpactAccumulator>(
         (acc, donation) => {
           const cause = donation.cause;
@@ -39,7 +44,9 @@ class ImpactService implements IImpactService {
           const items: any = [];
 
           cause.npos.forEach((npo) => {
-            if (npo.item) { 
+            if (npo.item) {
+
+              // Calculate impact (donation amount is split equally between all NPOS of that cause)
               const impact = npo.item.impact_ratio * amountPerNPO;
               const item = {
                 item_id: npo.item.id,
@@ -47,6 +54,7 @@ class ImpactService implements IImpactService {
                 total_impact: impact,
               };
 
+              // Initializer
               if (!acc[cause.id]) {
                 acc[cause.id] = {
                   cause_id: cause.id,
@@ -55,11 +63,13 @@ class ImpactService implements IImpactService {
                 };
               }
 
-              const existingItem = acc[cause.id].items.find(i => npo.item && i.item_id === npo.item.id);
+              const existingItem = acc[cause.id].items.find(
+                (i) => npo.item && i.item_id === npo.item.id,
+              );
               if (existingItem) {
-                existingItem.total_impact += impact;
+                existingItem.total_impact += impact; // Update impact count of item if already exists
               } else {
-                acc[cause.id].items.push(item);
+                acc[cause.id].items.push(item); // Otherwise, add item
               }
             }
           });
