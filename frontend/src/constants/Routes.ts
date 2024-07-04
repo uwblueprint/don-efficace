@@ -4,7 +4,7 @@ export const LOGIN_PAGE = "/login";
 
 export const LAYOUT = "/layout"; // TEMP FOR NAVBAR
 
-export const DONATE = "/donate" // TEMP FOR NAVBAR
+export const DONATE = "/donate"; // TEMP FOR NAVBAR
 
 export const SIGNUP_PAGE = "/signup";
 
