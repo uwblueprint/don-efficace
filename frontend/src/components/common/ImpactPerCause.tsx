@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Button, Center, Circle } from "@chakra-ui/react";
-
+// import CircleCard from "../pages/CircleCard";
 
 interface ItemData {
   item_id: number;
@@ -11,7 +11,7 @@ interface ItemData {
 interface CauseData {
   cause_id: number;
   cause_name: string;
-  items: ItemData[]; 
+  items: ItemData[];
 }
 
 const ImpactPerCause: React.FC = () => {
@@ -31,7 +31,9 @@ const ImpactPerCause: React.FC = () => {
   // Change to localhost:5000 and modify the userId below based on the data entered in Prisma
   async function fetchImpactData(userId: string) {
     try {
-      const response = await fetch(`http://localhost:5001/impacts/${userId}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/impacts/${userId}`,
+      );
       const data = await response.json();
       console.log(data);
       return data;
@@ -76,7 +78,11 @@ const ImpactPerCause: React.FC = () => {
       {causes.length > 0 && (
         <Flex justifyContent="space-evenly" alignItems="center">
           {/* Previous button */}
-          <Button onClick={handlePrevious} disabled={pageIndex === 0} background="transparent">
+          <Button
+            onClick={handlePrevious}
+            disabled={pageIndex === 0}
+            background="transparent"
+          >
             ❮
           </Button>
           <Box>
@@ -114,7 +120,15 @@ const ImpactPerCause: React.FC = () => {
                           </Text>
                         </Center>
                       </Box>
-                      <Text fontSize="sm" fontWeight="bold" mt={2} color="black" textAlign="center">{item.item_name}</Text>
+                      <Text
+                        fontSize="sm"
+                        fontWeight="bold"
+                        mt={2}
+                        color="black"
+                        textAlign="center"
+                      >
+                        {item.item_name}
+                      </Text>
                     </Center>
                   </Box>
                 );
@@ -133,14 +147,9 @@ const ImpactPerCause: React.FC = () => {
       )}
       {/* Circles on the bottom to indicate current page */}
       <Flex mt={0} mb={3} justifyContent="center">
-        {causes.map((item, index) => (
-          <Circle
-            size="20px"
-            mx={2}
-            bg={pageIndex === index ? "#A5154C" : "#E0DCDA"}
-            key={item.cause_id}
-          />
-        ))}
+        {/* {causes[pageIndex].items.map((item) => (
+          <CircleCard key={item.item_id} item={item} />
+        ))} */}
       </Flex>
     </Box>
   );

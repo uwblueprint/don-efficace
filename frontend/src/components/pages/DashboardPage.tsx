@@ -29,7 +29,7 @@ const DashboardPage = (): React.ReactElement => {
 
     async function getUserDonations() {
         try {
-            const response = await axios.get('http://localhost:5001/donations/cly144mky0000bntg3dupxlx1');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations/cly144mky0000bntg3dupxlx1`);
 
             // Transforms fetched data to match table.
             const transformedData = response.data.map((donation: any) => ({
