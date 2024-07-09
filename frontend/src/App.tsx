@@ -57,15 +57,10 @@ const App = (): React.ReactElement => {
             <Router>
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
-                <Route path={Routes.LAYOUT} component={Layout} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                <Route path={Routes.DONATE} component={Donate} />{" "}
-                {/* Temp for Navbar */}
-                <PrivateRoute
-                  exact
-                  path={Routes.HOME_PAGE}
-                  component={Default}
-                />
+                <Route path={Routes.LAYOUT} component={Layout} />
+                <Route path={Routes.DONATE} component={Donate} />{/* Temp for Navbar */}
+                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                 <PrivateRoute
                   exact
                   path={Routes.CREATE_ENTITY_PAGE}
