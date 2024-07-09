@@ -1,3 +1,7 @@
+// Template for Navbar - To-Do (Reroute this to the Dashboard component)
+// Ensure that whatever link paths to dashboard links to layout/dashboard
+// For testing (to view the navbar), navigate to localhost:3000/layout
+
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { Route, Switch } from "react-router-dom";
