@@ -1,3 +1,5 @@
+import { RoleType } from "@prisma/client";
+
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -8,37 +10,41 @@ async function main() {
   // Create dummy users
   const user1 = await prisma.user.create({
     data: {
-        id: 'asdasd',
-        email: "johnsadasd.doe@example.com",
-        first_name: "John",
-        auth_id: 'ry',
+        id: '0',
+        email: "alice@example.com",
+        first_name: "Alice",
+        auth_id: '-0',
+        role: RoleType.Admin
     },
   });
 
   const user2 = await prisma.user.create({
     data: {
-        id: 'malha',
-        email: "jailton@example.com",
-        first_name: "Jailton",
-        last_name: "Almeida",
-        auth_id: 'gyb',
+        id: '1',
+        email: "bob@example.com",
+        first_name: "Bob",
+        last_name: "Smith",
+        auth_id: '-1',
+        role: RoleType.User
     },
   });
 
   const user3 = await prisma.user.create({
     data: {
-        id: 'wad',
-        email: "janeawdawd.doe@example.com",
-        last_name: "Doe",
-        auth_id: 'green',
+        id: '2',
+        email: "charlie@example.com",
+        last_name: "Charlie",
+        auth_id: '-2',
+        role: RoleType.User
     },
   });
 
   const user4 = await prisma.user.create({
     data: {
-        id: 'gladi',
-        email: "rinatfakhretdinov@example.com",
-        auth_id: 'rwb',
+        id: '3',
+        email: "david@example.com",
+        auth_id: '-3',
+        role: RoleType.User
     },
   });
 
