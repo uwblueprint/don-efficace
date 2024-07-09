@@ -24,11 +24,6 @@ model User {
   donations    Donation[]
 }
 
-enum RoleType{
-  Admin
-  User
-}
-
 // Donation and Cause: One-to-Many: A Donation can support one causes, but a cause can be supported by multiple donations.
 model Donation {
   id                      Int             @id @default(autoincrement())
