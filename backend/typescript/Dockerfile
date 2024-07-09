@@ -12,12 +12,6 @@ RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.
 # Install dependencies
 RUN apt-get update && apt-get install -y libcurl4 curl unzip
 
-# Install ngrok using curl
-RUN curl -o ngrok-stable-linux-amd64.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
-    unzip ngrok-stable-linux-amd64.zip && \
-    mv ngrok /usr/local/bin/ && \
-    rm ngrok-stable-linux-amd64.zip
-
 RUN yarn install
 
 COPY . ./

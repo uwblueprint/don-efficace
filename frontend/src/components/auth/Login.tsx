@@ -45,13 +45,6 @@ const Login = (): React.ReactElement => {
     return <Redirect to={HOME_PAGE} />;
   }
 
-  // For testing purposes
-  const filter = {
-    causes: [], // empty array will include all causes
-    frequencies: ["Monthly", "One-time"], // if not empty, only donations with these frequencies will be included
-    years: [],
-  };
-
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Login</h1>
