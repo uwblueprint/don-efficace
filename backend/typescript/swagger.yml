@@ -806,7 +806,7 @@ paths:
         '401':
           description: Unauthorized
         '500':
-          description: Error creating payment checkout session.
+          description: Invalid request
 
   /donations:
       get:
