@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from '@chakra-ui/react';
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
@@ -13,6 +13,7 @@ import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage"
 import NotFound from "./components/pages/NotFound";
 import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
+import DashboardPage from "./components/pages/DashboardPage";
 import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
@@ -27,6 +28,7 @@ import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import Layout from "./components/common/Layout"; // Temp for Navbar
 import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -58,8 +60,11 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                {/* TODO: Move to private route eventually */}
+                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
                 <Route path={Routes.LAYOUT} component={Layout} />
-                <Route path={Routes.DONATE} component={Donate} />{/* Temp for Navbar */}
+                <Route path={Routes.DONATE} component={Donate} />
+                {/* Temp for Navbar */}
                 <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                 <PrivateRoute
                   exact
