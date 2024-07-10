@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Button, Center, Circle } from "@chakra-ui/react";
-// import CircleCard from "../pages/CircleCard";
+import ImpactItem from "../pages/ImpactItem";
 
 interface ItemData {
   item_id: number;
@@ -87,52 +87,14 @@ const ImpactPerCause: React.FC = () => {
           </Button>
           <Box>
             <Flex padding="5">
-              {causes[pageIndex].items.map((item) => {
-                const numDigits = item.total_impact.toString().length;
-                const width = `${65 + numDigits * 15}px`;
-                return (
-                  <Box
-                    color="#4D4D4D"
-                    borderWidth="1px"
-                    borderRadius="lg"
-                    padding="2"
-                    margin="3"
-                    key={item.item_id}
-                    borderColor="#E0DCDA"
-                  >
-                    <Center flexDirection="column" m={2}>
-                      <Box
-                        height="80px"
-                        width={width}
-                        bgColor="#EFDFE4"
-                        borderWidth="1px"
-                        borderColor="#A5154C"
-                        color="black"
-                        borderRadius="full"
-                      >
-                        <Center flexDirection="column" m={3}>
-                          <Text
-                            fontWeight="bold"
-                            fontSize="4xl"
-                            color="#A5154C"
-                          >
-                            {item.total_impact}
-                          </Text>
-                        </Center>
-                      </Box>
-                      <Text
-                        fontSize="sm"
-                        fontWeight="bold"
-                        mt={2}
-                        color="black"
-                        textAlign="center"
-                      >
-                        {item.item_name}
-                      </Text>
-                    </Center>
-                  </Box>
-                );
-              })}
+              {causes[pageIndex].items.map((item) => (
+                <ImpactItem
+                  key={item.item_id}
+                  item_id={item.item_id}
+                  item_name={item.item_name}
+                  total_impact={item.total_impact}
+                />
+              ))}
             </Flex>
           </Box>
           {/* Next button */}
@@ -147,9 +109,14 @@ const ImpactPerCause: React.FC = () => {
       )}
       {/* Circles on the bottom to indicate current page */}
       <Flex mt={0} mb={3} justifyContent="center">
-        {/* {causes[pageIndex].items.map((item) => (
-          <CircleCard key={item.item_id} item={item} />
-        ))} */}
+        {causes.map((item, index) => (
+          <Circle
+            size="20px"
+            mx={2}
+            bg={pageIndex === index ? "#A5154C" : "#E0DCDA"}
+            key={item.cause_id}
+          />
+        ))}
       </Flex>
     </Box>
   );
