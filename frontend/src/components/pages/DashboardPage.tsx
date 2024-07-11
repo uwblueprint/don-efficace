@@ -26,10 +26,9 @@ const DashboardPage = (): React.ReactElement => {
         years: []
     });
 
-
-    async function getUserDonations() {
+    async function getUserDonations(userId: string) {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations/cly144mky0000bntg3dupxlx1`);
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations/${userId}`);
 
             // Transforms fetched data to match table.
             const transformedData = response.data.map((donation: any) => ({
@@ -47,7 +46,8 @@ const DashboardPage = (): React.ReactElement => {
     }
 
     useEffect(() => {
-        getUserDonations();
+        const userId = "cly144mky0000bntg3dupxlx1";
+        getUserDonations(userId);
     }, []);
 
     // Functions to generate dropdown menu options. Creates a Set to remove duplicates and returns as array of objects.
