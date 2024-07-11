@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Button, Center, Circle } from "@chakra-ui/react";
 import ImpactItem from "../pages/ImpactItem";
+import translations from "../../locale/locale-en.json";
 
 interface ItemData {
   item_id: number;
@@ -71,8 +72,8 @@ const ImpactPerCause: React.FC = () => {
         color="#4D4D4D"
       >
         {causes.length > 0
-          ? `Total Impact For ${causes[pageIndex].cause_name}`
-          : "Loading Causes..."}
+          ? `${translations.totalImpactFor} ${causes[pageIndex].cause_name}`
+          : translations.loadingCauses}
       </Text>
       {/* Content section to display items and navigation buttons */}
       {causes.length > 0 && (
