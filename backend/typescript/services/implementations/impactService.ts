@@ -32,8 +32,6 @@ class ImpactService implements IImpactService {
         },
       });
 
-      console.log("donations: ", donations);
-
       // Runs for each donation, handles causes, and updates accumulator
       const impactPerCause = donations.reduce<ImpactAccumulator>(
         (acc, donation) => {
