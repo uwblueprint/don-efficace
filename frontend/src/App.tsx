@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider } from "@chakra-ui/react";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
@@ -18,6 +18,7 @@ import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
+import CreateCustomer from "./components/common/StripeCustomer";
 import SampleContext, {
   DEFAULT_SAMPLE_CONTEXT,
 } from "./contexts/SampleContext";
@@ -26,7 +27,6 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import EditTeamInfoPage from "./components/pages/EditTeamPage";
 import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
-
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -59,8 +59,16 @@ const App = (): React.ReactElement => {
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
                 {/* TODO: Move to private route eventually */}
-                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
-                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
+                <Route
+                  exact
+                  path={Routes.DASHBOARD_PAGE}
+                  component={DashboardPage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.HOME_PAGE}
+                  component={Default}
+                />
                 <PrivateRoute
                   exact
                   path={Routes.CREATE_ENTITY_PAGE}
@@ -100,6 +108,11 @@ const App = (): React.ReactElement => {
                   exact
                   path={Routes.HOOKS_PAGE}
                   component={HooksDemo}
+                />
+                <Route
+                  exact
+                  path={Routes.STRIPE_CUSTOMER_PAGE} // Add your route here
+                  component={CreateCustomer}
                 />
                 <Route exact path="*" component={NotFound} />
               </Switch>
