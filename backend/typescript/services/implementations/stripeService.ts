@@ -62,7 +62,8 @@ class StripeService implements IStripeService {
         throw new Error("Session URL is null");
       }
 
-      return session.url;
+      return session.id;
+      // return session.url;
     } catch (error) {
       Logger.error(`Error creating a checkout session: ${error}`);
       throw error;
