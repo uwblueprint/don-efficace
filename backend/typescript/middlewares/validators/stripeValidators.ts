@@ -28,3 +28,23 @@ export const createCheckoutSessionRequiredParamsValidator = async (
 
   return next();
 };
+
+export const createStripeCustomerRequiredParamsValidator = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  if (!validatePrimitive(req.body.name, "string")) {
+    return res.status(400).send(getApiValidationError("name", "string"));
+  }
+  if (!validatePrimitive(req.body.email, "string")) {
+    return res.status(400).send(getApiValidationError("email", "string"));
+  }
+  if (!validatePrimitive(req.body.paymentMethod, "string")) {
+    return res.status(400).send(getApiValidationError("paymentMethod", "string"));
+  }
+
+  return next();
+};
+
+

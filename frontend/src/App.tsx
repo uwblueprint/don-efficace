@@ -18,7 +18,6 @@ import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
-import CreateCustomer from "./components/common/StripeCustomer";
 import SampleContext, {
   DEFAULT_SAMPLE_CONTEXT,
 } from "./contexts/SampleContext";
@@ -105,11 +104,6 @@ const App = (): React.ReactElement => {
                   exact
                   path={Routes.HOOKS_PAGE}
                   component={HooksDemo}
-                />
-                <Route
-                  exact
-                  path={Routes.STRIPE_CUSTOMER_PAGE} // Add your route here
-                  component={CreateCustomer}
                 />
                 <Route exact path="*" component={NotFound} />
               </Switch>

@@ -25,5 +25,3 @@ export const UPDATE_SIMPLE_ENTITY_PAGE = "/simpleEntity/update";
 export const HOOKS_PAGE = "/hooks";
 
 export const DASHBOARD_PAGE = "/dashboard";
-
-export const STRIPE_CUSTOMER_PAGE = "/stripe-customer"
