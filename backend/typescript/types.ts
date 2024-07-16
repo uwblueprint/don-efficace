@@ -50,3 +50,15 @@ export type DonationDTO = {
 };
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
+
+export const stripeCheckoutMethods = ["payment", "subscription"] as const;
+export type StripeCheckoutMethod = (typeof stripeCheckoutMethods)[number];
+
+export const stripeSubscriptionIntervals = [
+  "day",
+  "week",
+  "month",
+  "year",
+] as const;
+export type StripeSubscriptionInterval =
+  (typeof stripeSubscriptionIntervals)[number];

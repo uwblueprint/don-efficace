@@ -1,16 +1,22 @@
+import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
+
 interface IStripeService {
   /**
-   * Create a checkout session for a one time payemnt
-   * @param user_id user's id
-   * @param amount the amount the user is donating toward this cause in the donation
-   * @param cause_id the id of the cause the donation is associated with
-   * @returns the newly created session url
-   * @throws Error if
+   *
+   * @param amount Number of cents in euros
+   * @param causeId
+   * @param paymentMethod One of 'payment' or 'subscription'
+   * @param interval Required if payment_method = 'subscription'. One of 'day', 'week', 'month' or 'year'
+   * @param intervalFrequency Required if payment_method = 'subscription'. The number of intervals between subscription billings. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+   * @param customerId Stripe customer Id. New customer will be created if not provided
    */
   createCheckoutSession(
-    user_id: string,
     amount: number,
-    cause_id: number,
+    causeId: number,
+    paymentMethod: StripeCheckoutMethod,
+    interval?: StripeSubscriptionInterval,
+    intervalFrequency?: number,
+    customerId?: string,
   ): Promise<string>;
 }
 

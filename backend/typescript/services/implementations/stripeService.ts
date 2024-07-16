@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import Stripe from "stripe";
 import IStripeService from "../interfaces/stripeService";
 import logger from "../../utilities/logger";
+import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
 
 dotenv.config();
 
@@ -22,21 +23,33 @@ const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
 
 class StripeService implements IStripeService {
   createCheckoutSession = async (
-    user_id: string,
     amount: number, // in cents (euro)
-    cause_id: number,
+    causeId: number,
+    paymentMethod: StripeCheckoutMethod,
+    interval?: StripeSubscriptionInterval,
+    intervalFrequency?: number,
+    customerId?: string,
   ): Promise<string> => {
     try {
       const session = await stripe.checkout.sessions.create({
         ...checkoutSessionDefaultOptions,
+        mode: paymentMethod,
+        ...(customerId && { customer: customerId }),
         line_items: [
           {
             price_data: {
               currency: "EUR",
               unit_amount: amount,
               product_data: {
-                name: `Donation to cause ${cause_id}`,
+                name: `Donation to cause ${causeId}`,
               },
+              ...(interval &&
+                intervalFrequency && {
+                  recurring: {
+                    interval,
+                    interval_count: intervalFrequency,
+                  },
+                }),
             },
             quantity: 1,
           },
@@ -49,9 +62,7 @@ class StripeService implements IStripeService {
 
       return session.url;
     } catch (error) {
-      Logger.error(
-        `Error creating a checkout session for a payment for user ${user_id} = ${error}`,
-      );
+      Logger.error(`Error creating a checkout session: ${error}`);
       throw error;
     }
   };

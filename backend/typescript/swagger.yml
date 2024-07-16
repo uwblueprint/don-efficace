@@ -966,14 +966,25 @@ paths:
             schema:
               type: object
               required:
-                  - user_id, amount, cause_id
+                  - amount, causeId, paymentMethod
               properties:
-                user_id:
-                  type: string
                 amount:
                   type: integer
-                cause_id:
+                causeId:
                   type: number
+                paymentMethod:
+                  type: string
+                  description: One of "payment" or "subscription"
+                interval:
+                  type: string
+                  description: One of "day", "week", "month" or "year". Required if paymentMethod = "subscription"
+                intervalFrequency:
+                  type: integer
+                  description: Required if paymentMethod = "subscription". Max billing frequency of 3 years.
+                customerId: 
+                  type: string
+                  description: A valid and existing Stripe customer Id. A new customerId will be created if not provided.
+
       responses:
         '200':
           description: Successfully created a checkout session
