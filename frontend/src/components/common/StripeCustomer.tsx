@@ -8,12 +8,9 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-dotenv.config(); // Ensure dotenv is configured if environment variables are used
+dotenv.config();
 
-// console.log("Stripe Publishable Key:", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string);
-const stripePromise = loadStripe('pk_test_51PJ3YkF0nrbaz1GAUcp4alzOEcaNyDgU4Gf8Vt6rDJBY4T8zajaiAtEgn4D6dUBgd6M429kWVxLORB3XzXwDAtSC00ydhJFgdx');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string);
 
 const CreateCustomerForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -46,21 +43,26 @@ const CreateCustomerForm: React.FC = () => {
       },
     });
 
+    console.log("Payment Method object:", paymentMethod);
+
     if (paymentMethodError) {
       console.error("Error creating payment method:", paymentMethodError);
     } else {
       try {
-        const response = await fetch("/stripe/customer", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "http://localhost:5001/stripe/create-customer",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              paymentMethod: paymentMethod?.id,
+            }),
           },
-          body: JSON.stringify({
-            name,
-            email,
-            paymentMethodId: paymentMethod?.id,
-          }),
-        });
+        );
 
         if (!response.ok) {
           throw new Error("Failed to create customer");
@@ -108,9 +110,9 @@ const CreateCustomerForm: React.FC = () => {
 };
 
 const CreateCustomer: React.FC = () => (
-    <Elements stripe={stripePromise}>
-        <CreateCustomerForm />
-    </Elements>
+  <Elements stripe={stripePromise}>
+    <CreateCustomerForm />
+  </Elements>
 );
 
 export default CreateCustomer;

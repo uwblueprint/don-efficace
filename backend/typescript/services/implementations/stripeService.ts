@@ -67,7 +67,7 @@ class StripeService implements IStripeService {
     }
   };
 
-  createCustomer = async(
+  createCustomer = async (
     name: string,
     email: string,
     paymentMethod: string,
@@ -84,9 +84,7 @@ class StripeService implements IStripeService {
 
       return customer;
     } catch (error) {
-      Logger.error(
-        `Error creating a customer for user ${name}`,
-      );
+      Logger.error(`Error creating a customer for user ${name}`);
       throw error;
     }
   };
