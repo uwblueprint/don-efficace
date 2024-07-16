@@ -10,6 +10,7 @@ import authAPIClient from "../../APIClients/AuthAPIClient";
 import { HOME_PAGE, SIGNUP_PAGE } from "../../constants/Routes";
 import AuthContext from "../../contexts/AuthContext";
 import { AuthenticatedUser } from "../../types/AuthTypes";
+import donationsData from "../../constants/donationsDataSample"; // For testing purposes
 
 type GoogleResponse = GoogleLoginResponse | GoogleLoginResponseOffline;
 
@@ -104,3 +105,5 @@ const Login = (): React.ReactElement => {
 };
 
 export default Login;
+
+

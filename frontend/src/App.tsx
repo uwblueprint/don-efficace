@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import { ChakraProvider } from '@chakra-ui/react';
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
@@ -13,6 +13,7 @@ import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage"
 import NotFound from "./components/pages/NotFound";
 import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
+import DashboardPage from "./components/pages/DashboardPage";
 import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
@@ -24,8 +25,10 @@ import sampleContextReducer from "./reducers/SampleContextReducer";
 import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherContext";
 import EditTeamInfoPage from "./components/pages/EditTeamPage";
 import HooksDemo from "./components/pages/HooksDemo";
-
 import { AuthenticatedUser } from "./types/AuthTypes";
+import Layout from "./components/common/Layout"; // Temp for Navbar
+import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -49,58 +52,65 @@ const App = (): React.ReactElement => {
       <SampleContextDispatcherContext.Provider
         value={dispatchSampleContextUpdate}
       >
-        <AuthContext.Provider
-          value={{ authenticatedUser, setAuthenticatedUser }}
-        >
-          <Router>
-            <Switch>
-              <Route exact path={Routes.LOGIN_PAGE} component={Login} />
-              <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-              <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
-              <PrivateRoute
-                exact
-                path={Routes.CREATE_ENTITY_PAGE}
-                component={CreatePage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.UPDATE_ENTITY_PAGE}
-                component={UpdatePage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.DISPLAY_ENTITY_PAGE}
-                component={DisplayPage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.CREATE_SIMPLE_ENTITY_PAGE}
-                component={SimpleEntityCreatePage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.UPDATE_SIMPLE_ENTITY_PAGE}
-                component={SimpleEntityUpdatePage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.DISPLAY_SIMPLE_ENTITY_PAGE}
-                component={SimpleEntityDisplayPage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.EDIT_TEAM_PAGE}
-                component={EditTeamInfoPage}
-              />
-              <PrivateRoute
-                exact
-                path={Routes.HOOKS_PAGE}
-                component={HooksDemo}
-              />
-              <Route exact path="*" component={NotFound} />
-            </Switch>
-          </Router>
-        </AuthContext.Provider>
+        <ChakraProvider>
+          <AuthContext.Provider
+            value={{ authenticatedUser, setAuthenticatedUser }}
+          >
+            <Router>
+              <Switch>
+                <Route exact path={Routes.LOGIN_PAGE} component={Login} />
+                <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                {/* TODO: Move to private route eventually */}
+                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
+                <Route path={Routes.LAYOUT} component={Layout} />
+                <Route path={Routes.DONATE} component={Donate} />
+                {/* Temp for Navbar */}
+                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
+                <PrivateRoute
+                  exact
+                  path={Routes.CREATE_ENTITY_PAGE}
+                  component={CreatePage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.UPDATE_ENTITY_PAGE}
+                  component={UpdatePage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.DISPLAY_ENTITY_PAGE}
+                  component={DisplayPage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.CREATE_SIMPLE_ENTITY_PAGE}
+                  component={SimpleEntityCreatePage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.UPDATE_SIMPLE_ENTITY_PAGE}
+                  component={SimpleEntityUpdatePage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.DISPLAY_SIMPLE_ENTITY_PAGE}
+                  component={SimpleEntityDisplayPage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.EDIT_TEAM_PAGE}
+                  component={EditTeamInfoPage}
+                />
+                <PrivateRoute
+                  exact
+                  path={Routes.HOOKS_PAGE}
+                  component={HooksDemo}
+                />
+                <Route exact path="*" component={NotFound} />
+              </Switch>
+            </Router>
+          </AuthContext.Provider>
+        </ChakraProvider>
       </SampleContextDispatcherContext.Provider>
     </SampleContext.Provider>
   );
