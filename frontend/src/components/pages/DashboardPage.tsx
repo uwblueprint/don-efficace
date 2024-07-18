@@ -9,6 +9,7 @@ interface Donation {
     Date: Date
     Amount: number;
     Frequency: string;
+    TransactionID: string;
 }
 
 interface Filter {
@@ -28,7 +29,7 @@ const DashboardPage = (): React.ReactElement => {
 
     async function getUserDonations() {
         try {
-            const response = await axios.get('http://localhost:5000/donations/1');
+            const response = await axios.get('http://localhost:5001/donations/1');
 
             // Transforms fetched data to match table.
             const transformedData = response.data.map((donation: any) => ({
@@ -36,6 +37,7 @@ const DashboardPage = (): React.ReactElement => {
                 Date: new Date(donation.donation_date),
                 Amount: donation.amount,
                 Frequency: donation.is_recurring,
+                TransactionID: donation.payment_id,
             }));
 
             // Sets transformed data to donationsData.

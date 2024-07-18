@@ -20,6 +20,7 @@ interface Donation {
     Date: Date;
     Amount: number;
     Frequency: string;
+    TransactionID: string;
 }
 
 interface Filter {
@@ -34,7 +35,6 @@ interface DonationsTableProps {
 }
 
 const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
-
     const [currentPage, setCurrentPage] = useState(0);
     const [entriesPerPage, setEntriesPerPage] = useState(10);
 
@@ -74,6 +74,7 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
                             <Th textAlign="left" textTransform="none">Time</Th>
                             <Th textAlign="left" textTransform="none">Amount</Th>
                             <Th textAlign="left" textTransform="none">Frequency</Th>
+                            <Th textAlign="left" textTransform="none">Transaction ID</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -84,6 +85,7 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
                                 <Td>{new Date(donation.Date).toISOString().split('T')[1].substring(0, 5)}</Td>
                                 <Td>{donation.Amount}</Td>
                                 <Td>{donation.Frequency === "None" ? "One-Time" : donation.Frequency}</Td>
+                                <Td>{donation.TransactionID}</Td>
                             </Tr>
                         ))}
                     </Tbody>
