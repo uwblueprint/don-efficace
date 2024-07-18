@@ -54,8 +54,9 @@ class StripeService implements IStripeService {
               }),
             },
             quantity: 1,
-          },
-        ],
+          }],
+          mode: 'payment',
+          ui_mode: 'embedded',
       });
 
       if (!session.url) {
