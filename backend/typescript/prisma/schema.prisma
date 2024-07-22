@@ -22,6 +22,7 @@ model User {
   updatedAt    DateTime?
   role         RoleType
   donations    Donation[]
+  customer_id  String?                                                                                                             
 }
 
 enum RoleType {
