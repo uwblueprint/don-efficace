@@ -1,42 +1,57 @@
-import React, { useState, FormEvent } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import axios from 'axios';
+import React, { useState, FormEvent } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  useStripe,
+  useElements,
+  CardElement,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
 
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string);
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
+);
 
 const CheckoutForm: React.FC = () => {
-  const stripe = useStripe(); 
+  const stripe = useStripe();
   const elements = useElements();
-  const [amount, setAmount] = useState<string>(''); 
+  const [amount, setAmount] = useState<string>("");
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    console.log('amount', amount);
+    console.log("amount", amount);
 
-    const response = await axios.get('http://localhost:5000/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId: 'cly144mky0000bntg3dupxlx1', amount: Number(amount), causeId: 1 }),
-    });
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
+        {
+          userId: "cly144mky0000bntg3dupxlx1",
+          amount: Number(amount),
+          causeId: 1,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
 
-    console.log('response', response);
+      console.log("response", response);
 
-    const data = await response.json();
-    const sessionId: string = data.id;
+      const { id: sessionId } = response.data;
+      
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId,
+        });
 
-    if (stripe) {
-      const { error } = await stripe.redirectToCheckout({
-        sessionId,
-      });
-
-      if (error) {
-        console.error('Error redirecting to checkout:', error);
+        if (error) {
+          console.error("Error redirecting to checkout:", error);
+        }
       }
+    } catch (error) {
+      console.error("Error creating checkout session", error);
     }
   };
 
@@ -49,7 +64,9 @@ const CheckoutForm: React.FC = () => {
         placeholder="Enter amount"
       />
       <CardElement />
-      <button type="submit" disabled={!stripe || !elements}>Pay</button>
+      <button type="submit" disabled={!stripe || !elements}>
+        Pay
+      </button>
     </form>
   );
 };
