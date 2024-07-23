@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import { Response } from "express";
 import { getErrorMessage } from "../../utilities/errorUtils";
 import logger from "../../utilities/logger";
-import { IStripeService } from "../interfaces/stripeService";
+import IStripeService from "../interfaces/stripeService";
 import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
 
 dotenv.config();

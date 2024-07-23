@@ -4,12 +4,11 @@ import { Router, Request, Response } from "express";
 import { getErrorMessage } from "../utilities/errorUtils";
 import Stripe from 'stripe';
 import bodyParser from 'body-parser';
-import StripeService from "../services/implementations/stripeService";
-import { IStripeService } from "../services/interfaces/stripeService";
+import IStripeService from "../services/implementations/stripeService";
 
 require('dotenv').config();
 
-const stripeService:IStripeService = new StripeService();
+const stripeService: IStripeService = new IStripeService();
 
 const webhookRouter = Router();
 
@@ -22,7 +21,6 @@ webhookRouter.post("/", bodyParser.raw({ type: 'application/json' }), async (req
   }
 
   stripeService.evaluateCheckout(sig, request.body, res);
-  
 });
 
 export default webhookRouter;
