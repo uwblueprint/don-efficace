@@ -11,6 +11,7 @@ import entityRouter from "./rest/entityRoutes";
 import simpleEntityRouter from "./rest/simpleEntityRoutes";
 import userRouter from "./rest/userRoutes";
 import donationRouter from "./rest/donationsRoutes";
+import webhookRouter from "./rest/webhookRoutes";
 import impactRouter from "./rest/impactRoutes";
 import stripeRouter from "./rest/stripeRoute";
 
@@ -40,6 +41,7 @@ app.use("/simple-entities", simpleEntityRouter);
 app.use("/users", userRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/donations", donationRouter);
+app.use("/webhook", webhookRouter);
 app.use("/impacts", impactRouter);
 app.use("/stripe", stripeRouter);
 

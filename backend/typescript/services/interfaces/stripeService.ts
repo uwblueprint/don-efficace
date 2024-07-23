@@ -1,6 +1,7 @@
+import { Response } from "express";
 import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
 
-interface IStripeService {
+export interface IStripeService {
   /**
    *
    * @param amount Number of cents in euros
@@ -20,4 +21,6 @@ interface IStripeService {
   ): Promise<string>;
 }
 
-export default IStripeService;
+// export interface IStripeService {
+//     evaluateCheckout (sig: string | string[], body: any, res: Response): Promise<void>;
+// }
