@@ -29,6 +29,13 @@ export const validatePrimitive = (value: any, type: Type): boolean => {
   }
 };
 
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const validateValueInArray = (
+  value: any,
+  array: Readonly<any[]>,
+): boolean => array.includes(value);
+
 export const validateArray = (value: any, type: Type): boolean => {
   return (
     value !== undefined &&
@@ -49,6 +56,13 @@ export const getApiValidationError = (
   isArray = false,
 ): string => {
   return `The ${fieldName} is not a ${type}${isArray ? " Array" : ""}`;
+};
+
+export const getArrayValueValidationError = (
+  fieldName: string,
+  array: Readonly<any[]>,
+) => {
+  return `${fieldName} must be one of: ${array}`;
 };
 
 export const getFileTypeValidationError = (mimetype: string): string => {

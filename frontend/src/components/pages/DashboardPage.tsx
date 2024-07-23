@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
+import ImpactPerCause from "../common/ImpactPerCause";
 
 interface Donation {
     Cause: string;
@@ -25,10 +26,9 @@ const DashboardPage = (): React.ReactElement => {
         years: []
     });
 
-
-    async function getUserDonations() {
+    async function getUserDonations(userId: string) {
         try {
-            const response = await axios.get('http://localhost:5000/donations/1');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations/${userId}`);
 
             // Transforms fetched data to match table.
             const transformedData = response.data.map((donation: any) => ({
@@ -46,7 +46,8 @@ const DashboardPage = (): React.ReactElement => {
     }
 
     useEffect(() => {
-        getUserDonations();
+        const userId = "cly144mky0000bntg3dupxlx1";
+        getUserDonations(userId);
     }, []);
 
     // Functions to generate dropdown menu options. Creates a Set to remove duplicates and returns as array of objects.
@@ -125,7 +126,11 @@ const DashboardPage = (): React.ReactElement => {
                 </Box>
             </Flex>
             <DonationsTable filter={filter} data={donationsData} />
+
+            {/* Temporary place to put ImpactPerCause component, below the dashboard */}
+            <ImpactPerCause/> 
         </div>
+        
     );
 };
 
