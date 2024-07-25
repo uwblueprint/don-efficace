@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
 import ImpactPerCause from "../common/ImpactPerCause";
 
 interface Donation {
-    Cause: string;
-    Date: Date
-    Amount: number;
-    Frequency: string;
+  Cause: string;
+  Date: Date;
+  Amount: number;
+  Frequency: string;
 }
 
 interface Filter {
-    causes: string[];
-    frequencies: string[];
-    years: string[];
+  causes: string[];
+  frequencies: string[];
+  years: string[];
 }
 
 const DashboardPage = (): React.ReactElement => {
@@ -44,6 +44,7 @@ const DashboardPage = (): React.ReactElement => {
             console.error(error);
         }
     }
+  }
 
     useEffect(() => {
         const userId = "cly144mky0000bntg3dupxlx1";
@@ -73,23 +74,62 @@ const DashboardPage = (): React.ReactElement => {
         setFilter(prev => ({ ...prev, [type]: selectedValues }));
     };
 
-    // Maps string values back to objects for the selectedOptions prop.
-    const mapSelectedOptions = (selectedValues: string[], options: { label: string, value: string }[]) => {
-        return options.filter(option => selectedValues.includes(option.value));
-    };
+  // Functions to generate dropdown menu options. Creates a Set to remove duplicates and returns as array of objects.
+  const getUniqueOptions = (key: string) => {
+    const uniqueValues = Array.from(
+      new Set(donationsData.map((item) => item[key])),
+    );
+    return uniqueValues.map((value) => ({ label: value, value }));
+  };
 
-    const resetFilters = () => {
-        setFilter({
-            causes: [],
-            frequencies: [],
-            years: [],
-        });
-    };
+  const getUniqueYearOptions = (key: string) => {
+    const uniqueYears = Array.from(
+      new Set(donationsData.map((item) => new Date(item[key]).getFullYear())),
+    );
+    return uniqueYears.map((year) => ({
+      label: year.toString(),
+      value: year.toString(),
+    }));
+  };
 
-    return (
-        <div id="dashboardPage">
-            <h1 id="tableTitle">Your Donations</h1>
-            {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
+  // Generates filter options from data above.
+  const causeOptions = getUniqueOptions("Cause");
+  const frequencyOptions = getUniqueOptions("Frequency");
+  const yearOptions = getUniqueYearOptions("Date");
+
+  // Handles changes to filter dropdown.
+  const handleFilterChange = (type: keyof Filter) => (
+    selected:
+      | { value: string; label: string }[]
+      | { value: string; label: string }
+      | null,
+  ) => {
+    const selectedValues = Array.isArray(selected)
+      ? selected.map((option) => option.value)
+      : selected?.value;
+    setFilter((prev) => ({ ...prev, [type]: selectedValues }));
+  };
+
+  // Maps string values back to objects for the selectedOptions prop.
+  const mapSelectedOptions = (
+    selectedValues: string[],
+    options: { label: string; value: string }[],
+  ) => {
+    return options.filter((option) => selectedValues.includes(option.value));
+  };
+
+  const resetFilters = () => {
+    setFilter({
+      causes: [],
+      frequencies: [],
+      years: [],
+    });
+  };
+
+  return (
+    <div id="dashboardPage">
+      <h1 id="tableTitle">Your Donations</h1>
+      {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore 
             */}
@@ -134,8 +174,4 @@ const DashboardPage = (): React.ReactElement => {
     );
 };
 
-
-
-
 export default DashboardPage;
-
