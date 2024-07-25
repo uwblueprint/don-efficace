@@ -1,6 +1,8 @@
 import { Response } from "express";
 import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
 
+import Stripe from "stripe";
+
 interface IStripeService {
   /**
    *
@@ -19,6 +21,20 @@ interface IStripeService {
     intervalFrequency?: number,
     customerId?: string,
   ): Promise<string>;
+
+  /**
+   * Create a customer
+   * @param name the user's name
+   * @param email the user's email
+   * @param paymentMethod a payment method object from stripe to attach to the customer
+   * @returns a Customer object
+   * @throws Error if customer cannot be created
+   */
+  createCustomer(
+    name: string,
+    email: string,
+    paymentMethod: string,
+  ): Promise<Stripe.Customer>;
 
   evaluateCheckout(
     sig: string | string[],

@@ -69,6 +69,28 @@ class StripeService implements IStripeService {
     }
   };
 
+  createCustomer = async (
+    name: string,
+    email: string,
+    paymentMethod: string,
+  ): Promise<Stripe.Customer> => {
+    try {
+      const customer = await stripe.customers.create({
+        name: name,
+        email: email,
+        payment_method: paymentMethod,
+        invoice_settings: {
+          default_payment_method: paymentMethod,
+        },
+      });
+
+      return customer;
+    } catch (error) {
+      Logger.error(`Error creating a customer for user ${name}`);
+      throw error;
+    }
+  };
+
   // Evaluate Checkout Method
   async evaluateCheckout(sig: string | string[], body: any, res: Response): Promise<void> {
     let event;

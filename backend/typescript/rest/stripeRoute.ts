@@ -2,7 +2,10 @@ import { Request, Response, Router } from "express";
 
 import StripeService from "../services/implementations/stripeService";
 import IStripeService from "../services/interfaces/stripeService";
-import { createCheckoutSessionRequiredParamsValidator } from "../middlewares/validators/stripeValidators";
+import {
+  createCheckoutSessionRequiredParamsValidator,
+  createStripeCustomerRequiredParamsValidator,
+} from "../middlewares/validators/stripeValidators";
 
 const stripeService: IStripeService = new StripeService();
 
@@ -35,6 +38,24 @@ stripeRouter.post(
       res
         .status(500)
         .json({ error: "Error creating payment checkout session." });
+    }
+  },
+);
+
+stripeRouter.post(
+  "/create-customer",
+  createStripeCustomerRequiredParamsValidator,
+  async (req: Request, res: Response) => {
+    try {
+      const { name, email, paymentMethod } = req.body;
+      const customer = await stripeService.createCustomer(
+        name,
+        email,
+        paymentMethod,
+      );
+      res.send(customer);
+    } catch (error) {
+      res.status(500).json({ error: "Error creating a customer." });
     }
   },
 );
