@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { StripeCheckoutMethod, StripeSubscriptionInterval } from "../../types";
 
 import Stripe from "stripe";
@@ -34,6 +35,12 @@ interface IStripeService {
     email: string,
     paymentMethod: string,
   ): Promise<Stripe.Customer>;
+
+  evaluateCheckout(
+    sig: string | string[],
+    body: any,
+    res: Response
+  ): Promise<void>;
 }
 
-export default IStripeService;
+export default IStripeService

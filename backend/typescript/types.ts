@@ -51,6 +51,16 @@ export type DonationDTO = {
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
 
+export type ImpactDTO = {
+  cause_id: number;
+  cause_name: string;
+  items: {
+    item_id: number;
+    item_name: string;
+    total_impact: number;
+  }[];
+};
+
 export const stripeCheckoutMethods = ["payment", "subscription"] as const;
 export type StripeCheckoutMethod = (typeof stripeCheckoutMethods)[number];
 
