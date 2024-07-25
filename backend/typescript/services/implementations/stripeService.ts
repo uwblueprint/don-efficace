@@ -21,6 +21,8 @@ const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
   mode: "payment",
   return_url: SUCCESS_URL,
   // cancel_url: CANCEL_URL,
+  return_url: SUCCESS_URL,
+  // cancel_url: CANCEL_URL,
 };
 
 class StripeService implements IStripeService {
@@ -59,9 +61,15 @@ class StripeService implements IStripeService {
           ui_mode: 'embedded',
       });
 
+      console.log("session: ", session);
+
       // if (!session.url) {
+      //   console.log("session.url: ", session.url);
       //   throw new Error("Session URL is null");
       // }
+      if (session.status != 'open') {
+        throw new Error("Session is not open");
+      }
 
       return session.id;
       // return session.url;
