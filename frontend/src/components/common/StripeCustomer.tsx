@@ -7,10 +7,12 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import axios from "axios";
 
 dotenv.config();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string);
+const stripeCreateCustomerRoute = process.env.REACT_APP_STRIPE_CREATE_CUSTOMER_ROUTE as string;
 
 const CreateCustomerForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -49,26 +51,21 @@ const CreateCustomerForm: React.FC = () => {
       console.error("Error creating payment method:", paymentMethodError);
     } else {
       try {
-        const response = await fetch(
-          "http://localhost:5001/stripe/create-customer",
+        const response = await axios.post(
+            stripeCreateCustomerRoute,
           {
-            method: "POST",
+            name,
+            email,
+            paymentMethod: paymentMethod?.id,
+          },
+          {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              name,
-              email,
-              paymentMethod: paymentMethod?.id,
-            }),
           },
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to create customer");
-        }
-
-        const customer = await response.json();
+        const customer = response.data;
         console.log("Customer created:", customer);
       } catch (error) {
         console.error("Error creating customer:", error);
