@@ -9,8 +9,8 @@ export type Token = {
 
 export type UserDTO = {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
   email: string;
   role: Role;
 };
