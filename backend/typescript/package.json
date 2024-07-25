@@ -7,8 +7,7 @@
     "test": "jest --runInBand --forceExit --detectOpenHandles",
     "dev": "nodemon -L",
     "lint": "eslint . --ext .ts,.js",
-    "fix": "eslint . --ext .ts,.js --fix",
-    "seed": "ts-node prisma/dummy_users.ts"
+    "fix": "eslint . --ext .ts,.js --fix"
   },
   "keywords": [],
   "author": "",
