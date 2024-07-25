@@ -20,15 +20,15 @@ const CheckoutForm: React.FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    console.log("amount", amount);
+    console.log("amount", Number(amount));
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/create-checkout-session`,
+        `${process.env.REACT_APP_BACKEND_URL}/stripe/create-checkout-session`,
         {
-          userId: "cly144mky0000bntg3dupxlx1",
+          user_id: "cly144mky0000bntg3dupxlx1",
           amount: Number(amount),
-          causeId: 1,
+          cause_Id: 1,
         },
         {
           headers: {
