@@ -67,9 +67,6 @@ class StripeService implements IStripeService {
       //   console.log("session.url: ", session.url);
       //   throw new Error("Session URL is null");
       // }
-      if (session.status != 'open') {
-        throw new Error("Session is not open");
-      }
 
       return session.id;
       // return session.url;
