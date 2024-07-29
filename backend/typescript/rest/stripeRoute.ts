@@ -15,6 +15,11 @@ stripeRouter.post(
   async (req: Request, res: Response) => {
     try {
       const { userId, amount, causeId } = req.body;
+
+      console.log(
+        `Received request: user_id=${userId}, amount=${amount}, cause_id=${causeId}`,
+      );
+
       const sessionUrl = await stripeService.createCheckoutSession(
         userId,
         amount,
