@@ -28,6 +28,7 @@ import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import Layout from "./components/common/Layout"; // Temp for Navbar
 import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -63,6 +64,7 @@ const App = (): React.ReactElement => {
                 <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
                 <Route path={Routes.LAYOUT} component={Layout} />
                 <Route path={Routes.DONATE} component={Donate} />
+                <Route path={Routes.CHECKOUT_SUCCESS} component={CheckoutSuccessPage} />
                 {/* Temp for Navbar */}
                 <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                 <PrivateRoute

@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 
 const stripePromise = loadStripe(
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
 );
 
 const CheckoutForm: React.FC = () => {
@@ -31,7 +31,7 @@ const CheckoutForm: React.FC = () => {
   const createCheckoutSession = async (
     userId: string,
     sessionAmount: number,
-    causeId: number
+    causeId: number,
   ) => {
     try {
       const response = await axios.post(
@@ -45,7 +45,7 @@ const CheckoutForm: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data.url;
     } catch (error) {
@@ -61,7 +61,7 @@ const CheckoutForm: React.FC = () => {
       const url = await createCheckoutSession(
         "cly144mky0000bntg3dupxlx1",
         Number(amount) * 100,
-        1
+        1,
       );
       window.location.href = "http://localhost:3000/checkout-success";
     } catch (error) {
@@ -93,12 +93,12 @@ const CheckoutForm: React.FC = () => {
           Checkout
         </Heading>
         <FormControl isRequired>
-          <FormLabel htmlFor="amount">Amount (USD)</FormLabel>
+          <FormLabel htmlFor="amount">Amount</FormLabel>
           <Input
             id="amount"
             type="number"
             value={amount}
-            onChange={(e) => setAmount((e.target.value))}
+            onChange={(e) => setAmount(e.target.value)}
             min={0}
             step={0.01}
             placeholder="Enter amount"
