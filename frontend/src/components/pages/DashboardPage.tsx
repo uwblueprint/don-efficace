@@ -32,7 +32,7 @@ const DashboardPage = (): React.ReactElement => {
 
       // Transforms fetched data to match table.
       const transformedData = response.data.map((donation: any) => ({
-        Cause: donation.cause_id,
+        Cause: donation.cause.name,
         Date: new Date(donation.donation_date),
         Amount: donation.amount,
         Frequency: donation.is_recurring,

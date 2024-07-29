@@ -26,6 +26,9 @@ class DonationService implements IDonationService {
         where: {
           user_id: userId,
         },
+        include: {
+          cause: true,
+        },
       });
 
       return userDonations;
