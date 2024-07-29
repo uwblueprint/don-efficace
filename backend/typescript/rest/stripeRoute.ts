@@ -13,6 +13,7 @@ stripeRouter.post(
   "/create-checkout-session",
   createCheckoutSessionValidator,
   async (req: Request, res: Response) => {
+    console.log("Received request at /stripe/create-checkout-session:", req.body); // Logging
     try {
       const { userId, amount, causeId } = req.body;
 

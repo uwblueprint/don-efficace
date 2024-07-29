@@ -36,6 +36,7 @@ const CheckoutForm: React.FC = () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/stripe/create-checkout-session`,
+        `${process.env.REACT_APP_BACKEND_URL}/stripe/create-checkout-session`,
         {
           user_id: userId,
           amount: sessionAmount,
