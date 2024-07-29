@@ -32,9 +32,6 @@ const CheckoutSuccessPage: React.FC = () => {
         <Text fontSize="lg" textAlign="center" color={textColor}>
           Thank you for your donation. Your transaction has been completed successfully.
         </Text>
-        <Text fontSize="md" textAlign="center" color={textColor}>
-          A confirmation email has been sent to your registered email address.
-        </Text>
         <Button
           as={Link}
           to="/"
