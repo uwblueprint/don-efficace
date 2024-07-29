@@ -19,8 +19,8 @@ const CANCEL_URL = `${process.env.FRONTEND_URL}/checkout-cancel`;
 const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
   payment_method_types: ["card"],
   mode: "payment",
-  success_url: SUCCESS_URL,
-  cancel_url: CANCEL_URL,
+  return_url: SUCCESS_URL,
+  // cancel_url: CANCEL_URL,
 };
 
 class StripeService implements IStripeService {
@@ -59,9 +59,9 @@ class StripeService implements IStripeService {
           ui_mode: 'embedded',
       });
 
-      if (!session.url) {
-        throw new Error("Session URL is null");
-      }
+      // if (!session.url) {
+      //   throw new Error("Session URL is null");
+      // }
 
       return session.id;
       // return session.url;
