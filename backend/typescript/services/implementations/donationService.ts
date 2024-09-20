@@ -20,6 +20,25 @@ class DonationService implements IDonationService {
     }
   };
 
+  calculateTotalDonations = async (userId: string): Promise<number> => {
+    try {
+      const donations = await prisma.donation.findMany({
+        where: { 
+          user_id: userId 
+        },
+        select: {
+          amount: true,
+        },
+      });
+
+      const totalDonations = donations.reduce((acc, donation) => acc + donation.amount, 0);
+      return totalDonations;
+    } catch (error) {
+      Logger.error(`Error calculating total donations for user ${userId}: ${getErrorMessage(error)}`);
+      throw error;
+    }
+  };
+
   getUserDonation = async (userId: string): Promise<Array<DonationDTO>> => {
     try {
       const userDonations = await prisma.donation.findMany({

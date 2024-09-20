@@ -2,6 +2,14 @@ import { DonationDTO, Recurrence } from "../../types";
 
 interface IDonationService {
   /**
+   * Calculate the total donations made by a user
+   * @param user_id the ID of the user
+   * @returns the total amount of donations made by the user
+   * @throws Error if total donations calculation fails
+   */
+  calculateTotalDonations(user_id: string): Promise<number>;
+
+  /**
    * Get all donations across all users
    * @returns an array of DonationDTO
    * @throws Error if donation retrieval fails

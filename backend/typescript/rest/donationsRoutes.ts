@@ -33,6 +33,18 @@ donationRouter.get("/:id", async (req: any, res: any) => {
   }
 });
 
+// Calculate total value of donations by a user
+donationRouter.get("/total/:userId", async (req: any, res: any) => {
+  const { userId } = req.params;
+
+  try {
+    const totalValueDonated = await donationService.calculateTotalDonations(userId);
+    res.status(200).json({ totalValueDonated });
+  } catch (error) {
+    res.status(500).json({ error: getErrorMessage(error) });
+  }
+});
+
 // Each donation has 1 cause associated with it, the donation from user will be split before calling this route.
 donationRouter.post("/give", async (req: any, res: any) => {
   try {

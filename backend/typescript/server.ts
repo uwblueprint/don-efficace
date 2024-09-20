@@ -12,6 +12,8 @@ import simpleEntityRouter from "./rest/simpleEntityRoutes";
 import userRouter from "./rest/userRoutes";
 import donationRouter from "./rest/donationsRoutes";
 
+import { PrismaClient } from '@prisma/client';
+
 const CORS_ALLOW_LIST = [
   "http://localhost:3000",
   "https://uw-blueprint-starter-code.firebaseapp.com",
@@ -56,6 +58,8 @@ firebaseAdmin.initializeApp({
     clientEmail: process.env.FIREBASE_SVC_ACCOUNT_CLIENT_EMAIL,
   }),
 });
+
+const prisma = new PrismaClient();
 
 app.listen({ port: process.env.PORT || 5001 }, () => {
   /* eslint-disable-next-line no-console */

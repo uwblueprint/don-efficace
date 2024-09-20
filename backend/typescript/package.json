@@ -84,5 +84,8 @@
   },
   "engines": {
     "node": "18.18.2"
+  },
+  "prisma": {
+    "schema": "don-efficace/backend/typescript/prisma"
   }
 }
