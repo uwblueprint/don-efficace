@@ -21,8 +21,6 @@ const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
   mode: "payment",
   return_url: SUCCESS_URL,
   // cancel_url: CANCEL_URL,
-  return_url: SUCCESS_URL,
-  // cancel_url: CANCEL_URL,
 };
 
 class StripeService implements IStripeService {
@@ -37,7 +35,6 @@ class StripeService implements IStripeService {
     try {
       const session = await stripe.checkout.sessions.create({
         ...checkoutSessionDefaultOptions,
-        mode: paymentMethod,
         ...(customerId && { customer: customerId }),
         line_items: [
           {
@@ -60,9 +57,6 @@ class StripeService implements IStripeService {
           mode: 'payment',
           ui_mode: 'embedded',
       });
-
-      console.log("session: ", session);
-
       // if (!session.url) {
       //   console.log("session.url: ", session.url);
       //   throw new Error("Session URL is null");
