@@ -7,7 +7,7 @@ import { LOGIN_PAGE } from "../../constants/Routes";
 type PrivateRouteProps = {
   component: React.FC;
   path: string;
-  exact: boolean;
+  exact?: boolean;
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
@@ -17,7 +17,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }: PrivateRouteProps) => {
   const { authenticatedUser } = useContext(AuthContext);
 
-  return authenticatedUser ? (
+  return !authenticatedUser ? (
     <Route path={path} exact={exact} component={component} />
   ) : (
     <Redirect to={LOGIN_PAGE} />
