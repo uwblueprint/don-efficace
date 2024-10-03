@@ -9,8 +9,8 @@ export type Token = {
 
 export type UserDTO = {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
   email: string;
   role: Role;
 };
@@ -50,3 +50,25 @@ export type DonationDTO = {
 };
 
 export type CreateDonationDTO = Omit<DonationDTO, "user_id">;
+
+export type ImpactDTO = {
+  cause_id: number;
+  cause_name: string;
+  items: {
+    item_id: number;
+    item_name: string;
+    total_impact: number;
+  }[];
+};
+
+export const stripeCheckoutMethods = ["payment", "subscription"] as const;
+export type StripeCheckoutMethod = (typeof stripeCheckoutMethods)[number];
+
+export const stripeSubscriptionIntervals = [
+  "day",
+  "week",
+  "month",
+  "year",
+] as const;
+export type StripeSubscriptionInterval =
+  (typeof stripeSubscriptionIntervals)[number];

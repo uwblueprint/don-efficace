@@ -1,9 +1,13 @@
 // import { Prisma } from "@prisma/client";
-import { Router } from "express";
+import axios from "axios";
+import { Router, Request, Response } from "express";
 import prisma from "../prisma";
 import DonationService from "../services/implementations/donationService";
 import IDonationService from "../services/interfaces/donationService";
 import { getErrorMessage } from "../utilities/errorUtils";
+import bodyParser from 'body-parser';
+
+require('dotenv').config();
 
 const donationService: IDonationService = new DonationService();
 

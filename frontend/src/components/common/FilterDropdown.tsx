@@ -1,9 +1,6 @@
-import React from 'react';
-import Select from 'react-select';
-import {
-  FormControl,
-  FormLabel,
-} from '@chakra-ui/react';
+import React from "react";
+import Select from "react-select";
+import { FormControl, FormLabel } from "@chakra-ui/react";
 
 interface FilterDropdownProps {
   label: string;
@@ -26,14 +23,14 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 
   let placeholder;
   switch (label) {
-    case 'Cause':
-      placeholder = 'Select a cause';
+    case "Cause":
+      placeholder = "Select a cause";
       break;
-    case 'Donation Frequency':
-      placeholder = 'How often are you making this donation?';
+    case "Donation Frequency":
+      placeholder = "How often are you making this donation?";
       break;
-    case 'Donation Year':
-      placeholder = 'When did you make this donation?';
+    case "Donation Year":
+      placeholder = "When did you make this donation?";
       break;
     default:
       placeholder = `Select ${label.toLowerCase()}`;

@@ -105,5 +105,3 @@ const Login = (): React.ReactElement => {
 };
 
 export default Login;
-
-
