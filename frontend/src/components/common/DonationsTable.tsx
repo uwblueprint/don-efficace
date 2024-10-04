@@ -16,10 +16,11 @@ import {
 } from "@chakra-ui/react";
 
 interface Donation {
-  Cause: string;
-  Date: Date;
-  Amount: number;
-  Frequency: string;
+    Cause: string;
+    Date: Date;
+    Amount: number;
+    Frequency: string;
+    TransactionID: string;
 }
 
 interface Filter {
@@ -106,6 +107,9 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
               <Th textAlign="left" textTransform="none">
                 Frequency
               </Th>
+              <Th textAlign="left" textTransform="none">
+                Transaction ID
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -131,6 +135,7 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
                     ? "One-Time"
                     : donation.Frequency}
                 </Td>
+                <Td>{donation.TransactionID}</Td>
               </Tr>
             ))}
           </Tbody>

@@ -7,9 +7,10 @@ import ImpactPerCause from "../common/ImpactPerCause";
 
 interface Donation {
   Cause: string;
-  Date: Date;
+  Date: Date
   Amount: number;
   Frequency: string;
+  TransactionID: string;
 }
 
 interface Filter {
@@ -36,6 +37,7 @@ const DashboardPage = (): React.ReactElement => {
         Date: new Date(donation.donation_date),
         Amount: donation.amount,
         Frequency: donation.is_recurring,
+        TransactionID: donation.payment_id,
       }));
 
       // Sets transformed data to donationsData.
