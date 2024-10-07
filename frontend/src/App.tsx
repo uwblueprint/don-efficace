@@ -67,7 +67,7 @@ const App = (): React.ReactElement => {
                 <PrivateRoute
                   exact
                   path={Routes.HOME_PAGE}
-                  component={Default}
+                  component={Layout}
                 />
                 <PrivateRoute
                   exact
