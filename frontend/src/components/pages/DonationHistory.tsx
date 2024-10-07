@@ -19,7 +19,7 @@ interface Filter {
   years: string[];
 }
 
-const DashboardPage = (): React.ReactElement => {
+const DonationHistory = (): React.ReactElement => {
   const [donationsData, setDonationsData] = useState<any[]>([]);
   const [filter, setFilter] = useState<Filter>({
     causes: [],
@@ -92,7 +92,7 @@ const DashboardPage = (): React.ReactElement => {
   };
 
   return (
-    <div id="dashboardPage">
+    <div id="donationHistory">
       <h1 id="tableTitle">Your Donations</h1>
       {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -139,4 +139,4 @@ const DashboardPage = (): React.ReactElement => {
   );
 };
 
-export default DashboardPage;
+export default DonationHistory;

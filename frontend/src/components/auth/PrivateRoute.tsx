@@ -7,7 +7,7 @@ import { LOGIN_PAGE } from "../../constants/Routes";
 type PrivateRouteProps = {
   component: React.FC;
   path: string;
-  exact: boolean;
+  exact?: boolean;
 };
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
