@@ -1,6 +1,7 @@
 import React from "react";
 import StripeCheckout from "../pages/StripeCheckout";
 import SelectCauseCheckbox from "../common/SelectCauseCheckbox";
+import Input from "../common/Input";
 
 const Donate: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Donate: React.FC = () => {
         onChange={(checked) => console.log(checked)}
       />
       Donate Now!!!
+      {/* <Input placeholder="Amount" type="number" /> */}
     </>
   );
 };
