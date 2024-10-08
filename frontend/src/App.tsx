@@ -26,6 +26,7 @@ import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import Layout from "./components/common/Layout";
 import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import HomePage from "./components/common/HomePage"; // Temp for landing page
 import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
 
 const App = (): React.ReactElement => {
@@ -58,6 +59,7 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
+                <Route path={Routes.TEMP_HOME} component={HomePage} />
                 <Route path={Routes.DONATE} component={Donate} />
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
