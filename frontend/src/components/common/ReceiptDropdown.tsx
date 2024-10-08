@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import {
   FormControl,
-  FormLabel,
   Button,
   Box,
   Heading,
@@ -19,61 +18,58 @@ const ReceiptDropdown: React.FC<ReceiptDropdownProps> = ({
   selectedYears,
   onYearsChange,
 }) => {
+  const [receiptYear, setReceiptYear] = useState([]);
   const currentYear = new Date().getFullYear();
+
+  // Example years for protoyping purposes (currently takes last four years)
+  // Have to fetch year data from the user's donation history
   const years = Array.from({ length: 4 }, (_, i) => {
     const year = (currentYear - i).toString();
     return { value: year, label: year };
   });
 
+  // Change the year of the receipt based on the user's selection
   const handleYearsChange = (selected: any) => {
+    setReceiptYear(selected.map((item: any) => item.label));
     onYearsChange(selected || []);
   };
 
+  // Call download endpoint
   async function downloadReceipt() {
+    console.log(receiptYear)
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/receipts/`,
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/receipt`, // Adjust endpoint as needed
+        { years: receiptYear } // Send the years in the request body
       );
-      // and then we do something with this endpoint.
+      // TODO: And then we do something with this endpoint
     } catch (error) {
       console.error(error);
     }
   }
 
   return (
-    <Box>
-      <h2 style={{ color: '#645B56', fontSize: '20px' }}>
-        <b>Export Annual Tax Receipts</b>
-      </h2>
+    <Box style={{ marginTop: "2%" }}>
+      <hr style={{ padding: "10px" }} />
+      
+      <Heading style={{ color: "#645B56", fontSize: "20px" }}>
+        <b style={{ marginBottom: "10%" }}>Export Annual Tax Receipts</b>
+      </Heading>
+
       {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore  */}
-      <HStack width={800}>
+      <HStack width={800} marginTop={5}>
         <FormControl>
           <Select
             isMulti
             options={years}
             value={selectedYears}
             onChange={handleYearsChange}
-            placeholder="Select years"
+            placeholder="Select a year"
             styles={{
               control: (provided) => ({
                 ...provided,
-              }),
-              multiValue: (provided) => ({
-                ...provided,
-                backgroundColor: "#F9E6E6", // Light pink background for selected items
-              }),
-              multiValueLabel: (provided) => ({
-                ...provided,
-                color: "#C41E3A", // Dark red text for selected items
-              }),
-              multiValueRemove: (provided) => ({
-                ...provided,
-                color: "#C41E3A",
-                ":hover": {
-                  backgroundColor: "#C41E3A",
-                  color: "white",
-                },
+                padding: "10px",
               }),
             }}
           />
@@ -84,9 +80,15 @@ const ReceiptDropdown: React.FC<ReceiptDropdownProps> = ({
           colorScheme="pink"
           borderColor="#A5154C"
           borderRadius="5px"
-          color="#A5154C"
+          onClick={downloadReceipt}
+          style={{
+            paddingLeft: "50px",
+            paddingRight: "50px",
+            paddingTop: "28px",
+            paddingBottom: "28px",
+          }}
         >
-          Download Receipts
+          Download Receipt
         </Button>
       </HStack>
     </Box>

@@ -14,6 +14,7 @@ import donationRouter from "./rest/donationsRoutes";
 import webhookRouter from "./rest/webhookRoutes";
 import impactRouter from "./rest/impactRoutes";
 import stripeRouter from "./rest/stripeRoute";
+import receiptRouter from "./rest/receiptRoutes"
 
 const CORS_ALLOW_LIST = [
   "http://localhost:3000",
@@ -44,6 +45,7 @@ app.use("/donations", donationRouter);
 app.use("/webhook", webhookRouter);
 app.use("/impacts", impactRouter);
 app.use("/stripe", stripeRouter);
+app.use("/receipt", receiptRouter)
 
 // Health check
 app.get("/test", async (req: any, res: any) => {

@@ -4,6 +4,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
 import ImpactPerCause from "../common/ImpactPerCause";
+import ReceiptDropdown from "../common/ReceiptDropdown";
 
 interface Donation {
   Cause: string;
@@ -26,6 +27,13 @@ const DonationHistory = (): React.ReactElement => {
     frequencies: [],
     years: []
   });
+
+
+  // Updates selectedYears state when it is selected
+  const [selectedYears, setSelectedYears] = useState<{ value: string; label: string }[]>([]);
+  const handleYearsChange = (selected: { value: string; label: string }[]) => {
+    setSelectedYears(selected);
+  };
 
   async function getUserDonations(userId: string) {
     try {
@@ -134,6 +142,10 @@ const DonationHistory = (): React.ReactElement => {
 
       {/* Temporary place to put ImpactPerCause component, below the dashboard */}
       <ImpactPerCause />
+      <ReceiptDropdown
+          selectedYears={selectedYears}
+          onYearsChange={handleYearsChange}
+        />
     </div>
 
   );

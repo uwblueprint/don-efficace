@@ -71,12 +71,12 @@ const ImpactPerCause: React.FC = () => {
         fontWeight="bold"
         color="#4D4D4D"
       >
-        {causes.length > 0
+        {causes && causes.length > 0
           ? `${translations.totalImpactFor} ${causes[pageIndex].cause_name}`
           : translations.loadingCauses}
       </Text>
       {/* Content section to display items and navigation buttons */}
-      {causes.length > 0 && (
+      {causes && causes.length > 0 && (
         <Flex justifyContent="space-evenly" alignItems="center">
           {/* Previous button */}
           <Button
@@ -88,7 +88,7 @@ const ImpactPerCause: React.FC = () => {
           </Button>
           <Box>
             <Flex padding="5">
-              {causes[pageIndex].items.map((item) => (
+              {causes && causes[pageIndex].items.map((item) => (
                 <ImpactItem
                   key={item.item_id}
                   item_id={item.item_id}
@@ -110,7 +110,7 @@ const ImpactPerCause: React.FC = () => {
       )}
       {/* Circles on the bottom to indicate current page */}
       <Flex mt={0} mb={3} justifyContent="center">
-        {causes.map((item, index) => (
+        {Array.isArray(causes) && causes.map((item, index) => (
           <Circle
             size="20px"
             mx={2}
