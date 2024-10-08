@@ -4,9 +4,17 @@ export const TEMP_HOME = "/home"; // TEMP FOR LANDING PAGE
 
 export const LOGIN_PAGE = "/login";
 
-export const LAYOUT = "/layout"; // TEMP FOR NAVBAR
+// export const LAYOUT = "/layout"; // TEMP FOR NAVBAR
+
+export const DASHBOARD_PAGE = "/dashboard";
+
+export const DONATION_PAGE = "/donation-history";
+
+export const ACCOUNT_PAGE = "/account-management";
 
 export const DONATE = "/donate"; // TEMP FOR NAVBAR
+
+export const CHECKOUT_SUCCESS = "/checkout-success"
 
 export const SIGNUP_PAGE = "/signup";
 
@@ -25,5 +33,3 @@ export const CREATE_SIMPLE_ENTITY_PAGE = "/simpleEntity/create";
 export const UPDATE_SIMPLE_ENTITY_PAGE = "/simpleEntity/update";
 
 export const HOOKS_PAGE = "/hooks";
-
-export const DASHBOARD_PAGE = "/dashboard";

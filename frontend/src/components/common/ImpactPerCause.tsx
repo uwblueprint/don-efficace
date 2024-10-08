@@ -110,14 +110,16 @@ const ImpactPerCause: React.FC = () => {
       )}
       {/* Circles on the bottom to indicate current page */}
       <Flex mt={0} mb={3} justifyContent="center">
-        {causes.map((item, index) => (
-          <Circle
-            size="20px"
-            mx={2}
-            bg={pageIndex === index ? "#A5154C" : "#E0DCDA"}
-            key={item.cause_id}
-          />
-        ))}
+        {causes &&
+          causes.length > 0 &&
+          causes.map((item, index) => (
+            <Circle
+              size="20px"
+              mx={2}
+              bg={pageIndex === index ? "#A5154C" : "#E0DCDA"}
+              key={item.cause_id}
+            />
+          ))}
       </Flex>
     </Box>
   );

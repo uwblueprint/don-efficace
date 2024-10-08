@@ -12,13 +12,16 @@ export const createCheckoutSessionRequiredParamsValidator = async (
   res: Response,
   next: NextFunction,
 ) => {
+  if (!validatePrimitive(req.body.user_id, "string")) {
+    return res.status(400).send(getApiValidationError("user_id", "string"));
+  }
   if (!validatePrimitive(req.body.amount, "integer")) {
     return res.status(400).send(getApiValidationError("amount", "integer"));
   }
-  if (!validatePrimitive(req.body.causeId, "integer")) {
-    return res.status(400).send(getApiValidationError("causeId", "integer"));
+  if (!validatePrimitive(req.body.cause_id, "integer")) {
+    return res.status(400).send(getApiValidationError("cause_id", "integer"));
   }
-  if (!validateValueInArray(req.body.paymentMethod, stripeCheckoutMethods)) {
+  if (req.body.paymentMethod && !validateValueInArray(req.body.paymentMethod, stripeCheckoutMethods)) {
     return res
       .status(400)
       .send(
@@ -46,5 +49,3 @@ export const createStripeCustomerRequiredParamsValidator = async (
 
   return next();
 };
-
-

@@ -12,6 +12,7 @@ import {
   Tab,
 } from "@chakra-ui/react";
 import { NavLink, Link as RouterLink } from "react-router-dom";
+import * as Routes from "../../constants/Routes";
 
 interface NavItem {
   label: string;
@@ -24,17 +25,17 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Dashboard",
-    href: "/layout/dashboard",
+    href: Routes.DASHBOARD_PAGE,
     width: "140px",
   },
   {
     label: "Donation History",
-    href: "/layout/donation-history",
+    href: Routes.DONATION_PAGE,
     width: "190px",
   },
   {
     label: "Account Management",
-    href: "/layout/account-management",
+    href: Routes.ACCOUNT_PAGE,
     width: "240px",
   },
 ];

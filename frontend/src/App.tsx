@@ -6,14 +6,12 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import CreatePage from "./components/pages/CreatePage";
-import Default from "./components/pages/Default";
 import DisplayPage from "./components/pages/DisplayPage";
 import SimpleEntityCreatePage from "./components/pages/SimpleEntityCreatePage";
 import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage";
 import NotFound from "./components/pages/NotFound";
 import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
-import DashboardPage from "./components/pages/DashboardPage";
 import * as Routes from "./constants/Routes";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import AuthContext from "./contexts/AuthContext";
@@ -26,9 +24,10 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import EditTeamInfoPage from "./components/pages/EditTeamPage";
 import HooksDemo from "./components/pages/HooksDemo";
 import { AuthenticatedUser } from "./types/AuthTypes";
-import Layout from "./components/common/Layout"; // Temp for Navbar
+import Layout from "./components/common/Layout";
 import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import HomePage from "./components/common/HomePage"; // Temp for landing page
+import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -60,13 +59,18 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                {/* TODO: Move to private route eventually */}
-                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
-                <Route path={Routes.LAYOUT} component={Layout} />
                 <Route path={Routes.TEMP_HOME} component={HomePage} />
                 <Route path={Routes.DONATE} component={Donate} />
+                <Route
+                  path={Routes.CHECKOUT_SUCCESS}
+                  component={CheckoutSuccessPage}
+                />
                 {/* Temp for Navbar */}
-                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
+                <PrivateRoute
+                  exact
+                  path={Routes.HOME_PAGE}
+                  component={Layout}
+                />
                 <PrivateRoute
                   exact
                   path={Routes.CREATE_ENTITY_PAGE}
@@ -107,6 +111,7 @@ const App = (): React.ReactElement => {
                   path={Routes.HOOKS_PAGE}
                   component={HooksDemo}
                 />
+                <PrivateRoute path={Routes.HOME_PAGE} component={Layout} />
                 <Route exact path="*" component={NotFound} />
               </Switch>
             </Router>
