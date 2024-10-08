@@ -29,7 +29,7 @@ const ImpactPerCause: React.FC = () => {
   };
 
   // As of right now, impact is fetched from this link. In the future, this will be replaced by authContext.
-  // Change to localhost:5000 and modify the userId below based on the data entered in Prisma
+  // Change to localhost:5001 and modify the userId below based on the data entered in Prisma
   async function fetchImpactData(userId: string) {
     try {
       const response = await fetch(
