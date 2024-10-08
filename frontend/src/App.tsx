@@ -29,6 +29,7 @@ import { AuthenticatedUser } from "./types/AuthTypes";
 import Layout from "./components/common/Layout"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import PersonalDetails from "./components/pages/PersonalDetails";
 
 
 const App = (): React.ReactElement => {
@@ -62,9 +63,11 @@ const App = (): React.ReactElement => {
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
                 {/* TODO: Move to private route eventually */}
-                <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} />
+                {/* <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} /> */}
+                <Route exact path={Routes.DASHBOARD_PAGE} component ={DonationForm} />
                 <Route path={Routes.LAYOUT} component={Layout} />
-                <Route path={Routes.DONATE} component={DonationForm} />
+                {/* <Route path={Routes.DONATE} component={DonationForm} /> */}
+                <Route path={Routes.DONATE} component={PersonalDetails} />
                 {/* Temp for Navbar */}
                 <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
                 <PrivateRoute
