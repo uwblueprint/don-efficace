@@ -70,7 +70,7 @@ export default function Navbar() {
         >
           <Link
             as={RouterLink}
-            to="/"
+            to="/home"
             _hover={{ textDecoration: "none" }}
             _focus={{ outline: "none" }}
             _active={{ outline: "none" }}
