@@ -9,6 +9,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import countries from "../../constants/countries";
+// import { countries } from "countries-list";
 
 const PersonalDetails: React.FC = () => {
   const [firstName, setFirstName] = useState("");
