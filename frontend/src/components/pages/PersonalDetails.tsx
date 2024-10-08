@@ -8,7 +8,7 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-// import { countries } from "countries-list";
+import countries from "../../constants/countries";
 
 const PersonalDetails: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -87,11 +87,13 @@ const PersonalDetails: React.FC = () => {
               onChange={(e) => setCountry(e.target.value)}
               placeholder="Select country"
             >
-              {/* {Object.entries(countries).map(([code, countryData]) => (
-                <option key={code} value={code}>
-                  {countryData.name}
+              {/*     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore */}
+              {countries.map((cty) => (
+                <option key={cty.code} value={cty.name}>
+                  {cty.name}
                 </option>
-              ))} */}
+              ))}
             </Select>
           </FormControl>
           <FormControl id="postalCode" ml="10px">

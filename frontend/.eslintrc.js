@@ -33,6 +33,7 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
   },
   ignorePatterns: ["build/*"],
 };
