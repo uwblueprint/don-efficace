@@ -29,6 +29,7 @@ import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import PersonalDetails from "./components/pages/PersonalDetails";
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
