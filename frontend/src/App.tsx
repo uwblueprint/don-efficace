@@ -1,32 +1,33 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useReducer, useState } from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import Signup from "./components/auth/Signup";
+import Layout from "./components/common/Layout"; // Temp for Navbar
 import CreatePage from "./components/pages/CreatePage";
 import DisplayPage from "./components/pages/DisplayPage";
+import EditTeamInfoPage from "./components/pages/EditTeamPage";
+import HooksDemo from "./components/pages/HooksDemo";
+import NotFound from "./components/pages/NotFound";
 import SimpleEntityCreatePage from "./components/pages/SimpleEntityCreatePage";
 import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage";
-import NotFound from "./components/pages/NotFound";
-import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
-import * as Routes from "./constants/Routes";
+import UpdatePage from "./components/pages/UpdatePage";
+import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
+import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
+import * as Routes from "./constants/Routes";
 import AuthContext from "./contexts/AuthContext";
-import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 import SampleContext, {
   DEFAULT_SAMPLE_CONTEXT,
 } from "./contexts/SampleContext";
-import sampleContextReducer from "./reducers/SampleContextReducer";
 import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherContext";
-import EditTeamInfoPage from "./components/pages/EditTeamPage";
-import HooksDemo from "./components/pages/HooksDemo";
+import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
-import Layout from "./components/common/Layout";
-import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
-import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
+import { getLocalStorageObj } from "./utils/LocalStorageUtils";
+// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
