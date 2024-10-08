@@ -26,6 +26,7 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
+// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 
