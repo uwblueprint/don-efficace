@@ -1,5 +1,7 @@
 export const HOME_PAGE = "/";
 
+export const TEMP_HOME = "/home"; // TEMP FOR LANDING PAGE
+
 export const LOGIN_PAGE = "/login";
 
 // export const LAYOUT = "/layout"; // TEMP FOR NAVBAR
