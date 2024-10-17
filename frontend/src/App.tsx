@@ -16,7 +16,6 @@ import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage"
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
 import UpdatePage from "./components/pages/UpdatePage";
 import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
-import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import * as Routes from "./constants/Routes";
 import AuthContext from "./contexts/AuthContext";
@@ -27,6 +26,7 @@ import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherCo
 import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
+import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 
 const App = (): React.ReactElement => {
@@ -59,7 +59,7 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                <Route path={Routes.DONATE} component={Donate} />
+                <Route path={Routes.DONATE} component={DonationForm} />
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
                   component={CheckoutSuccessPage}
