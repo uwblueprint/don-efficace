@@ -5,6 +5,7 @@ import DonationsTable from "../common/DonationsTable";
 import FilterDropdown from "../common/FilterDropdown";
 import ImpactPerCause from "../common/ImpactPerCause";
 import ReceiptDropdown from "../common/ReceiptDropdown";
+import ValueDonatedPerCause from "../common/ValueDonatedPerCause";
 
 interface Donation {
   Cause: string;
@@ -106,6 +107,7 @@ const DonationHistory = (): React.ReactElement => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore 
             */}
+
       <Flex direction="row" justify="space-between" padding="16px">
         <Box width="25%">
           <FilterDropdown
@@ -146,6 +148,9 @@ const DonationHistory = (): React.ReactElement => {
           selectedYears={selectedYears}
           onYearsChange={handleYearsChange}
         />
+
+        {/* Temporary place to put ValueDonatedPerCause component, below the dashboard */}
+        <ValueDonatedPerCause />
     </div>
 
   );
