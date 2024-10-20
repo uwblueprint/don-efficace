@@ -8,11 +8,13 @@ import {
   Checkbox,
   HStack,
   Icon,
+  Text,
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import StripeCheckout from "../pages/StripeCheckout";
 import SelectCauseCheckbox from "./SelectCauseCheckbox";
 import heroBanner from "../../assets/hero-banner.jpeg";
+import ImpactPerCause from "./ImpactPerCause";
 
 type Cause = "health" | "education" | "animal";
 
@@ -199,9 +201,26 @@ const DonationForm: React.FC = () => {
             </HStack>
           </FormControl>
         </Box>
+
+        <Box>
+          {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore */}
+          <Text
+            fontSize="14pt"
+            fontWeight="bold"
+            display="flex"
+            alignItems="center"
+            margin="20px 0px 10px 0px"
+          >
+            Your Impact
+          </Text>
+
+          <ImpactPerCause />
+        </Box>
       </Box>
 
-      <StripeCheckout />
+      {/* <StripeCheckout /> */}
       <SelectCauseCheckbox
         label="Cause [TO DO]"
         onChange={(checked) => console.log(checked)}
