@@ -60,10 +60,10 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                <Route path={Routes.DONATE} component={PersonalDetails} />
+                <Route path={Routes.DONATE} component={DonationForm} />
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
-                  component={DonationForm}
+                  component={CheckoutSuccessPage}
                 />
                 {/* Temp for Navbar */}
                 <PrivateRoute
