@@ -25,19 +25,11 @@ import SampleContext, {
 import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherContext";
 import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
-<<<<<<< HEAD
-import Layout from "./components/common/Layout"; // Temp for Navbar
-import DonationForm from "./components/common/DonationForm";
-// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
-import PersonalDetails from "./components/pages/PersonalDetails";
-
-=======
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import PersonalDetails from "./components/pages/PersonalDetails";
->>>>>>> 4ae008a96e085bbacdcefe42dbe6c69db540cf48
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
