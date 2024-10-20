@@ -1,4 +1,4 @@
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useReducer, useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
@@ -52,7 +52,7 @@ const App = (): React.ReactElement => {
       <SampleContextDispatcherContext.Provider
         value={dispatchSampleContextUpdate}
       >
-        <ChakraProvider theme={theme}>
+        <ChakraProvider>
           <AuthContext.Provider
             value={{ authenticatedUser, setAuthenticatedUser }}
           >
