@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useReducer, useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
@@ -28,7 +28,6 @@ import { AuthenticatedUser } from "./types/AuthTypes";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
-// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import PersonalDetails from "./components/pages/PersonalDetails";
 
 const App = (): React.ReactElement => {
@@ -53,7 +52,7 @@ const App = (): React.ReactElement => {
       <SampleContextDispatcherContext.Provider
         value={dispatchSampleContextUpdate}
       >
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <AuthContext.Provider
             value={{ authenticatedUser, setAuthenticatedUser }}
           >
@@ -64,7 +63,7 @@ const App = (): React.ReactElement => {
                 <Route path={Routes.DONATE} component={PersonalDetails} />
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
-                  component={CheckoutSuccessPage}
+                  component={DonationForm}
                 />
                 {/* Temp for Navbar */}
                 <PrivateRoute
