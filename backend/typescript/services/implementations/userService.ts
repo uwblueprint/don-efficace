@@ -180,13 +180,15 @@ class UserService implements IUserService {
         });
       }
 
-      console.log(user.firstName, user.lastName, firebaseUser.uid, user.role);
+      if (!user.firstName || !user.lastName) {
+        throw new Error('Missing required user fields for update');
+      }
 
       try {
         newUser = await prisma.user.create({
           data: {
-            first_name: user.firstName,
-            last_name: user.lastName,
+            first_name: user.firstName ?? 'Unknown',
+            last_name: user.lastName ?? 'Unknown',
             auth_id: firebaseUser.uid,
             role: user.role,
           },
@@ -222,6 +224,10 @@ class UserService implements IUserService {
 
   async updateUserById(userId: string, user: UpdateUserDTO): Promise<UserDTO> {
     let updatedFirebaseUser: firebaseAdmin.auth.UserRecord;
+
+    if (!user.firstName || !user.lastName) {
+      throw new Error('Missing required user fields for update');
+    }
 
     try {
       const updateResult = await prisma.user.update({

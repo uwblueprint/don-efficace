@@ -1,36 +1,43 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useReducer, useState } from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import Signup from "./components/auth/Signup";
+import Layout from "./components/common/Layout"; // Temp for Navbar
 import CreatePage from "./components/pages/CreatePage";
-import Default from "./components/pages/Default";
 import DisplayPage from "./components/pages/DisplayPage";
+import EditTeamInfoPage from "./components/pages/EditTeamPage";
+import HooksDemo from "./components/pages/HooksDemo";
+import NotFound from "./components/pages/NotFound";
 import SimpleEntityCreatePage from "./components/pages/SimpleEntityCreatePage";
 import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage";
-import NotFound from "./components/pages/NotFound";
-import UpdatePage from "./components/pages/UpdatePage";
 import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
-import DashboardPage from "./components/pages/DashboardPage";
-import * as Routes from "./constants/Routes";
+import UpdatePage from "./components/pages/UpdatePage";
+import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
+import * as Routes from "./constants/Routes";
 import AuthContext from "./contexts/AuthContext";
-import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 import SampleContext, {
   DEFAULT_SAMPLE_CONTEXT,
 } from "./contexts/SampleContext";
-import sampleContextReducer from "./reducers/SampleContextReducer";
 import SampleContextDispatcherContext from "./contexts/SampleContextDispatcherContext";
-import EditTeamInfoPage from "./components/pages/EditTeamPage";
-import HooksDemo from "./components/pages/HooksDemo";
+import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
+<<<<<<< HEAD
 import Layout from "./components/common/Layout"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import PersonalDetails from "./components/pages/PersonalDetails";
 
+=======
+import { getLocalStorageObj } from "./utils/LocalStorageUtils";
+// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import DonationForm from "./components/common/DonationForm";
+// import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import PersonalDetails from "./components/pages/PersonalDetails";
+>>>>>>> 4ae008a96e085bbacdcefe42dbe6c69db540cf48
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -62,14 +69,17 @@ const App = (): React.ReactElement => {
               <Switch>
                 <Route exact path={Routes.LOGIN_PAGE} component={Login} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
-                {/* TODO: Move to private route eventually */}
-                {/* <Route exact path={Routes.DASHBOARD_PAGE} component ={DashboardPage} /> */}
-                <Route exact path={Routes.DASHBOARD_PAGE} component ={DonationForm} />
-                <Route path={Routes.LAYOUT} component={Layout} />
-                {/* <Route path={Routes.DONATE} component={DonationForm} /> */}
                 <Route path={Routes.DONATE} component={PersonalDetails} />
+                <Route
+                  path={Routes.CHECKOUT_SUCCESS}
+                  component={CheckoutSuccessPage}
+                />
                 {/* Temp for Navbar */}
-                <PrivateRoute exact path={Routes.HOME_PAGE} component={Default} />
+                <PrivateRoute
+                  exact
+                  path={Routes.HOME_PAGE}
+                  component={Layout}
+                />
                 <PrivateRoute
                   exact
                   path={Routes.CREATE_ENTITY_PAGE}
@@ -110,6 +120,7 @@ const App = (): React.ReactElement => {
                   path={Routes.HOOKS_PAGE}
                   component={HooksDemo}
                 />
+                <PrivateRoute path={Routes.HOME_PAGE} component={Layout} />
                 <Route exact path="*" component={NotFound} />
               </Switch>
             </Router>

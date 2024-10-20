@@ -19,8 +19,8 @@ const CANCEL_URL = `${process.env.FRONTEND_URL}/checkout-cancel`;
 const checkoutSessionDefaultOptions: Stripe.Checkout.SessionCreateParams = {
   payment_method_types: ["card"],
   mode: "payment",
-  success_url: SUCCESS_URL,
-  cancel_url: CANCEL_URL,
+  return_url: SUCCESS_URL,
+  // cancel_url: CANCEL_URL,
 };
 
 class StripeService implements IStripeService {
@@ -35,7 +35,6 @@ class StripeService implements IStripeService {
     try {
       const session = await stripe.checkout.sessions.create({
         ...checkoutSessionDefaultOptions,
-        mode: paymentMethod,
         ...(customerId && { customer: customerId }),
         line_items: [
           {
@@ -54,15 +53,17 @@ class StripeService implements IStripeService {
               }),
             },
             quantity: 1,
-          },
-        ],
+          }],
+          mode: 'payment',
+          ui_mode: 'embedded',
       });
+      // if (!session.url) {
+      //   console.log("session.url: ", session.url);
+      //   throw new Error("Session URL is null");
+      // }
 
-      if (!session.url) {
-        throw new Error("Session URL is null");
-      }
-
-      return session.url;
+      return session.id;
+      // return session.url;
     } catch (error) {
       Logger.error(`Error creating a checkout session: ${error}`);
       throw error;
