@@ -63,7 +63,7 @@ const App = (): React.ReactElement => {
                 <Route path={Routes.DONATE} component={DonationForm} />
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
-                  component={DonationForm}
+                  component={CheckoutSuccessPage}
                 />
                 {/* Temp for Navbar */}
                 <PrivateRoute
