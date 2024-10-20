@@ -5,12 +5,12 @@ import {
   FormLabel,
   Heading,
   Image,
-  Input,
   Button,
   Select,
 } from "@chakra-ui/react";
 import countries from "../../constants/countries";
 import heroBanner from "../../assets/hero-banner.jpeg";
+import Input from "../common/Input";
 
 const PersonalDetails: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -23,6 +23,36 @@ const PersonalDetails: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = {
+      firstName,
+      lastName,
+      email,
+      streetAddress,
+      city,
+      country,
+      postalCode,
+    };
+
+    try {
+      // TO DO: Assuming your backend API endpoint is at /api/personal-details
+      const response = await fetch("/api/personal-details", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit personal details");
+      }
+
+      // Handle success, maybe redirect to the next step in the form
+      console.log("Form successfully submitted");
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+    }
   };
 
   return (
