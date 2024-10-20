@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
@@ -24,31 +25,19 @@ const PersonalDetails: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const address = `${streetAddress}, ${city}, ${postalCode}, ${country}`;
+
     const formData = {
       firstName,
       lastName,
       email,
-      streetAddress,
-      city,
-      country,
-      postalCode,
+      address,
     };
 
     try {
-      // TO DO: Assuming your backend API endpoint is at /api/personal-details
-      const response = await fetch("/api/personal-details", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // TO DO: Create user if the provided email does not exist within our database
 
-      if (!response.ok) {
-        throw new Error("Failed to submit personal details");
-      }
-
-      // Handle success, maybe redirect to the next step in the form
+      // TO DO: redirect to the next step in the form
       console.log("Form successfully submitted");
     } catch (error) {
       console.error("Error submitting form: ", error);
@@ -56,11 +45,7 @@ const PersonalDetails: React.FC = () => {
   };
 
   return (
-    <Box color="#645B56" width="80%" mx="auto" fontWeight="bold"
-      // sx={{
-      //   fontWeight: 'bold !important', // Important to override any other styles
-      // }}
-      >
+    <Box color="#645B56" width="80%" mx="auto">
       <Box
         display="flex"
         justifyContent="center"
@@ -114,8 +99,8 @@ const PersonalDetails: React.FC = () => {
 
       {/* TO DO: insert progress bar for donation form here */}
 
-      <Box width="60%">
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <Box width="50%">
           {/*     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore */}
           <Box margin="50px 0px 20px 0px">
@@ -125,7 +110,7 @@ const PersonalDetails: React.FC = () => {
           </Box>
           <Box display="flex" mb="20px">
             <FormControl id="firstName" mr="10px">
-              <FormLabel>First Name</FormLabel>
+              <FormLabel fontWeight="bold">First Name</FormLabel>
               <Input
                 type="text"
                 value={firstName}
@@ -135,7 +120,7 @@ const PersonalDetails: React.FC = () => {
               />
             </FormControl>
             <FormControl id="lastName" ml="10px">
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel fontWeight="bold">Last Name</FormLabel>
               <Input
                 type="text"
                 value={lastName}
@@ -146,7 +131,7 @@ const PersonalDetails: React.FC = () => {
           {/*     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore */}
           <FormControl id="email" mb="20px">
-            <FormLabel>Email Address</FormLabel>
+            <FormLabel fontWeight="bold">Email Address</FormLabel>
             <Input
               type="email"
               value={email}
@@ -154,7 +139,7 @@ const PersonalDetails: React.FC = () => {
             />
           </FormControl>
           <FormControl id="streetAddress" mb="20px">
-            <FormLabel>Street Address</FormLabel>
+            <FormLabel fontWeight="bold">Street Address</FormLabel>
             <Input
               type="text"
               value={streetAddress}
@@ -162,7 +147,7 @@ const PersonalDetails: React.FC = () => {
             />
           </FormControl>
           <FormControl id="city" mb="20px">
-            <FormLabel>City</FormLabel>
+            <FormLabel fontWeight="bold">City</FormLabel>
             <Input
               type="text"
               value={city}
@@ -171,7 +156,7 @@ const PersonalDetails: React.FC = () => {
           </FormControl>
           <Box display="flex" mb="20px">
             <FormControl id="country" mr="10px">
-              <FormLabel>Country</FormLabel>
+              <FormLabel fontWeight="bold">Country</FormLabel>
               <Select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
@@ -187,7 +172,7 @@ const PersonalDetails: React.FC = () => {
               </Select>
             </FormControl>
             <FormControl id="postalCode" ml="10px">
-              <FormLabel>Postal Code</FormLabel>
+              <FormLabel fontWeight="bold">Postal Code</FormLabel>
               <Input
                 type="text"
                 value={postalCode}
@@ -195,11 +180,18 @@ const PersonalDetails: React.FC = () => {
               />
             </FormControl>
           </Box>
-          <Button mt={4} colorScheme="teal" type="submit">
+        </Box>
+        {/*     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore */}
+        <Flex my={12} justify="space-between">
+          <Button color="#A5154C" backgroundColor="white" borderColor="#A5154C" borderWidth="1px">
+            {"< Donation Details"}
+          </Button>
+          <Button color="white" backgroundColor="#A5154C" type="submit">
             {"Payment Details >"}
           </Button>
-        </form>
-      </Box>
+        </Flex>
+      </form>
     </Box>
   );
 };
