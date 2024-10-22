@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Box, Text, Flex, Button, Center, Checkbox } from "@chakra-ui/react";
 
 interface SelectCauseCheckboxProps {
@@ -6,14 +6,11 @@ interface SelectCauseCheckboxProps {
   onChange: (checked: boolean) => void;
 }
 
-const SelectCauseCheckbox: React.FC<SelectCauseCheckboxProps> = ({ label, onChange }) => {
+const SelectCauseCheckbox: React.FC<SelectCauseCheckboxProps> = ({
+  label,
+  onChange,
+}) => {
   const [checked, setChecked] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setChecked(isChecked);
-    onChange(isChecked);
-  };
 
   // const allChecked = checked.every(Boolean)
   // const isIndeterminate = checked.some(Boolean) && !allChecked
@@ -43,7 +40,18 @@ const SelectCauseCheckbox: React.FC<SelectCauseCheckboxProps> = ({ label, onChan
   // }, []);
 
   return (
-    <Box w="20rem" h="20rem" mx="auto">
+    <Box
+      w="20rem"
+      h="20rem"
+      _hover={{
+        cursor: "pointer",
+      }}
+      onClick={(event) => {
+        event.preventDefault(); // Prevents the click event from bubbling to the parent Box
+        setChecked(!checked);
+        onChange(!checked);
+      }}
+    >
       <Box
         position="absolute"
         w="20rem" // TO DO: Inherits the width from the parent
@@ -75,7 +83,7 @@ const SelectCauseCheckbox: React.FC<SelectCauseCheckboxProps> = ({ label, onChan
         zIndex={2} // Higher z-index, this will appear in front
         _active={{
           transform: "translate(-0.25rem, 0.25rem)", // Move the box 1rem left and 1rem down
-          zIndex:"2"
+          zIndex: "2",
         }}
       >
         {/* <input
@@ -86,7 +94,6 @@ const SelectCauseCheckbox: React.FC<SelectCauseCheckboxProps> = ({ label, onChan
         <Checkbox
           isChecked={checked}
           // isIndeterminate={isIndeterminate}
-          onChange={(e) => setChecked(e.target.checked)}
           m={0}
           zIndex={2} // Higher z-index, this will appear in front
         >

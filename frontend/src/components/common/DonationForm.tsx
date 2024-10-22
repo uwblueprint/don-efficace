@@ -114,90 +114,18 @@ const DonationForm: React.FC = () => {
             </FormLabel>
 
             <HStack display="flex" justifyContent="left" alignItems="center">
-              <Box
-                as="label"
-                boxShadow="-5px 5px #A6164B"
-                border="3px solid #A6164B"
-                borderRadius="5px"
-                margin="0px"
-                cursor="pointer"
-              >
-                <Checkbox
-                  isChecked={selectedCauses.health}
-                  onChange={() => handleCheckboxChange("health")}
-                  padding="10px 12px 4px 12px"
-                  sx={{
-                    ".chakra-checkbox__control": {
-                      borderColor: "#A6164B",
-                      backgroundColor: selectedCauses.health
-                        ? "#A6164B"
-                        : "transparent",
-                    },
-                    ".chakra-checkbox__control[data-checked]": {
-                      backgroundColor: "#A6164B",
-                      borderColor: "#A6164B",
-                    },
-                  }}
-                >
-                  Health & Solidarity Fund
-                </Checkbox>
-              </Box>
-
-              <Box
-                as="label"
-                boxShadow="-5px 5px #A6164B"
-                border="3px solid #A6164B"
-                borderRadius="5px"
-                cursor="pointer"
-              >
-                <Checkbox
-                  isChecked={selectedCauses.education}
-                  onChange={() => handleCheckboxChange("education")}
-                  padding="10px 12px 4px 12px"
-                  sx={{
-                    ".chakra-checkbox__control": {
-                      borderColor: "#A6164B",
-                      backgroundColor: selectedCauses.education
-                        ? "#A6164B"
-                        : "transparent",
-                    },
-                    ".chakra-checkbox__control[data-checked]": {
-                      backgroundColor: "#A6164B",
-                      borderColor: "#A6164B",
-                    },
-                  }}
-                >
-                  Education & Research Fund
-                </Checkbox>
-              </Box>
-
-              <Box
-                as="label"
-                boxShadow="-5px 5px #A6164B"
-                border="3px solid #A6164B"
-                borderRadius="5px"
-                cursor="pointer"
-              >
-                <Checkbox
-                  isChecked={selectedCauses.animal}
-                  onChange={() => handleCheckboxChange("animal")}
-                  padding="10px 12px 4px 12px"
-                  sx={{
-                    ".chakra-checkbox__control": {
-                      borderColor: "#A6164B",
-                      backgroundColor: selectedCauses.animal
-                        ? "#A6164B"
-                        : "transparent",
-                    },
-                    ".chakra-checkbox__control[data-checked]": {
-                      backgroundColor: "#A6164B",
-                      borderColor: "#A6164B",
-                    },
-                  }}
-                >
-                  Animal Welfare & Environment Fund
-                </Checkbox>
-              </Box>
+              <SelectCauseCheckbox
+                label="Health & Solidarity Fund"
+                onChange={(checked) => console.log(checked)}
+              />
+              <SelectCauseCheckbox
+                label="Education & Research Fund"
+                onChange={(checked) => console.log(checked)}
+              />
+              <SelectCauseCheckbox
+                label="Animal Welfare & Fund"
+                onChange={(checked) => console.log(checked)}
+              />
             </HStack>
           </FormControl>
         </Box>
@@ -220,11 +148,7 @@ const DonationForm: React.FC = () => {
         </Box>
       </Box>
 
-      {/* <StripeCheckout /> */}
-      <SelectCauseCheckbox
-        label="Cause [TO DO]"
-        onChange={(checked) => console.log(checked)}
-      />
+      <StripeCheckout />
     </Box>
   );
 };
