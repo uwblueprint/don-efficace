@@ -12,7 +12,7 @@ export const ACCOUNT_PAGE = "/account-management";
 
 export const DONATE = "/donate"; // TEMP FOR NAVBAR
 
-export const CHECKOUT_SUCCESS = "/checkout-success"
+export const CHECKOUT_SUCCESS = "/checkout-success";
 
 export const SIGNUP_PAGE = "/signup";
 

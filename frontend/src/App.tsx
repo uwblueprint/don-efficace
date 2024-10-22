@@ -29,6 +29,7 @@ import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
 import DonationForm from "./components/common/DonationForm";
 import PersonalDetails from "./components/pages/PersonalDetails";
+import HomePage from "./components/common/HomePage";
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -58,7 +59,7 @@ const App = (): React.ReactElement => {
           >
             <Router>
               <Switch>
-                <Route exact path={Routes.LOGIN_PAGE} component={Login} />
+                <Route exact path={Routes.LOGIN_PAGE} component={HomePage} />
                 <Route exact path={Routes.SIGNUP_PAGE} component={Signup} />
                 <Route path={Routes.DONATE} component={DonationForm} />
                 <Route

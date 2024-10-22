@@ -16,11 +16,11 @@ import {
 } from "@chakra-ui/react";
 
 interface Donation {
-    Cause: string;
-    Date: Date;
-    Amount: number;
-    Frequency: string;
-    TransactionID: string;
+  Cause: string;
+  Date: Date;
+  Amount: number;
+  Frequency: string;
+  TransactionID: string;
 }
 
 interface Filter {
@@ -79,9 +79,6 @@ const DonationsTable: React.FC<DonationsTableProps> = ({ filter, data }) => {
   );
 
   return (
-    // We need these two comments to prevent "Expression produces a union type that is too complex to represent."
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     <TableContainer padding="16px">
       <Box
         border="1px"

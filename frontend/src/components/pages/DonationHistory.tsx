@@ -119,11 +119,6 @@ const DonationHistory = (): React.ReactElement => {
   return (
     <div id="donationHistory">
       <h1 id="tableTitle">Your Donations</h1>
-      {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore 
-            */}
-
       <Flex direction="row" justify="space-between" padding="16px">
         <Box width="25%">
           <FilterDropdown

@@ -131,9 +131,6 @@ const DonationForm: React.FC = () => {
         </Box>
 
         <Box>
-          {/* // We need these next two comments to prevent "Expression produces a union type that is too complex to represent."
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore */}
           <Text
             fontSize="14pt"
             fontWeight="bold"
