@@ -1,23 +1,52 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import {
-  Box,
-  Flex,
-  Text,
-  Image,
-  Button,
-  Link,
-  useColorModeValue,
-  Tabs,
-  TabList,
-  TabIndicator,
-  Tab,
-  Center,
-} from "@chakra-ui/react";
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
+
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import authAPIClient from "../../APIClients/AuthAPIClient";
+import { HOME_PAGE, SIGNUP_PAGE } from "../../constants/Routes";
+import AuthContext from "../../contexts/AuthContext";
+import { AuthenticatedUser } from "../../types/AuthTypes";
 import postcard from "../../constants/postcard.png";
 
-const HomePage = () => {
+type GoogleResponse = GoogleLoginResponse | GoogleLoginResponseOffline;
+
+type GoogleErrorResponse = {
+  error: string;
+  details: string;
+};
+
+const HomePage = (): React.ReactElement => {
+  const { authenticatedUser, setAuthenticatedUser } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  const onLogInClick = async () => {
+    const user: AuthenticatedUser = await authAPIClient.login(email, password);
+    setAuthenticatedUser(user);
+  };
+
+  const onSignUpClick = () => {
+    history.push(SIGNUP_PAGE);
+  };
+
+  const onGoogleLoginSuccess = async (tokenId: string) => {
+    const user: AuthenticatedUser = await authAPIClient.loginWithGoogle(
+      tokenId,
+    );
+    setAuthenticatedUser(user);
+  };
+
+  if (authenticatedUser) {
+    // eslint-disable-next-line react/react-in-jsx-scope
+    return <Redirect to={HOME_PAGE} />;
+  }
+
   return (
     <Flex height="100vh">
       <Box
@@ -86,17 +115,22 @@ const HomePage = () => {
             Efficace.
           </Text>
         </Box>
-        <Button
-          w="60%"
-          variant="outline"
-          rightIcon={<FcGoogle />}
-          borderColor="black"
-          borderWidth="1px"
-        >
-          <Center>
-            <Text>Log in with Google</Text>
-          </Center>
-        </Button>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_OAUTH_CLIENT_ID || ""}
+          buttonText="Login with Google"
+          onSuccess={(response: GoogleResponse): void => {
+            if ("tokenId" in response) {
+              onGoogleLoginSuccess(response.tokenId);
+            } else {
+              // eslint-disable-next-line no-alert
+              window.alert(response);
+            }
+          }}
+          onFailure={(error: GoogleErrorResponse) =>
+            // eslint-disable-next-line no-alert
+            window.alert(JSON.stringify(error))
+          }
+        />
       </Box>
     </Flex>
   );
