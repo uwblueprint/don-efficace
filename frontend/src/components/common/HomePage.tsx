@@ -19,7 +19,7 @@ import postcard from "../../constants/postcard.png";
 
 const HomePage = () => {
   return (
-    <Flex height="1124px">
+    <Flex height="100vh">
       <Box
         flex="2"
         bg="#C61F5C"
