@@ -1,10 +1,6 @@
-// Template for Navbar - To-Do (Reroute this to the Dashboard component)
-// Ensure that whatever link paths to dashboard links to layout/dashboard
-// For testing (to view the navbar), navigate to localhost:3000/layout
-
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Navbar from "./NavBar";
 import DonationDashboard from "../pages/DonationDashboard";
 import AccountManagement from "../temp_navbar/AccountManagement";
@@ -12,7 +8,13 @@ import AccountManagement from "../temp_navbar/AccountManagement";
 import DonationHistory from "../pages/DonationHistory";
 import * as Routes from "../../constants/Routes";
 
-const Layout = () => {
+const Layout: React.FC = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    history.push(Routes.DASHBOARD_PAGE);
+  }, []);
+
   return (
     <Box>
       <Navbar />

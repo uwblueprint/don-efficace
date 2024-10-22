@@ -115,22 +115,61 @@ const HomePage = (): React.ReactElement => {
             Efficace.
           </Text>
         </Box>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_OAUTH_CLIENT_ID || ""}
-          buttonText="Login with Google"
-          onSuccess={(response: GoogleResponse): void => {
-            if ("tokenId" in response) {
-              onGoogleLoginSuccess(response.tokenId);
-            } else {
+
+        <form>
+          <div>
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="username@domain.com"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="password"
+            />
+          </div>
+          <div>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={onLogInClick}
+            >
+              Log In
+            </button>
+          </div>
+
+          <GoogleLogin
+            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID || ""}
+            buttonText="Login with Google"
+            onSuccess={(response: GoogleResponse): void => {
+              if ("tokenId" in response) {
+                onGoogleLoginSuccess(response.tokenId);
+              } else {
+                // eslint-disable-next-line no-alert
+                window.alert(response);
+              }
+            }}
+            onFailure={(error: GoogleErrorResponse) =>
               // eslint-disable-next-line no-alert
-              window.alert(response);
+              window.alert(JSON.stringify(error))
             }
-          }}
-          onFailure={(error: GoogleErrorResponse) =>
-            // eslint-disable-next-line no-alert
-            window.alert(JSON.stringify(error))
-          }
-        />
+          />
+        </form>
+
+        <div>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={onSignUpClick}
+          >
+            Sign Up
+          </button>
+        </div>
       </Box>
     </Flex>
   );

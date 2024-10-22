@@ -2,19 +2,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useReducer, useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Login from "./components/auth/Login";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Signup from "./components/auth/Signup";
 import Layout from "./components/common/Layout";
-import CreatePage from "./components/pages/CreatePage";
-import DisplayPage from "./components/pages/DisplayPage";
-import EditTeamInfoPage from "./components/pages/EditTeamPage";
-import HooksDemo from "./components/pages/HooksDemo";
 import NotFound from "./components/pages/NotFound";
-import SimpleEntityCreatePage from "./components/pages/SimpleEntityCreatePage";
-import SimpleEntityDisplayPage from "./components/pages/SimpleEntityDisplayPage";
-import SimpleEntityUpdatePage from "./components/pages/SimpleEntityUpdatePage";
-import UpdatePage from "./components/pages/UpdatePage";
 import CheckoutSuccessPage from "./components/temp_navbar/CheckoutSuccessPage";
 import AUTHENTICATED_USER_KEY from "./constants/AuthConstants";
 import * as Routes from "./constants/Routes";
@@ -27,9 +18,8 @@ import sampleContextReducer from "./reducers/SampleContextReducer";
 import { AuthenticatedUser } from "./types/AuthTypes";
 import { getLocalStorageObj } from "./utils/LocalStorageUtils";
 // import Donate from "./components/temp_navbar/Donate"; // Temp for Navbar
+import HomePage from "./components/auth/HomePage";
 import DonationForm from "./components/common/DonationForm";
-import PersonalDetails from "./components/pages/PersonalDetails";
-import HomePage from "./components/common/HomePage";
 
 const App = (): React.ReactElement => {
   const currentUser: AuthenticatedUser = getLocalStorageObj<AuthenticatedUser>(
@@ -65,52 +55,6 @@ const App = (): React.ReactElement => {
                 <Route
                   path={Routes.CHECKOUT_SUCCESS}
                   component={CheckoutSuccessPage}
-                />
-                {/* Temp for Navbar */}
-                <PrivateRoute
-                  exact
-                  path={Routes.HOME_PAGE}
-                  component={Layout}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.CREATE_ENTITY_PAGE}
-                  component={CreatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.UPDATE_ENTITY_PAGE}
-                  component={UpdatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.DISPLAY_ENTITY_PAGE}
-                  component={DisplayPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.CREATE_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityCreatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.UPDATE_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityUpdatePage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.DISPLAY_SIMPLE_ENTITY_PAGE}
-                  component={SimpleEntityDisplayPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.EDIT_TEAM_PAGE}
-                  component={EditTeamInfoPage}
-                />
-                <PrivateRoute
-                  exact
-                  path={Routes.HOOKS_PAGE}
-                  component={HooksDemo}
                 />
                 <PrivateRoute path={Routes.HOME_PAGE} component={Layout} />
                 <Route exact path="*" component={NotFound} />
