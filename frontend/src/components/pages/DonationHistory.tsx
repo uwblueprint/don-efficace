@@ -9,7 +9,7 @@ import ValueDonatedPerCause from "../common/ValueDonatedPerCause";
 
 interface Donation {
   Cause: string;
-  Date: Date
+  Date: Date;
   Amount: number;
   Frequency: string;
   TransactionID: string;
@@ -26,19 +26,22 @@ const DonationHistory = (): React.ReactElement => {
   const [filter, setFilter] = useState<Filter>({
     causes: [],
     frequencies: [],
-    years: []
+    years: [],
   });
 
-
   // Updates selectedYears state when it is selected
-  const [selectedYears, setSelectedYears] = useState<{ value: string; label: string }[]>([]);
+  const [selectedYears, setSelectedYears] = useState<
+    { value: string; label: string }[]
+  >([]);
   const handleYearsChange = (selected: { value: string; label: string }[]) => {
     setSelectedYears(selected);
   };
 
   async function getUserDonations(userId: string) {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations/${userId}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/donations/${userId}`,
+      );
 
       // Transforms fetched data to match table.
       const transformedData = response.data.map((donation: any) => ({
@@ -63,25 +66,38 @@ const DonationHistory = (): React.ReactElement => {
 
   // Functions to generate dropdown menu options. Creates a Set to remove duplicates and returns as array of objects.
   const getUniqueOptions = (key: string) => {
-    const uniqueValues = Array.from(new Set(donationsData.map(item => item[key])));
-    return uniqueValues.map(value => ({ label: value, value }));
+    const uniqueValues = Array.from(
+      new Set(donationsData.map((item) => item[key])),
+    );
+    return uniqueValues.map((value) => ({ label: value, value }));
   };
 
   const getUniqueYearOptions = (key: string) => {
-    const uniqueYears = Array.from(new Set(donationsData.map(item => new Date(item[key]).getFullYear())));
-    return uniqueYears.map(year => ({ label: year.toString(), value: year.toString() }));
+    const uniqueYears = Array.from(
+      new Set(donationsData.map((item) => new Date(item[key]).getFullYear())),
+    );
+    return uniqueYears.map((year) => ({
+      label: year.toString(),
+      value: year.toString(),
+    }));
   };
 
-
   // Generates filter options from data above.
-  const causeOptions = getUniqueOptions('Cause');
-  const frequencyOptions = getUniqueOptions('Frequency');
-  const yearOptions = getUniqueYearOptions('Date');
+  const causeOptions = getUniqueOptions("Cause");
+  const frequencyOptions = getUniqueOptions("Frequency");
+  const yearOptions = getUniqueYearOptions("Date");
 
   // Handles changes to filter dropdown.
-  const handleFilterChange = (type: keyof Filter) => (selected: { value: string; label: string }[] | { value: string; label: string } | null) => {
-    const selectedValues = Array.isArray(selected) ? selected.map(option => option.value) : selected?.value;
-    setFilter(prev => ({ ...prev, [type]: selectedValues }));
+  const handleFilterChange = (type: keyof Filter) => (
+    selected:
+      | { value: string; label: string }[]
+      | { value: string; label: string }
+      | null,
+  ) => {
+    const selectedValues = Array.isArray(selected)
+      ? selected.map((option) => option.value)
+      : selected?.value;
+    setFilter((prev) => ({ ...prev, [type]: selectedValues }));
   };
 
   // Maps string values back to objects for the selectedOptions prop.
@@ -114,7 +130,7 @@ const DonationHistory = (): React.ReactElement => {
             label="Cause"
             options={causeOptions}
             selectedOptions={mapSelectedOptions(filter.causes, causeOptions)}
-            onChange={handleFilterChange('causes')}
+            onChange={handleFilterChange("causes")}
             isMulti
           />
         </Box>
@@ -122,8 +138,11 @@ const DonationHistory = (): React.ReactElement => {
           <FilterDropdown
             label="Donation Frequency"
             options={frequencyOptions}
-            selectedOptions={mapSelectedOptions(filter.frequencies, frequencyOptions)}
-            onChange={handleFilterChange('frequencies')}
+            selectedOptions={mapSelectedOptions(
+              filter.frequencies,
+              frequencyOptions,
+            )}
+            onChange={handleFilterChange("frequencies")}
             isMulti={false}
           />
         </Box>
@@ -132,12 +151,19 @@ const DonationHistory = (): React.ReactElement => {
             label="Donation Year"
             options={yearOptions}
             selectedOptions={mapSelectedOptions(filter.years, yearOptions)}
-            onChange={handleFilterChange('years')}
+            onChange={handleFilterChange("years")}
             isMulti={false}
           />
         </Box>
         <Box width="10%" alignSelf="flex-end">
-          <Text cursor="pointer" color="#837974" _hover={{ color: "blue.500" }} onClick={resetFilters}>Reset Filters</Text>
+          <Text
+            cursor="pointer"
+            color="#837974"
+            _hover={{ color: "blue.500" }}
+            onClick={resetFilters}
+          >
+            Reset Filters
+          </Text>
         </Box>
       </Flex>
       <DonationsTable filter={filter} data={donationsData} />
@@ -145,14 +171,10 @@ const DonationHistory = (): React.ReactElement => {
       {/* Temporary place to put ImpactPerCause component, below the dashboard */}
       <ImpactPerCause />
       <ReceiptDropdown
-          selectedYears={selectedYears}
-          onYearsChange={handleYearsChange}
-        />
-
-        {/* Temporary place to put ValueDonatedPerCause component, below the dashboard */}
-        <ValueDonatedPerCause />
+        selectedYears={selectedYears}
+        onYearsChange={handleYearsChange}
+      />
     </div>
-
   );
 };
 
